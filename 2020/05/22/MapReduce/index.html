@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="小废物">
 <meta property="og:description" content="第1章 MapReduce概述第2章 Hadoop序列化第3章 MapReduce框架原理MapReduce的过程 1234567891011121314151617181920212223242526271.数据流：	输入数据---&gt;InputFormat---&gt;Mapper---&gt;shuffle---&gt;Reducer---&gt;OutputFormat---&gt;输">
 <meta property="article:published_time" content="2020-05-22T12:28:46.000Z">
-<meta property="article:modified_time" content="2020-05-27T03:51:11.277Z">
+<meta property="article:modified_time" content="2020-05-28T01:30:50.461Z">
 <meta property="article:author" content="zhanghanting">
 <meta name="twitter:card" content="summary">
 
@@ -514,6 +514,27 @@
 
 
 
+<h4 id="3-4-Combiner"><a href="#3-4-Combiner" class="headerlink" title="3.4 Combiner"></a>3.4 Combiner</h4><ol>
+<li><p>combiner有什么用呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">目的就是在内个MapTask中将输出的kv提前进行合并。能够降低map到reduce传输的数据流以及reduce最终处理的数据流</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>combiner的工作位置</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.工作位置：kv从缓冲区中溢写到磁盘时可以使用combiner（只要设置无条件使用）；每个MapTask的所有数据都从缓冲区写到磁盘后，在进行归并的时候可以使用combiner（满足条件使用，溢写次数&gt;&#x3D;3）</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="3">
+<li><p>Combiner使用限制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在不改变业务逻辑的情况下才能使用combiner，比如求和的业务可以，但比如求平均值的业务就不行了，最终可能得到不一样的结果。</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>相关介绍</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.Combiner是MR程序中Mapper和Reducer之外的一种组件，可以选择，并不是常驻组件</span><br><span class="line">2.Combiner组件的父类就是Reducer</span><br><span class="line">3.Combiner和Reducer的区别在于运行的位置</span><br><span class="line">	Combiner是在每一个MapTask所在的节点运行；</span><br><span class="line">	Reducer是接收全局所有Mapper的输出结果</span><br><span class="line">4.Combiner的意思就是对每一个MapTask的输出进行局部汇总，以减小网络传输量</span><br><span class="line">5.Combiner能够应用的前提是不能影响最终的业务逻辑，而且，Combiner输出的kv应该跟Reducer的输入kv类型要对应起来</span><br></pre></td></tr></table></figure>
 
 
 
@@ -521,7 +542,8 @@
 
 
 
-
+</li>
+</ol>
 
       
     </div>
@@ -584,6 +606,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/29/zookeeper%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D/" rel="prev" title="zookeeper基本介绍">
+                zookeeper基本介绍 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -693,7 +719,7 @@ var jiathis_config={
               
                 <a href="/archives%7C%7Carchive">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -704,7 +730,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -769,7 +795,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第1章-MapReduce概述"><span class="nav-number">1.</span> <span class="nav-text">第1章 MapReduce概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第2章-Hadoop序列化"><span class="nav-number">2.</span> <span class="nav-text">第2章 Hadoop序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第3章-MapReduce框架原理"><span class="nav-number">3.</span> <span class="nav-text">第3章 MapReduce框架原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-InputFormat数据输入"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 InputFormat数据输入</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-1-重要的类和方法"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1 重要的类和方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-2-切片"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2 切片</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-3-TextInputFormat：默认使用的InputFormat类"><span class="nav-number">3.1.3.</span> <span class="nav-text">3.1.3 TextInputFormat：默认使用的InputFormat类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-4-CombineTextInputFormat"><span class="nav-number">3.1.4.</span> <span class="nav-text">3.1.4 CombineTextInputFormat</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-MapReduce工作流程"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 MapReduce工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-Shuffle机制"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Shuffle机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-1-shuffle关键点"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.3.1 shuffle关键点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-2-分区"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.3.2 分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-3-排序"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3.3 排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-4-OutputFormat数据输出"><span class="nav-number">3.3.4.</span> <span class="nav-text">3.3.4  OutputFormat数据输出</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第1章-MapReduce概述"><span class="nav-number">1.</span> <span class="nav-text">第1章 MapReduce概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第2章-Hadoop序列化"><span class="nav-number">2.</span> <span class="nav-text">第2章 Hadoop序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第3章-MapReduce框架原理"><span class="nav-number">3.</span> <span class="nav-text">第3章 MapReduce框架原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-InputFormat数据输入"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 InputFormat数据输入</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-1-重要的类和方法"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1 重要的类和方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-2-切片"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2 切片</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-3-TextInputFormat：默认使用的InputFormat类"><span class="nav-number">3.1.3.</span> <span class="nav-text">3.1.3 TextInputFormat：默认使用的InputFormat类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-4-CombineTextInputFormat"><span class="nav-number">3.1.4.</span> <span class="nav-text">3.1.4 CombineTextInputFormat</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-MapReduce工作流程"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 MapReduce工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-Shuffle机制"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Shuffle机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-1-shuffle关键点"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.3.1 shuffle关键点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-2-分区"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.3.2 分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-3-排序"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3.3 排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-4-OutputFormat数据输出"><span class="nav-number">3.3.4.</span> <span class="nav-text">3.3.4  OutputFormat数据输出</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-Combiner"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 Combiner</span></a></li></ol></li></ol></div>
             
 
           </div>
