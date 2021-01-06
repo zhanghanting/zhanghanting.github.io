@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+  <script src="true"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、NoSQL简介​    是什么？ ​        NoSQL是Not Only SQL三个单词的缩写！目前泛指非关系型数据库！ ​        NoSQL数据库通常是一个分布式系统，基于CAP定理设计，性能通常比关系型数据库要强悍！但是在一致性上，一般情况下，为了性能会牺牲部分一致性！大部分NoSQL都是最终一致性！ ​        CAP定理：任何分布式系统只能在强一致性，高可用性，分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HBase">
+<meta property="og:url" content="http://yoursite.com/2020/06/22/HBase/index.html">
+<meta property="og:site_name" content="小废物">
+<meta property="og:description" content="一、NoSQL简介​    是什么？ ​        NoSQL是Not Only SQL三个单词的缩写！目前泛指非关系型数据库！ ​        NoSQL数据库通常是一个分布式系统，基于CAP定理设计，性能通常比关系型数据库要强悍！但是在一致性上，一般情况下，为了性能会牺牲部分一致性！大部分NoSQL都是最终一致性！ ​        CAP定理：任何分布式系统只能在强一致性，高可用性，分">
+<meta property="article:published_time" content="2020-06-22T01:21:46.000Z">
+<meta property="article:modified_time" content="2020-06-29T11:21:46.757Z">
+<meta property="article:author" content="zhanghanting">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/22/HBase/"/>
+
+
+
+
+
+  <title>HBase | 小废物</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zhanghanting" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小废物</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/22/HBase/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhanghanting">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://q7s8mko1o.bkt.clouddn.com/1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小废物">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HBase</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-22T09:21:46+08:00">
+                2020-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop%E7%94%9F%E6%80%81/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop生态</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/06/22/HBase/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/06/22/HBase/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一、NoSQL简介"><a href="#一、NoSQL简介" class="headerlink" title="一、NoSQL简介"></a>一、NoSQL简介</h1><p>​    是什么？</p>
+<p>​        NoSQL是Not Only SQL三个单词的缩写！目前泛指非关系型数据库！</p>
+<p>​        NoSQL数据库通常是一个分布式系统，基于CAP定理设计，性能通常比关系型数据库要强悍！但是在一致性上，一般情况下，为了性能会牺牲部分一致性！大部分NoSQL都是最终一致性！</p>
+<p>​        CAP定理：任何分布式系统只能在强一致性，高可用性，分区容错性中选择其中的两个优势进行开发，无法三者兼顾！</p>
+<p>​        NoSQL和关系型数据库相辅相成，各自有各自的使用场景，谁也不能完全替代谁！</p>
+<h1 id="二、HBase简介"><a href="#二、HBase简介" class="headerlink" title="二、HBase简介"></a>二、HBase简介</h1><h2 id="1-由来"><a href="#1-由来" class="headerlink" title="1.由来"></a>1.由来</h2><p>​    由Google的BigTable论文实现而来，是Hadoop生态的一部分！</p>
+<h2 id="2-介绍"><a href="#2-介绍" class="headerlink" title="2.介绍"></a>2.介绍</h2><p>​    HBase是一个分布式，可扩展的基于版本号的，大数据存储的NoSQL数据库！</p>
+<p>​    HBase基于HDFS！</p>
+<p>​    使用场景：当需要对十亿行*百万列的表，进行实时和随机读写！</p>
+<h2 id="3-随机读写"><a href="#3-随机读写" class="headerlink" title="3.随机读写"></a>3.随机读写</h2><p>​    HDFS只支持追加写，不支持随机写！</p>
+<p>​    insert     追加写</p>
+<p>​    update+delete     随机写</p>
+<p>​    实现随机写的update+delete，需要</p>
+<p>​    1）借助hdfs追加操作+时间戳（版本号）</p>
+<p>​    2）只允许客户端返回时间戳最新（版本号最大）的数据</p>
+<h2 id="4-实时读写"><a href="#4-实时读写" class="headerlink" title="4.实时读写"></a>4.实时读写</h2><p>​    如何做到海量数据的实时读写？</p>
+<p>​    1）海量数据，那必须是分布式的</p>
+<p>​    2）要快，那就要借助内存，将数据不管是读还是写全部放入内存</p>
+<p>​    3）同时还要用到索引     LSMtree</p>
+<p>​    4）K-V结构存储</p>
+<p>​    5）列式存储（HFile）</p>
+<p>​    6）布隆过滤器（在查询时，判断数据库是否一定没有这条数据或者可能有这条数据）</p>
+<h1 id="三、安装"><a href="#三、安装" class="headerlink" title="三、安装"></a>三、安装</h1><h2 id="1-环境要求"><a href="#1-环境要求" class="headerlink" title="1.环境要求"></a>1.环境要求</h2><p>1）安装了ZK，启动ZK</p>
+<p>2）安装了Hadoop，启动HDFS</p>
+<p>3）安装了JDK，配置了JAVA_HOME</p>
+<h2 id="2-配置"><a href="#2-配置" class="headerlink" title="2.配置"></a>2.配置</h2><p>1）编辑conf/hbase-env.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">不适用HBase自带的zk,使用自己集群安装的</span></span><br><span class="line">export HBASE_MANAGES_ZK=false</span><br></pre></td></tr></table></figure>
+
+<p>2）编辑hbase-site.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--hbase在hdfs上存储的根目录 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span>     </span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span>     </span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://hadoop102:9820/HBase<span class="tag">&lt;/<span class="name">value</span>&gt;</span>   </span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--是否以分布式启动hbase --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span>   </span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--hbase使用的zk实例的地址 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span>    </span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.zookeeper.quorum<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	     <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop102,hadoop103,hadoop104<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--每个版本的hbase，都是基于自己的hadoop编译的 </span></span><br><span class="line"><span class="comment">	当前版本的hbase 默认对应的是 2.8.5的hadoop</span></span><br><span class="line"><span class="comment">	如果集群的hadoop不是 2.8.5，会报错兼容性问题，加上以下两个参数，否则Master进程无法启动</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	解决： 下载hbase当前版本的源码，在编译时，指定编译的hadoop环境为集群对应的版本(3.1)，就不需要加以下两个参数</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.unsafe.stream.capability.enforce<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>false<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.wal.provider<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>filesystem<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="四、启动"><a href="#四、启动" class="headerlink" title="四、启动"></a>四、启动</h1><h2 id="1-单启"><a href="#1-单启" class="headerlink" title="1.单启"></a>1.单启</h2><p>master</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase-daemon.sh start master</span><br></pre></td></tr></table></figure>
+
+<p>regionserver</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase-daemon.sh start regionserver</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-验证启动"><a href="#2-验证启动" class="headerlink" title="2.验证启动"></a>2.验证启动</h2><p>1）jps查看</p>
+<p>2）访问web页面</p>
+<table>
+<thead>
+<tr>
+<th>进程名</th>
+<th>协议</th>
+<th>端口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>master</td>
+<td>RPC</td>
+<td>16000</td>
+</tr>
+<tr>
+<td>master</td>
+<td>HTTP</td>
+<td>16010</td>
+</tr>
+<tr>
+<td>regionserver</td>
+<td>RPC</td>
+<td>16020</td>
+</tr>
+<tr>
+<td>regionserver</td>
+<td>HTTP</td>
+<td>16030</td>
+</tr>
+</tbody></table>
+<h2 id="3-群起"><a href="#3-群起" class="headerlink" title="3.群起"></a>3.群起</h2><p>集群通常是启动一个master，除非是HA，会启动备用的master</p>
+<p>通常是regionserver希望群起多个！</p>
+<p>实现：希望在哪个机器上运行群起命令，就编辑哪个机器的conf/regionservers文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/hbase-daemons.sh start regionserver</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-一键启动"><a href="#4-一键启动" class="headerlink" title="4.一键启动"></a>4.一键启动</h2><p>以下命令停止当前机器的master进程，停止所有的regionserver，以下命令在master进程所在的机器上使用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stop-hbase.sh</span><br></pre></td></tr></table></figure>
+
+<p>执行以下脚本时，会启动当前机器的master，再读取conf/regionservers，启动文件中配置的节点的regionserver!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-hbase.sh</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="五、核心概念"><a href="#五、核心概念" class="headerlink" title="五、核心概念"></a>五、核心概念</h1><p>namespace：hbase中的库，在hdfs上就是一个目录！</p>
+<p>table：hbase中的表，在hdfs上就是库下的一层子目录！</p>
+<p>region：region是表目录下的子目录！</p>
+<p>column family：列族是region下的一层目录</p>
+<p>数据：数据以文件的形式存储在列族的目录下！每个文件称为一个StoreFile！文件的格式是HFile格式！</p>
+<p>​    </p>
+<h1 id="六、使用HBase"><a href="#六、使用HBase" class="headerlink" title="六、使用HBase"></a>六、使用HBase</h1><h2 id="1-同步集群时间"><a href="#1-同步集群时间" class="headerlink" title="1.同步集群时间"></a>1.同步集群时间</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcall.sh sudo ntpdate -u 'ntp1.alliyun.com'</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-使用hbase-shell"><a href="#2-使用hbase-shell" class="headerlink" title="2.使用hbase shell"></a>2.使用hbase shell</h2><p>注意：1）命令后不跟分号</p>
+<p>​            2）如果误输入分号，需要两下’（单引号）结束</p>
+<p>​            3）help ‘命令’：查看某个命令的帮助</p>
+<p>​            4）不支持中文</p>
+<h1 id="七、读写流程"><a href="#七、读写流程" class="headerlink" title="七、读写流程"></a>七、读写流程</h1><h2 id="1-读流程"><a href="#1-读流程" class="headerlink" title="1.读流程"></a>1.读流程</h2><p>get可以由scan一条记录实现，其实get都会转化为scan</p>
+<p>get ‘t1’,’r1’,’cf1’,’name’</p>
+<p>数据可能存在以下三个地方，列族的memstore中,HFile (Store File)中，BlockCache中，读请求需要RegionServer来进行处理！</p>
+<p>请求哪个regionserver？</p>
+<p>①1个region对应一个regionserver，先确定要查询的数据到底在哪个region中</p>
+<p>​    在查询时，根据要查询数据所在的表名，就可以查到这个表有哪些region！</p>
+<p>​    再根据要查询数据的rowkey，参考region的startkey和endkey就可以确定当前数据所在的region！</p>
+<p>②再找到这个region对应的regionserver</p>
+<p>​    不管是region和regionserver的对应信息，还是region的startkey和endkey，这些都属于表的元数据信息，所有的元数据信息都存储在hbase:meta中</p>
+<p>读流程：</p>
+<p>①客户端，向hbase所在的zk集群，查询/hbase/meta-region-server,获取hbase-metab表所在的regionserver</p>
+<p>②请求，hbase:meta表所在的regionserver，获取hbase中表的元数据信息，将信息缓存到客户端本地，方便之后的查询</p>
+<p>③根据hbase中表的元数据信息，获取当前要查询的数据在哪个region，以及这个region对应的regionserver</p>
+<p>④向regionserver发送读请求</p>
+<p>⑤regionserver处理读请求，从memstore中，HFile（StoreFile）中，BlockCache中取出指定的数据，将数据合并后，只返回指定时间戳或最新时间戳的数据。</p>
+<p>​    regionserver在处理读请求时，根据所查询的store，初始化两种扫描器</p>
+<p>​            MemstoreScanner：负责扫描store的memstore</p>
+<p>​            StoreFileScanner：负责扫描列族下的storefile文件！在扫描StoreFile文件时，先查看blockcache中返回数据，无需再扫描storefile文件！</p>
+<p>​            如果blockcache中没有数据，只能扫描storefile，将扫描到的数据放入到blockcache,供下次查询！</p>
+<p>​            blockcache默认占用Regionserver所在堆的40%，blockcache默认会采用LRU(less recent use)的回收策略</p>
+<p>，对符合条件的对象进行回收！blockcache在storefile中的数据更新时，缓存也会自动失效！</p>
+<h2 id="2-写流程"><a href="#2-写流程" class="headerlink" title="2.写流程"></a>2.写流程</h2><h3 id="2-1写流程概述"><a href="#2-1写流程概述" class="headerlink" title="2.1写流程概述"></a>2.1写流程概述</h3><p>put ‘t1’,’r1’,’cf1:name’,”jack”</p>
+<p>①数据要写入哪个region</p>
+<p>②这个region由哪个regionserver</p>
+<p>写流程：</p>
+<p>①客户端，向hbase所在的zk集群，查询/hbase/meta-region-server，获取hbase-meta表所在的regionserver</p>
+<p>②请求，hbase:meta表所在regionserver，获取hbase中表的元数据信息，将信息缓存到客户端本地，方便之后的查询</p>
+<p>③根据hbase中表的元数据信息，获取当前要写的数据要写入哪个region，以及这个region对应的regionserver</p>
+<p>④向regionserver发送写请求</p>
+<p>⑤写请求会被当前regionserver的wal对象，将写的信息持久化到wal Logs中</p>
+<p>⑥将数据写入到指定region所对应的store对象的memstore中</p>
+<p>⑦响应客户端，写入完成！</p>
+<h3 id="2-2-写流程源码"><a href="#2-2-写流程源码" class="headerlink" title="2.2 写流程源码"></a>2.2 写流程源码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doMiniBatchMutate</span><span class="params">(BatchOperation&lt;?&gt; batchOp)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// STEP 1. 尝试获取尽可能多的写入操作需要使用的锁</span></span><br><span class="line">      </span><br><span class="line"></span><br><span class="line">      <span class="comment">// STEP 2.如果插入的value没有指定时间戳，尝试使用服务器(regionserver所在机器)上最新的时间戳作为value的时间戳</span></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">      <span class="comment">// STEP 3. 构建一个WAL Edit对象</span></span><br><span class="line">     </span><br><span class="line">      <span class="comment">// STEP 4. 将最新的写操作的信息，封装到一个WALEdit对象中，将对象追加到</span></span><br><span class="line">        <span class="comment">// WALEdits集合中，再sync(将对象中的数据持久化到磁盘的log文件中).</span></span><br><span class="line">     </span><br><span class="line">      <span class="comment">// STEP 5. 将数据写入到列族的memstore中</span></span><br><span class="line">      <span class="comment">// <span class="doctag">NOTE:</span> writeEntry can be null here</span></span><br><span class="line">      writeEntry = batchOp.writeMiniBatchOperationsToMemStore(miniBatchOp, writeEntry);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// STEP 6. CP ： Cooprocessor（协处理器，类似Mysql中的触发器）</span></span><br><span class="line">        <span class="comment">// 在最后，WAL对象sync操作(将数据持久化到磁盘时),如果发生错误，就执行后续处理</span></span><br><span class="line">       </span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="八、hbase的其它操作"><a href="#八、hbase的其它操作" class="headerlink" title="八、hbase的其它操作"></a>八、hbase的其它操作</h1><h2 id="1-flush"><a href="#1-flush" class="headerlink" title="1.flush"></a>1.flush</h2><h3 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h3><p>flush：将memstore中的数据，刷写到StoreFile文件中</p>
+<h3 id="1-2-意义"><a href="#1-2-意义" class="headerlink" title="1.2 意义"></a>1.2 意义</h3><p>①memstore将写入的数据缓存在内存中，一旦内存满了，一定要刷写</p>
+<p>②在刷写时，hbase还会将一些无用的数据，进行舍弃，节省磁盘空间</p>
+<p>③在刷写时，还会对memstore中的rowkey进行排序，方面后面检索</p>
+<p>列族的{NAME =&gt; ‘cf1’,VERSIONS=’3’}属性，代表每个StoreFile中最多存3个版本</p>
+<h3 id="1-3-手动刷写"><a href="#1-3-手动刷写" class="headerlink" title="1.3 手动刷写"></a>1.3 手动刷写</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flush &#39;表名&#39;</span><br><span class="line">flush &#39;region&#39;</span><br></pre></td></tr></table></figure>
+
+<p>通过以下命令查看书写的HFile文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase org.apache.hadoop.hbase.io.hfile.HFile -p -f ‘hdfs路径’</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4自动刷写"><a href="#1-4自动刷写" class="headerlink" title="1.4自动刷写"></a>1.4自动刷写</h3><h4 id="①基于memstore的刷写"><a href="#①基于memstore的刷写" class="headerlink" title="①基于memstore的刷写"></a>①基于memstore的刷写</h4><p>​    当某个memstore的大小达到了hbase.hregion.memstore.flush.size(默认128M)，其所在region的所有memstore都会被刷写。</p>
+<p>​    这也是HBase不建议设置过多列族的原因之一，因为列族过多，刷写时，系统的IO压力越大！</p>
+<p>​    当memstore的大小达到了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hbase.hregion.memstore.flush.size（默认值128M）</span><br><span class="line">*</span><br><span class="line">hbase.hregion.memstore.block.multiplier（默认值4）</span><br></pre></td></tr></table></figure>
+
+<p>时，会阻止继续往该memstore写数据</p>
+<h4 id="②基于RegionServer的刷写"><a href="#②基于RegionServer的刷写" class="headerlink" title="②基于RegionServer的刷写"></a>②基于RegionServer的刷写</h4><p>一旦一个RegionServer所负责的多个region的memstore的总大小总和超过以下值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java_heapsize</span><br><span class="line">*hbase.regionserver.global.memstore.size（默认值0.4）</span><br><span class="line">*hbase.regionserver.global.memstore.size.lower.limit（默认值0.95）</span><br></pre></td></tr></table></figure>
+
+<p>整个RegionServer所负责的所有memstore由大到小，依次刷写，直到低于上述值</p>
+<p>当一个RegionServer所负责的多个Region的memstore大小总和超过以下值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java_heapsize</span><br><span class="line">*hbase.regionserver.global.memstore.size（默认值0.4）</span><br></pre></td></tr></table></figure>
+
+<p>当前regionserver的所有memstore都会阻塞</p>
+<h4 id="③基于默认刷写时间的刷写"><a href="#③基于默认刷写时间的刷写" class="headerlink" title="③基于默认刷写时间的刷写"></a>③基于默认刷写时间的刷写</h4><p>默认每</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase.regionserver.optionalcacheflushinterval（默认1小时）</span><br></pre></td></tr></table></figure>
+
+<h4 id="④基于wal文件的刷写"><a href="#④基于wal文件的刷写" class="headerlink" title="④基于wal文件的刷写"></a>④基于wal文件的刷写</h4><p>​    当前wal文件的数量超过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase.regionserver.max.logs</span><br></pre></td></tr></table></figure>
+
+<p>​    也会触发memstore的刷写！</p>
+<h2 id="2-Compaction"><a href="#2-Compaction" class="headerlink" title="2.Compaction"></a>2.Compaction</h2><h3 id="2-1-概念"><a href="#2-1-概念" class="headerlink" title="2.1 概念"></a>2.1 概念</h3><p>​    HBase需要借助hdfs进行存储！数据以HFile(StoreFile)的形式存储在hdfs上！</p>
+<p>​    HDFS不适合存储大量的小文件，会降低NameNode服役能力！</p>
+<p>现象：每次flush，都会生成一个文件，不是所有memstore flush时，都是满足128M才触发的！</p>
+<p>解决：hbase会定期自动执行compact合并，将多个小文件，合并重写为1个文件！</p>
+<h3 id="2-2-分类"><a href="#2-2-分类" class="headerlink" title="2.2 分类"></a>2.2 分类</h3><p>minorCompaction: 小合并</p>
+<p>majorCompaction: 主合并</p>
+<p>majorCompaction会将整个列族目录中所有的StoreFile都进行运算，合并，并且会清理掉过期和删除的数据！</p>
+<p>minorCompaction每次只会合并一定数量（默认是10个）的HFile合并成一个较大HFile，但不会清理过期和删除的数据！</p>
+<h3 id="2-3-手动合并"><a href="#2-3-手动合并" class="headerlink" title="2.3 手动合并"></a>2.3 手动合并</h3><p>minorcompact</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compact</span><br></pre></td></tr></table></figure>
+
+<p>majorcompact</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">major_compact</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-RegionSplit"><a href="#3-RegionSplit" class="headerlink" title="3.RegionSplit"></a>3.RegionSplit</h2><p>​    每张表，一开始只有一个region，一旦region中的数据，不断增多，达到一定条件，hbase会自动切割region!切割后，将region一分为二，将region交给不同的regionserver，目的是负载均衡！</p>
+<p>​    当前2.2.4使用org.apache.hadoop.hbase.regionserver.SteppingSplitPolicy作为切分策略！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">long</span> <span class="title">getSizeToCheck</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span> tableRegionsCount)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> tableRegionsCount == <span class="number">1</span>  ? <span class="keyword">this</span>.initialSize : getDesiredMaxFileSize();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    regionserver调用getSizeToChec()，来检查当前region是否达到切分的条件！</p>
+<p>​    tableRegionsCount： 为当前Region Server中属于该Table的region的个数。</p>
+<p>​        策略： 如果当前Region Server中属于该Table的region的个数为1，那么一旦这个region大小达到initialSize时，就切分。否则，只要Region Server中属于该Table的region的个数不为1，那么就尝试获取hbase.hregion.max.filesize所配置的参数值，如果没有配置，默认为10G。</p>
+<p>initialSize如何确定：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configureForRegion</span><span class="params">(HRegion region)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.configureForRegion(region);</span><br><span class="line">    Configuration conf = getConf();</span><br><span class="line">    <span class="comment">//从配置中读取hbase.increasing.policy.initial.size，如果没有配置，默认为-1</span></span><br><span class="line">    <span class="comment">// 如果用户配置了此参数， initialSize=用户定义的值</span></span><br><span class="line">    initialSize = conf.getLong(<span class="string">"hbase.increasing.policy.initial.size"</span>, -<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (initialSize &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取region对应的表的描述</span></span><br><span class="line">    TableDescriptor desc = region.getTableDescriptor();</span><br><span class="line">    <span class="keyword">if</span> (desc != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 获取表memstore刷写的大小 * 2 </span></span><br><span class="line">      initialSize = <span class="number">2</span> * desc.getMemStoreFlushSize();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如果自己配的值非法</span></span><br><span class="line">    <span class="keyword">if</span> (initialSize &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 重新赋值为2*128M</span></span><br><span class="line">      initialSize = <span class="number">2</span> * conf.getLong(HConstants.HREGION_MEMSTORE_FLUSH_SIZE,</span><br><span class="line">                                     TableDescriptorBuilder.DEFAULT_MEMSTORE_FLUSH_SIZE);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>initialSize 如果不定义，默认就为256M！</p>
+<p>T3表，一开始只有1个Region,由regionserver 102 负责，</p>
+<p>一旦这个region，默认在256M时，一分为二。</p>
+<p>情形一： region1 由102负责</p>
+<p>​                region2 由103负责</p>
+<p>​        下次102的region1达到256M,再自动切分！</p>
+<p>情形二： region1 由102负责</p>
+<p>​                region2 由102负责</p>
+<p>​        下次region1 /region2 其中一个达到10G时，再切分！</p>
+<h1 id="九、API"><a href="#九、API" class="headerlink" title="九、API"></a>九、API</h1><h2 id="1-Connection"><a href="#1-Connection" class="headerlink" title="1.Connection"></a>1.Connection</h2><p>​    Connection会产生一个低级别的直连hbase的连接，还包含一个连接zk集群的连接</p>
+<p>可以通过以下方式创建</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Connection connection = ConnectionFactory.createConnection(configuration);</span><br></pre></td></tr></table></figure>
+
+<p>​    Connection的生命周期由调用者管理，执行close关闭连接，释放资源！</p>
+<p>​    Connection可以自动连接master，定位region等！这些功能以及集群的连接，可以被Connection创建出的Table和Admin实例共享！</p>
+<p>​    Connection的创建是重量级的，不建议经常创建，通常一个客户端创建一次即可！Connection是线程安全的，可以在不同的线程中共享一个实例！</p>
+<p>​    Admin和Table是轻量级的，不是线程安全的，因此每个线程都有自己的Table和Admin对象，不建议池化或缓存！</p>
+<h2 id="2-Table"><a href="#2-Table" class="headerlink" title="2.Table"></a>2.Table</h2><p>​    Table是和hbase的某个表进行交流的实例，可以使用Table对象，进行put，get，scan，delete等操作！</p>
+<p>​    获取Table：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Connection.getTable()</span><br></pre></td></tr></table></figure>
+
+<p>​    关闭：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Table.close()</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Admin"><a href="#3-Admin" class="headerlink" title="3.Admin"></a>3.Admin</h2><p>​    Admin负责进行list,create,alter,enable等管理性的操作</p>
+<p>​    创建：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Connection.getAdmin()</span><br></pre></td></tr></table></figure>
+
+<p>​    关闭</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Admin.close()</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-NameSpaceDescriptor"><a href="#4-NameSpaceDescriptor" class="headerlink" title="4.NameSpaceDescriptor"></a>4.NameSpaceDescriptor</h2><p>​    NameSpaceDescriptor代表一个namespace的描述对象，这个对象中记录了NameSpace所有的属性，例如库名，库的属性等！</p>
+<h2 id="5-HTableDescriptor"><a href="#5-HTableDescriptor" class="headerlink" title="5.HTableDescriptor"></a>5.HTableDescriptor</h2><p>​    HTableDescriptor代表了一个表的描述！</p>
+<h1 id="十、整合Hive"><a href="#十、整合Hive" class="headerlink" title="十、整合Hive"></a>十、整合Hive</h1><h2 id="1-作用"><a href="#1-作用" class="headerlink" title="1.作用"></a>1.作用</h2><p>HBase:本质是数据库，主要用于大表的实时读写</p>
+<p>Hive：数据仓库中的数据分析软件，将HQL语句翻译为Map Reduce程序，对HDFS上已经存储的结构化数据进行计算！计算之前，需要根据HDFS上数据的形态进行建表映射！</p>
+<p>Hive和HBase集成的目的是，使用Hive来分析HBase存储的数据</p>
+<p>HBase本质上是一个NoSQL数据库，不支持使用SQL进行查询，数据分析工程师最熟悉和最常使用的就是SQL！如果没有Hive，可以自己编写MR程序对HBase上的数据进行一些复杂逻辑的分析！</p>
+<h2 id="2-配置环境"><a href="#2-配置环境" class="headerlink" title="2.配置环境"></a>2.配置环境</h2><p>​    Hive默认只能分析HDFS上的数据，现在需要让Hive可以可以访问HBase！Hive作为客户端，读写HBase的数据，需要使用ZK信息。在hive-site.xml中配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.zookeeper.quorum<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop102,hadoop103,hadoop104<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>The list of ZooKeeper servers to talk to. This is only needed for read/write locks.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.zookeeper.client.port<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>2181<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>The port of ZooKeeper servers to talk to. This is only needed for read/write locks.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-使用场景"><a href="#3-使用场景" class="headerlink" title="3.使用场景"></a>3.使用场景</h2><h3 id="3-1-场景一"><a href="#3-1-场景一" class="headerlink" title="3.1 场景一"></a>3.1 场景一</h3><p>​    还没有将数据导入到hbase中，需要通过hive，将数据导入到hbase中！</p>
+<p>​    建表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span>  <span class="keyword">TABLE</span> ns2_person(</span><br><span class="line"> <span class="keyword">id</span> <span class="keyword">string</span>,</span><br><span class="line"> age <span class="built_in">int</span>,</span><br><span class="line"> <span class="keyword">name</span> <span class="keyword">string</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">STORED</span> <span class="keyword">BY</span> <span class="string">'org.apache.hadoop.hive.hbase.HBaseStorageHandler'</span></span><br><span class="line"><span class="keyword">WITH</span> SERDEPROPERTIES (<span class="string">"hbase.columns.mapping"</span> = <span class="string">":key,info:age,cf1:name"</span>)</span><br><span class="line">TBLPROPERTIES (<span class="string">"hbase.table.name"</span> = <span class="string">"ns2:person"</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-场景2"><a href="#3-2-场景2" class="headerlink" title="3.2 场景2"></a>3.2 场景2</h3><p>​    数据已经导入到hbase中，只需要在Hive上建表，映射，在hive上操作数据！</p>
+<p>建表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">EXTERNAL</span> <span class="keyword">TABLE</span> ns2_t2(</span><br><span class="line"> <span class="keyword">id</span> <span class="keyword">string</span>,</span><br><span class="line"> age <span class="built_in">int</span>,</span><br><span class="line"> <span class="keyword">name</span> <span class="keyword">string</span>,</span><br><span class="line"> <span class="keyword">num</span> <span class="built_in">int</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">STORED</span> <span class="keyword">BY</span> <span class="string">'org.apache.hadoop.hive.hbase.HBaseStorageHandler'</span></span><br><span class="line"><span class="keyword">WITH</span> SERDEPROPERTIES (<span class="string">"hbase.columns.mapping"</span> = <span class="string">":key,cf1:age,cf1:name,cf1:num"</span>)</span><br><span class="line">TBLPROPERTIES (<span class="string">"hbase.table.name"</span> = <span class="string">"ns2:t2"</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意：①hive的表名可以任意</p>
+<p>​            ②hive中列的数量要和hbase表列的数据一致（rowkey是一个特殊的列）</p>
+<p>​            ③hive中字段的数据类型，必须和hbase中的数据类型兼容</p>
+<p>​            ④stored by ‘类名’是固定写法。stored by的含义是使用指定的类帮助完成数据的读写</p>
+<p>​            ⑤hbase.columns.mapping代表hbase和hive中表字段的关系映射</p>
+<p>​                hive中字段的顺序，要和映射关系中映射的字段顺序一致</p>
+<p>​            ⑥hbase.table.name代表hive表要映射的hbase表的表名</p>
+<p>​            ⑦目前的数据是存储在hbase上，如果是内部表，代表hive负责数据的生命周期。只能创建外部表</p>
+<p>本地表和非本地表</p>
+<p>​    本地表：hive表中的数据是直接存储在hdfs上，可以指定row format,指定store as</p>
+<p>​    非本地表：hive表中的数据不是直接存储在hdfs上</p>
+<p>​        不能写row format,不能写store as ,因为不同的存储设备对存储的格式是有不同的要求的，需要写 store by ‘类名’（这个类名，如果是去hbase中读取数据，就写hbase相应的类名，如果是去kafka中读数据，就写kafka对应的类名）</p>
+<h1 id="十一、优化"><a href="#十一、优化" class="headerlink" title="十一、优化"></a>十一、优化</h1><h1 id="十二、Phoenix"><a href="#十二、Phoenix" class="headerlink" title="十二、Phoenix"></a>十二、Phoenix</h1><h2 id="1-表关系映射"><a href="#1-表关系映射" class="headerlink" title="1.表关系映射"></a>1.表关系映射</h2><table>
+<thead>
+<tr>
+<th>Phoenix</th>
+<th>HBase</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>database</td>
+<td>namespace</td>
+</tr>
+<tr>
+<td>table</td>
+<td>table</td>
+</tr>
+<tr>
+<td>主键列</td>
+<td>rowkey</td>
+</tr>
+<tr>
+<td>其它列</td>
+<td>cf:cq</td>
+</tr>
+</tbody></table>
+<p>如果Phoenix中的主键是联合主键，联合主键整体拼接后和hbase的rowkey映射！</p>
+<h2 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h2><p>第一种情形：数据还没有在hbase中存储，希望通过Phoenix来创建一个表，使用Phoenix的语句向表中插入数据！</p>
+<p>建表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> us_population(</span><br><span class="line">state <span class="built_in">char</span>(<span class="number">2</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">city <span class="built_in">varchar</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">population <span class="built_in">bigint</span>,</span><br><span class="line"><span class="keyword">constraint</span> my_pk primary <span class="keyword">key</span>(state,city)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>操作：</p>
+<p>增/改：</p>
+<p>upsert into us_population values(‘NY’,’abc’,10000);</p>
+<p>删：</p>
+<p>delete from us_population where population &gt; 10000;</p>
+<p>查：</p>
+<p>select * from us_population;</p>
+<p>注意：</p>
+<p>sqlline.py默认会将小写自动转为大写！如果不希望转换，可使用双引号！</p>
+<p>如果在建表时，没有指定列族，hbase会自动创建名称为0的列族！</p>
+<p>第二种情形：数据已经在hbase中（有表），希望通过Phoenix创建一个表来映射HBase中的表，执行操作！</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="zhanghanting 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="zhanghanting 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/10/Ganglia/" rel="next" title="Ganglia">
+                <i class="fa fa-chevron-left"></i> Ganglia
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/28/Scala/" rel="prev" title="Scala">
+                Scala <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://q7s8mko1o.bkt.clouddn.com/1.jpg"
+                alt="zhanghanting" />
+            
+              <p class="site-author-name" itemprop="name">zhanghanting</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7Carchive">
+              
+                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhanghanting" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://baidu.com/" title="百度" target="_blank">百度</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、NoSQL简介"><span class="nav-number">1.</span> <span class="nav-text">一、NoSQL简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、HBase简介"><span class="nav-number">2.</span> <span class="nav-text">二、HBase简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-由来"><span class="nav-number">2.1.</span> <span class="nav-text">1.由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-介绍"><span class="nav-number">2.2.</span> <span class="nav-text">2.介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-随机读写"><span class="nav-number">2.3.</span> <span class="nav-text">3.随机读写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-实时读写"><span class="nav-number">2.4.</span> <span class="nav-text">4.实时读写</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、安装"><span class="nav-number">3.</span> <span class="nav-text">三、安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-环境要求"><span class="nav-number">3.1.</span> <span class="nav-text">1.环境要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-配置"><span class="nav-number">3.2.</span> <span class="nav-text">2.配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、启动"><span class="nav-number">4.</span> <span class="nav-text">四、启动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-单启"><span class="nav-number">4.1.</span> <span class="nav-text">1.单启</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-验证启动"><span class="nav-number">4.2.</span> <span class="nav-text">2.验证启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-群起"><span class="nav-number">4.3.</span> <span class="nav-text">3.群起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-一键启动"><span class="nav-number">4.4.</span> <span class="nav-text">4.一键启动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、核心概念"><span class="nav-number">5.</span> <span class="nav-text">五、核心概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、使用HBase"><span class="nav-number">6.</span> <span class="nav-text">六、使用HBase</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-同步集群时间"><span class="nav-number">6.1.</span> <span class="nav-text">1.同步集群时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用hbase-shell"><span class="nav-number">6.2.</span> <span class="nav-text">2.使用hbase shell</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#七、读写流程"><span class="nav-number">7.</span> <span class="nav-text">七、读写流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-读流程"><span class="nav-number">7.1.</span> <span class="nav-text">1.读流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-写流程"><span class="nav-number">7.2.</span> <span class="nav-text">2.写流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1写流程概述"><span class="nav-number">7.2.1.</span> <span class="nav-text">2.1写流程概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-写流程源码"><span class="nav-number">7.2.2.</span> <span class="nav-text">2.2 写流程源码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#八、hbase的其它操作"><span class="nav-number">8.</span> <span class="nav-text">八、hbase的其它操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-flush"><span class="nav-number">8.1.</span> <span class="nav-text">1.flush</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-概念"><span class="nav-number">8.1.1.</span> <span class="nav-text">1.1 概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-意义"><span class="nav-number">8.1.2.</span> <span class="nav-text">1.2 意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-手动刷写"><span class="nav-number">8.1.3.</span> <span class="nav-text">1.3 手动刷写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4自动刷写"><span class="nav-number">8.1.4.</span> <span class="nav-text">1.4自动刷写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#①基于memstore的刷写"><span class="nav-number">8.1.4.1.</span> <span class="nav-text">①基于memstore的刷写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#②基于RegionServer的刷写"><span class="nav-number">8.1.4.2.</span> <span class="nav-text">②基于RegionServer的刷写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#③基于默认刷写时间的刷写"><span class="nav-number">8.1.4.3.</span> <span class="nav-text">③基于默认刷写时间的刷写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#④基于wal文件的刷写"><span class="nav-number">8.1.4.4.</span> <span class="nav-text">④基于wal文件的刷写</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Compaction"><span class="nav-number">8.2.</span> <span class="nav-text">2.Compaction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-概念"><span class="nav-number">8.2.1.</span> <span class="nav-text">2.1 概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-分类"><span class="nav-number">8.2.2.</span> <span class="nav-text">2.2 分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-手动合并"><span class="nav-number">8.2.3.</span> <span class="nav-text">2.3 手动合并</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-RegionSplit"><span class="nav-number">8.3.</span> <span class="nav-text">3.RegionSplit</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#九、API"><span class="nav-number">9.</span> <span class="nav-text">九、API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Connection"><span class="nav-number">9.1.</span> <span class="nav-text">1.Connection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Table"><span class="nav-number">9.2.</span> <span class="nav-text">2.Table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Admin"><span class="nav-number">9.3.</span> <span class="nav-text">3.Admin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-NameSpaceDescriptor"><span class="nav-number">9.4.</span> <span class="nav-text">4.NameSpaceDescriptor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-HTableDescriptor"><span class="nav-number">9.5.</span> <span class="nav-text">5.HTableDescriptor</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#十、整合Hive"><span class="nav-number">10.</span> <span class="nav-text">十、整合Hive</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-作用"><span class="nav-number">10.1.</span> <span class="nav-text">1.作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-配置环境"><span class="nav-number">10.2.</span> <span class="nav-text">2.配置环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-使用场景"><span class="nav-number">10.3.</span> <span class="nav-text">3.使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-场景一"><span class="nav-number">10.3.1.</span> <span class="nav-text">3.1 场景一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-场景2"><span class="nav-number">10.3.2.</span> <span class="nav-text">3.2 场景2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#十一、优化"><span class="nav-number">11.</span> <span class="nav-text">十一、优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#十二、Phoenix"><span class="nav-number">12.</span> <span class="nav-text">十二、Phoenix</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-表关系映射"><span class="nav-number">12.1.</span> <span class="nav-text">1.表关系映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用"><span class="nav-number">12.2.</span> <span class="nav-text">2.使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhanghanting</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访问数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '7HjF3J8nerPuC6IIPSTD2MyU-gzGzoHsz',
+        appKey: 'HON17u5VRHg6TQoMXv4qzkYT',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 动态背景-->
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+</body>
+</html>
