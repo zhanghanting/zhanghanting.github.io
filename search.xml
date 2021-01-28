@@ -1,6 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>3.IO模型</title>
+    <url>/2021/01/28/netty/3.IO%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<h1 id="一、IO模型"><a href="#一、IO模型" class="headerlink" title="一、IO模型"></a>一、IO模型</h1><h2 id="1-1-BIO"><a href="#1-1-BIO" class="headerlink" title="1.1 BIO"></a>1.1 BIO</h2><p>BIO是Java的原生阻塞IO，特点如下：</p>
+<p>1）每一个客户端请求都需要服务端单独启动一个线程创建跟客户端的连接处理请求，在闲置时会造成资源的浪费，BIO方式适用于链接数目比较小且固定的架构，这种方式对服务器资源要求比较高，开发局限于应用中，是以前JDK1.4以前的唯一选择，但程序简单易理解。</p>
+<p>示意图如下</p>
+<p><img src="https://i.loli.net/2021/01/28/DGNY7RmcQxC2aqp.png" alt="image-20210128155516877"></p>
+<h2 id="1-2-NIO"><a href="#1-2-NIO" class="headerlink" title="1.2 NIO"></a>1.2 NIO</h2><p>NIO是同步非阻塞IO，特点如下：</p>
+<p>1）服务器端不会每次都单独开启一个线程去创建连接处理请求，对于多个请求而是开辟多个线程，每个线程可以依赖于选择器处理多个请求，NIO方式适用于链接数目多且连接比较短的的架构，比如聊天服务器，弹幕系统，服务器间通讯等。编程比较负责，JDK1.4开始支持。</p>
+<p><img src="https://i.loli.net/2021/01/28/LGkzbqQmZ13avFV.png" alt="image-20210128160008628"></p>
+<h2 id="1-3-AIO"><a href="#1-3-AIO" class="headerlink" title="1.3 AIO"></a>1.3 AIO</h2><p>异步非阻塞，未得到广泛应用，暂时了解即可。</p>
+]]></content>
+      <categories>
+        <category>IO模型</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>2.netty的应用场景</title>
+    <url>/2021/01/28/netty/2.netty%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</url>
+    <content><![CDATA[<h1 id="一、Netty的应用场景"><a href="#一、Netty的应用场景" class="headerlink" title="一、Netty的应用场景"></a>一、Netty的应用场景</h1><p>1）互联网行业：在分布式系统中，各个节点之间需要需要远程服务调用，高性能的RPC框架必不可少，Netty作为异步高性能的通信框架，往往作为基础通信组件被这些RPC框架使用</p>
+<p>​    典型的应用有：阿里分布式服务框架Dubbo的RPC框架使用Dubbo协议进行节点间通信，DU币博协议默认使用netty作为基础通信组件，用于各进程节点之间的内时部通信。</p>
+<p>2）游戏行业： 无论是手游服务端还是大型的网络游戏，Java语言得到了越来越广泛的应用；Netty作为高性能的基础通信组件/，提供了TCP/UDP和HTTP协议栈，方便定制和开发私有协议栈，账号登录服务器；地图服务器之间可以方便的通过Netty进行高性能的通信</p>
+<p>3）大数据领域：经典的Hadoop的高性能通信和系列化组件(AVRO 实现数据文件的共享)的RPC框架，默认采用Netty进行跨节点通信，它的Netty Service基于Netty框架二次封装实现</p>
+<p>4）常用的开源项目：比如Flink，Spark等需要网络通信的开源项目 </p>
+<p>推荐书籍：Netty In Action</p>
+]]></content>
+      <categories>
+        <category>Netty</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>1.netty是什么</title>
+    <url>/2021/01/27/netty/1.netty%E6%98%AF%E4%BB%80%E4%B9%88/</url>
+    <content><![CDATA[<h1 id="一、Netty是什么？"><a href="#一、Netty是什么？" class="headerlink" title="一、Netty是什么？"></a>一、Netty是什么？</h1><p>1）Netty是由Jboss提供的一个Java开源框架，现为Github的开源项目。</p>
+<p>2）Netty是一个异步的、基于事件驱动的网络应用框架，用于快速开发高性能，高可靠性的网络IO程序。</p>
+<p>3）Netty主要针对在TCP协议下，面向Clients端的高并发应用，或者Peer to Peer场景下的大量数据持续传输的应用。</p>
+<p>4）Netty本质上是一个NIO框架，适用于服务器通讯相关的多种应用场景。</p>
+<p>5）要彻底理解Netty，需要先学习NIO，这样才能阅读Netty源码。 </p>
+<p><img src="https://i.loli.net/2021/01/27/GUDvjw2s6h78T1S.png" alt="image-20210127100019837"></p>
+]]></content>
+      <categories>
+        <category>Netty</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>netty课程说明</title>
+    <url>/2021/01/27/netty/netty%E8%AF%BE%E7%A8%8B%E8%AF%B4%E6%98%8E/</url>
+    <content><![CDATA[<h1 id="一、Netty介绍和应用场景"><a href="#一、Netty介绍和应用场景" class="headerlink" title="一、Netty介绍和应用场景"></a>一、Netty介绍和应用场景</h1><h2 id="1-1-课程学习要求"><a href="#1-1-课程学习要求" class="headerlink" title="1.1 课程学习要求"></a>1.1 课程学习要求</h2><p>1）要求已经掌握了Java编程，主要技术构成：OOP编程，Java多线程编程，Java IO编程，Java网络编程，常用的Java设计模式（比如 观察者模式，命令模式了，职责链模式），常用的数据结构（比如链表）</p>
+]]></content>
+      <categories>
+        <category>Netty</category>
+      </categories>
+  </entry>
+  <entry>
     <title>观察者模式</title>
     <url>/2021/01/26/Java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<h1 id="1-天气预报案例需求"><a href="#1-天气预报案例需求" class="headerlink" title="1.天气预报案例需求"></a>1.天气预报案例需求</h1><p>1)   气象站可以将每天测量到的温度，湿度，气压等等以公告的形式发布出去(比如发布到自己的网站或第三方)。</p>
