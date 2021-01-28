@@ -13,7 +13,7 @@
 <h2 id="1-3-AIO"><a href="#1-3-AIO" class="headerlink" title="1.3 AIO"></a>1.3 AIO</h2><p>异步非阻塞，未得到广泛应用，暂时了解即可。</p>
 ]]></content>
       <categories>
-        <category>IO模型</category>
+        <category>Netty</category>
       </categories>
   </entry>
   <entry>
