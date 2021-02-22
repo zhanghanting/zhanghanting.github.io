@@ -4,11 +4,90 @@
   
     
     <entry>
-      <title>11.AIO基本阻塞</title>
-      <link href="/2021/02/19/netty/11.AIO%E9%9B%B6%E6%8B%B7%E8%B4%9D%E5%86%85%E5%AE%B9%E6%A2%B3%E7%90%86/"/>
-      <url>/2021/02/19/netty/11.AIO%E9%9B%B6%E6%8B%B7%E8%B4%9D%E5%86%85%E5%AE%B9%E6%A2%B3%E7%90%86/</url>
+      <title>02-企业级Hadoop源码二次开发2</title>
+      <link href="/2021/02/21/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/02-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%912/"/>
+      <url>/2021/02/21/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/02-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%912/</url>
       
-        <content type="html"><![CDATA[<h1 id="零拷贝AIO内容梳理"><a href="#零拷贝AIO内容梳理" class="headerlink" title="零拷贝AIO内容梳理"></a>零拷贝AIO内容梳理</h1><h2 id="1-Java-AIO基本介绍"><a href="#1-Java-AIO基本介绍" class="headerlink" title="1.Java AIO基本介绍"></a>1.Java AIO基本介绍</h2><p>1）JDK引入了Asynchronous I/O,即AIO。在进行IO编程中，常用到两周模式：Reactor和Proactor。Java的NIO就是Reactor，当有事件触发时，服务器端得到通知，进行相应的处理</p><p>2）AIO即NIO2.0，叫做异步不阻塞的IO。AIO引入异步通道的概念，采用了Proactor模式，简化了程序编写，有效的请求才启动线程，它的特点是先由操作系统完成后才通知服务端程序启动线程去处理，一般适用于连接数较多且连接时间较长的应用</p><p>3）目前AIO还没有广泛应用，Netty也是基于NIO，而不是AIO。</p><h2 id="2-BIO，NIO，AIO对比"><a href="#2-BIO，NIO，AIO对比" class="headerlink" title="2.BIO，NIO，AIO对比"></a>2.BIO，NIO，AIO对比</h2><p><img src="https://i.loli.net/2021/02/19/uJfwEgNGl6aA2Ks.png" alt="image-20210219203057748"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="企业级Hadoop源码二次开发2"><a href="#企业级Hadoop源码二次开发2" class="headerlink" title="企业级Hadoop源码二次开发2"></a>企业级Hadoop源码二次开发2</h1><h2 id="1-课程内容"><a href="#1-课程内容" class="headerlink" title="1.课程内容"></a>1.课程内容</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 开源技术源码阅读技巧分享</span><br><span class="line">2. Hadoop RPC原理</span><br><span class="line">3. NameNode启动流程源码深度剖析</span><br><span class="line">4. DataNode启动流程源码深度剖析</span><br><span class="line">5. DataNode心跳流程源码深度分析</span><br></pre></td></tr></table></figure><h2 id="2-Hadoop-RPC"><a href="#2-Hadoop-RPC" class="headerlink" title="2.Hadoop RPC"></a>2.Hadoop RPC</h2><h3 id="2-1-小结"><a href="#2-1-小结" class="headerlink" title="2.1 小结"></a>2.1 小结</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1）RPC指的是不同进程的调用，分为客户端和服务端，并且是客户端调用服务端的方法，方法的执行在服务端。</span><br><span class="line">2）如果要想实现hadoop RPC的调用，需要一个协议，说白了协议就是一个接口，里面要求必须要有versionID字段</span><br><span class="line">3）服务端必须要实现协议</span><br><span class="line">4）凡是JPS能看到的服务，都是RPC的服务端</span><br></pre></td></tr></table></figure><h3 id="2-2-如何构建Hadoop-RPC"><a href="#2-2-如何构建Hadoop-RPC" class="headerlink" title="2.2 如何构建Hadoop RPC"></a>2.2 如何构建Hadoop RPC</h3><h2 id="3-源码流程"><a href="#3-源码流程" class="headerlink" title="3.源码流程"></a>3.源码流程</h2><p>HDFS源码：通过场景驱动阅读源码</p><p>3.1 集群的启动场景</p><p>1）NameNode的启动场景（RPC服务端，进程，main方法是不是就可以了）</p><p>2）DataNode的启动场景</p><p>3.2 写数据的场景</p><p>3.3 读数据的场景</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 奈学教育 </category>
+          
+          <category> 大数据 </category>
+          
+          <category> Hadoop </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hadoop </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>14.Netty快速入门实例</title>
+      <link href="/2021/02/20/netty/14.Netty%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E5%AE%9E%E4%BE%8B/"/>
+      <url>/2021/02/20/netty/14.Netty%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E5%AE%9E%E4%BE%8B/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Netty快速入门实例-TCP服务"><a href="#Netty快速入门实例-TCP服务" class="headerlink" title="Netty快速入门实例-TCP服务"></a>Netty快速入门实例-TCP服务</h1><h2 id="1-实例要求"><a href="#1-实例要求" class="headerlink" title="1.实例要求"></a>1.实例要求</h2><p>1）使用IDEA创建Netty项目，Netty服务器再6668端口监听，客户端能发送消息给服务器“hello,服务器”</p><p>2）服务器可以回复消息给客户端“hello，客户端”</p><p>3）目的：对Netty线程模型有一个初步认识，便于理解Netty模型理论</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Netty </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Netty </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>13.Netty模型</title>
+      <link href="/2021/02/20/netty/13.Netty%E6%A8%A1%E5%9E%8B/"/>
+      <url>/2021/02/20/netty/13.Netty%E6%A8%A1%E5%9E%8B/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Netty模型"><a href="#Netty模型" class="headerlink" title="Netty模型"></a>Netty模型</h1><h2 id="1-工作原理示意图-简单版"><a href="#1-工作原理示意图-简单版" class="headerlink" title="1.工作原理示意图-简单版"></a>1.工作原理示意图-简单版</h2><p><img src="https://i.loli.net/2021/02/20/iOp7aKNld3zuUv6.png" alt="image-20210220160922547"></p><p>说明：</p><p>1）BossGroup线程维护selector，只关注accept</p><p>2）当接收到accept事件，获取到对应的socketChannel，封装成NIOSocketChannel并注册到work线程（事件循环），并进行维护</p><p>3）当worker线程监听到selector中通道发生自己感兴趣的事件后，就进行处理（由handler处理），注意handler已经加入到通道</p><h2 id="2-工作原理示意图-详细版"><a href="#2-工作原理示意图-详细版" class="headerlink" title="2.工作原理示意图-详细版"></a>2.工作原理示意图-详细版</h2><p><img src="https://i.loli.net/2021/02/20/AxVTE4MtasDnclR.png" alt="image-20210220162608268"></p><p>说明：上面示意图的NIOEventGroup有点问题，需要替换为NioEventLoop</p><p>1）Netty抽象出两组线程池BossGroup专门负责接收客户端的连接，WorkerGroup专门负责网络的读写</p><p>2）BossGroup和WorkerGroup类型都是NioEventLoopGroup</p><p>3）NioEventLoopGroup相当于一个事件循环组，这个组中包含多个事件循环，每一个事件循环是NIOEventLoop</p><p>4）NioEventLoop表示一个不断循环的执行处理的线程，每个NioEventLoop都有一个selector，用于监听绑定在其上的socket的网络通讯</p><p>5）NioEventLoopGroup可以有多个线程，即可以含有多个NioEventLoop</p><p>6）每个Boss NioEventLoop执行的步骤有3步</p><p>a.轮询accept事件</p><p>b.处理accept事件，与client建立连接，生成NioSocketChannel，并将其注册到某个worker NIOEventLoop上的selector </p><p>c.处理任务队列的任务，即runAllTasks</p><p>7）每个worker NioEventGroup循环执行的步骤</p><p>a.轮询read,write事件</p><p>b.处理IO事件，即read，write事件，在NioSocketChannel处理</p><p>c.处理任务队列的任务，即runAllTasks</p><p>8）每个Worker NioEventLoop处理业务时，会使用pipeline(管道)，pipeline中包含了channel，即通过pipeline可以获取到对应通道，管道中维护了很多的处理器</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Netty </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Netty </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>11.Netty介绍</title>
+      <link href="/2021/02/20/netty/12.netty%E6%A6%82%E8%BF%B0/"/>
+      <url>/2021/02/20/netty/12.netty%E6%A6%82%E8%BF%B0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-Netty概述"><a href="#1-Netty概述" class="headerlink" title="1.Netty概述"></a>1.Netty概述</h1><h2 id="1-1-原生NIO存在的问题"><a href="#1-1-原生NIO存在的问题" class="headerlink" title="1.1 原生NIO存在的问题"></a>1.1 原生NIO存在的问题</h2><h2 id="1-2-Netty的优点"><a href="#1-2-Netty的优点" class="headerlink" title="1.2 Netty的优点"></a>1.2 Netty的优点</h2><h1 id="2-Netty高性能架构设计"><a href="#2-Netty高性能架构设计" class="headerlink" title="2.Netty高性能架构设计"></a>2.Netty高性能架构设计</h1><h2 id="2-1-线程模型基本介绍"><a href="#2-1-线程模型基本介绍" class="headerlink" title="2.1 线程模型基本介绍"></a>2.1 线程模型基本介绍</h2><p>1）不同的线程模型，对程序的性能有很大的影响，为了搞清Netty线程模式，我们系统的讲解下各个线程模式，最后看看Netty线程模型有什么优越性</p><p>2）目前存在的线程模型有：</p><p>传统阻塞IO服务模型  Reactor模式</p><p>3）根据Reactor的数量和处理资源线程池的数量不同，有3种典型的实现</p><p>​    单Reactor单线程；</p><p>​    单Reactor多线程；</p><p>​    主从Reactor多线程</p><p>4）Netty线程模式（Netty主要基于主从Reactor多线程模型做了一定的改进，其中主从Reactor多线程模型有多个Reactor  ）</p><h2 id="2-2-传统阻塞IO服务模型分析"><a href="#2-2-传统阻塞IO服务模型分析" class="headerlink" title="2.2 传统阻塞IO服务模型分析"></a>2.2 传统阻塞IO服务模型分析</h2><h3 id="2-2-1-工作原理图"><a href="#2-2-1-工作原理图" class="headerlink" title="2.2.1 工作原理图"></a>2.2.1 工作原理图</h3><p><img src="https://i.loli.net/2021/02/20/oQnwediTEB8LbuM.png" alt="image-20210220095410281"></p><p>说明：</p><p>黄色的框代表对象，蓝色的框代表线程，白色的框表示方法API</p><h3 id="2-2-2-模型特点"><a href="#2-2-2-模型特点" class="headerlink" title="2.2.2 模型特点"></a>2.2.2 模型特点</h3><p>1）采用阻塞IO获取客户端输入的数据</p><p>2）每个连接都需要独立的线程完成数据的输入，业务处理，数据返回</p><h3 id="2-2-3-问题分析"><a href="#2-2-3-问题分析" class="headerlink" title="2.2.3 问题分析"></a>2.2.3 问题分析</h3><p>1）当并发数很大时，就会创建大量的线程，占用大量的系统资源</p><p>2）连接创建后，如果当前线程暂时没有数据可读，则该线程会阻塞在read操作上，从而造成线程资源浪费</p><h2 id="2-3-Reactor模式"><a href="#2-3-Reactor模式" class="headerlink" title="2.3 Reactor模式"></a>2.3 Reactor模式</h2><h3 id="2-3-1-针对传统阻塞IO服务模型的2个缺点的解决方案"><a href="#2-3-1-针对传统阻塞IO服务模型的2个缺点的解决方案" class="headerlink" title="2.3.1 针对传统阻塞IO服务模型的2个缺点的解决方案"></a>2.3.1 针对传统阻塞IO服务模型的2个缺点的解决方案</h3><p>1）基于IO复用模型多个连接共用一个阻塞对象，应用程序只需要在一个阻塞对象等待，无须阻塞等待所有连接。当某个连接有新的数据可以处理时，操作系统通知应用程序，线程从阻塞状态返回，开始进行业务处理</p><p>Reactor对应的叫法：1.反应器模式 2.分发者模式（Dispatcher） 3.通知者模式（notifier）</p><p>2）基于线程池复用线程资源：不必再为每个连接创建线程，将连接完成后的业务处理任务分配给线程处理，一个线程可以处理多个连接的业务</p><p> 简略示意图如下</p><p><img src="https://i.loli.net/2021/02/20/A2ZCXl18pWzcxd6.png" alt="image-20210220102921335"></p><h3 id="2-3-2-Reactor模式基本设计思想"><a href="#2-3-2-Reactor模式基本设计思想" class="headerlink" title="2.3.2 Reactor模式基本设计思想"></a>2.3.2 Reactor模式基本设计思想</h3><p><img src="https://i.loli.net/2021/02/20/eJzClOH2Ev5h1LD.png" alt="image-20210220103225659"></p><p>说明如下：</p><p>1）Reactor模式，通过一个或多个输入同时传递给服务处理器的模式（基于事件驱动）</p><p>2）服务器端程序处理传入的多个请求，并将它们同步分派到相应的处理线程，因此Reactor模式也叫Dispatcher模式</p><p>3）Reactor模式使用IO复用监听事件，收到事件后，分发给某个线程（进程），这点就是网络服务器高并发处理关键</p><h3 id="2-3-3-Reactor模式中核心组成"><a href="#2-3-3-Reactor模式中核心组成" class="headerlink" title="2.3.3 Reactor模式中核心组成"></a>2.3.3 Reactor模式中核心组成</h3><p>1）Reactor：Reactor在一个单独的线程中运行，负责监听和分发事件，分发给适当的处理程序来对IO事件作出反应。它就像是公司的电话接线员，它接听来自客户的电话并将线路转移到适当的联系人</p><p>2）Handlers：处理程序执行IO事件要完成的实际事件，类似于客户想要与之交谈的公司的实际官员。Reactor通过调度适当的处理程序来响应IO事件，处理程序执行非阻塞操作。</p><h3 id="2-3-4-Reactor模式分类"><a href="#2-3-4-Reactor模式分类" class="headerlink" title="2.3.4 Reactor模式分类"></a>2.3.4 Reactor模式分类</h3><p>根据Reactor的数量和处理资源池线程的数量不同，有3种典型的实现</p><p>1）单Reactor单线程</p><p>2）单Reactor多线程</p><p>3）主从Reactor多线程（Netty就是基于这种模式上改进的）</p><h4 id="2-3-4-1-单Reactor单线程"><a href="#2-3-4-1-单Reactor单线程" class="headerlink" title="2.3.4.1 单Reactor单线程"></a>2.3.4.1 单Reactor单线程</h4><p>类似之前NIO群聊系统，示意图如下</p><p><img src="https://i.loli.net/2021/02/20/sa2wyAVBMD4U1Oq.png" alt="image-20210220110935095"></p><p>之前NIO群聊系统中的selector就相当于Reactor，对于监听的不同的事件类型（accept，read…）做不同的处理，同样可以在NIO群聊中将sendData和readData封装在一个Handler中 </p><p>方案说明：</p><p>1）select是前面IO复用模型介绍的标准网络编程API，可以实现应用程序通过一个阻塞对象监听多路连接请求</p><p>2）Reactor对象通过select监控客户端请求事件，收到事件后通过Dispatch进行分发</p><p>3）如果是建立连接请求事件，则由Acceptor通过accept处理连接请求，然后创建一个Handler对象处理连接完成后的后续业务处理</p><p>4）如果不是建立连接事件，则Reactor会分发调用连接对应的Handler来响应</p><p>5）Handler会完成Read-》业务处理-》Send的完成业务流程</p><p>结合实例：服务器端用一个线程通过多路复用搞定所有的IO操作（包括连接，读，写等），编码简单，清晰明了，但是如果客户端连接数较多，将无法支撑，前面的NIO案例就属于这种模型</p><p>优缺点分析：</p><p>1）优点：模型简单，没有多线程，进程通信，竞争的问题，全部都在一个线程中完成</p><p>2）缺点：性能问题，只有一个线程，无法完全发挥多个CPU的性能。Handler在处理某个连接上的业务时，整个进程无法处理其他连接事件，很容易导致性能瓶颈；可靠性问题，线程意外终止，或者进入死循环，会导致整个系统通信模块不可用，不能接收和处理外部消息，造成节点故障</p><p>3）使用场景：客户端的连接数有限，业务处理非常快速，比如Redis在业务处理的时间复杂度O(1)的情况</p><h4 id="2-3-4-2-单Reactor多线程"><a href="#2-3-4-2-单Reactor多线程" class="headerlink" title="2.3.4.2 单Reactor多线程"></a>2.3.4.2 单Reactor多线程</h4><p><img src="https://i.loli.net/2021/02/20/IbXMJuSPDkyU5Lx.png" alt="image-20210220113306538"></p><p>方案说明：</p><p>1）Reactor对象通过select监控客户端请求事件，收到事件后，通过Dispatch进行分发</p><p>2）如果建立连接请求，则由Acceptor通过accept处理连接请求，然后创建一个Handler对象处理完成连接后的各种事件</p><p>3）如果不是连接请求，则由Reactor对象分发调用连接对应的handler来处理</p><p>4）handle只负责响应事件，不做具体的业务处理，通过read读取数据后，会分发给后面的worker线程池的某个线程处理</p><p>5）worker线程池会分配独立的线程完成真正的业务，并将处理后的结果返回给handler</p><p>6）handler收到响应后，通过send将结果返回给client</p><p>方案优缺点分析：</p><p>1）优点：可以充分的利用多核CPU的处理能力</p><p>2）缺点：多线程数据共享和访问比较复杂，reactor处理所有的事件的监听和响应，在单线程运行，在高并发场景容易出现性能瓶颈</p><h4 id="2-3-4-3-主从Reactor多线程"><a href="#2-3-4-3-主从Reactor多线程" class="headerlink" title="2.3.4.3 主从Reactor多线程"></a>2.3.4.3 主从Reactor多线程</h4><p> 工作原理示意图</p><p><img src="https://i.loli.net/2021/02/20/LG1cuehjv8EnlYt.png" alt="image-20210220114311342"></p><p>方案说明：</p><p>1）Reactor主线程MainReactor对象通过select监听连接事件，收到事件后，通过Acceptor处理连接事件</p><p>2）当Acceptor处理连接事件后，MainReactor将连接分配给SubReactor</p><p>3）SubReactor将连接加入到连接队列进行监听，并同时创建Handler进行各种事件处理</p><p>4）当有新的事件发生时，SubReactor就会调用对应的handler进行处理</p><p>5）handler通过read读取数据，分发给后面的worker线程池进行处理，</p><p>6）worker线程池会分配独立的work线程进行业务处理，并返回结果</p><p>7）handler收到响应的结果后，再通过send将结果返回给client</p><p>8）Reactor主线程可以对应多个Reactor子线程，即MainReactor可以关联多个SubReactor</p><p>方案优缺点说明：</p><p>1）优点：父线程与子线程地方数据交互简单职责明确，父线程只需要接收新连接，子线程完成后续的业务处理</p><p>2）优点：父线程和子线程的数据交互简单，Reactor主线程只需要把新连接传给子线程，子线程无须返回数据</p><p>3）缺点：编程复杂度较高</p><p>结合实例：这种模型在许多项目中广泛使用，包括Nginx主从Reactor多进程模型，Memcached主从多线程，Netty主从多线程模型的支持</p><h3 id="2-3-5-Reactor模式小结"><a href="#2-3-5-Reactor模式小结" class="headerlink" title="2.3.5 Reactor模式小结"></a>2.3.5 Reactor模式小结</h3><p>3种模式生活案例来理解</p><p>1）单Reactor单线程  前台接待员和服务员是同一个人，全程为顾客服务</p><p>2）单Reactor多线程 1个前台接待员，多个服务员，接待员只负责接待</p><p>3）多Reactor多线程 多个前台接待员，多个服务生</p><p>Reactor模式具有如下的优点：</p><p>1）响应快，不必为单个同步时间所阻塞，虽然Reactor本身依然是同步的</p><p>2）可以最大程度的避免复杂的多线程及同步问题，并且避免了多线程/进程的切换开销</p><p>3）扩展性好，可以方便的通过增加Reactor实例个数来充分利用CPU资源</p><p>4）复用性好，Reactor模型本身与具体事件处理逻辑无关，具有很高的复用性</p>]]></content>
       
       
       <categories>
@@ -402,22 +481,26 @@
     
     <entry>
       <title>01 企业级hadoop源码二次开发1</title>
-      <link href="/2021/02/17/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/01-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%911/"/>
-      <url>/2021/02/17/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/01-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%911/</url>
+      <link href="/2021/02/17/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/01-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%911/"/>
+      <url>/2021/02/17/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/01-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%911/</url>
       
         <content type="html"><![CDATA[<h1 id="企业级Hadoop源码二次开发1"><a href="#企业级Hadoop源码二次开发1" class="headerlink" title="企业级Hadoop源码二次开发1"></a>企业级Hadoop源码二次开发1</h1><h1 id="课程目标"><a href="#课程目标" class="headerlink" title="课程目标"></a>课程目标</h1><h2 id="1-HDFS是如何实现有状态的高可用架构"><a href="#1-HDFS是如何实现有状态的高可用架构" class="headerlink" title="1.HDFS是如何实现有状态的高可用架构"></a>1.HDFS是如何实现有状态的高可用架构</h2><h2 id="2-HDFS是如何通过架构设计解决单机内存受限问题的？"><a href="#2-HDFS是如何通过架构设计解决单机内存受限问题的？" class="headerlink" title="2.HDFS是如何通过架构设计解决单机内存受限问题的？"></a>2.HDFS是如何通过架构设计解决单机内存受限问题的？</h2><h2 id="3-揭秘HDFS能支撑亿级流量的核心源码设计？"><a href="#3-揭秘HDFS能支撑亿级流量的核心源码设计？" class="headerlink" title="3.揭秘HDFS能支撑亿级流量的核心源码设计？"></a>3.揭秘HDFS能支撑亿级流量的核心源码设计？</h2><h1 id="课程目录"><a href="#课程目录" class="headerlink" title="课程目录"></a>课程目录</h1><h2 id="第一章-HDFS架构演变"><a href="#第一章-HDFS架构演变" class="headerlink" title="第一章 HDFS架构演变"></a>第一章 HDFS架构演变</h2><h3 id="1-HDFS1"><a href="#1-HDFS1" class="headerlink" title="1.HDFS1"></a>1.HDFS1</h3><p>hadoop1的HDFS是主从式架构，默认的块大小是64M</p><p><img src="https://i.loli.net/2021/02/17/6QEDgOtVaCZ5cXS.png" alt="image-20210217104120962"></p><h4 id="NameNode的作用"><a href="#NameNode的作用" class="headerlink" title="NameNode的作用"></a>NameNode的作用</h4><p>1）管理元数据信息（文件目录树）：文件与block块，block块与DataNode主机的关系</p><p>2）NameNode为了快速响应用户的操作请求，所以把元数据加载到了内存里面</p><h4 id="DataNode的作用"><a href="#DataNode的作用" class="headerlink" title="DataNode的作用"></a>DataNode的作用</h4><p>1）存储数据，把上传的数据划分为固定大小的文件块（Hadoop1，默认是64M）</p><p>2）为了保证数据安全，每个文件块默认都有3个副本</p><h4 id="SecondaryNameNode的作用"><a href="#SecondaryNameNode的作用" class="headerlink" title="SecondaryNameNode的作用"></a>SecondaryNameNode的作用</h4><p>周期性地合并fsimage和editlog替换旧的fsimage，减少下一次NameNode启动时合并的editlog的文件个数，加快启动时间。在HDFS中有了高可用之后就不需要SecondaryNameNode了，secondaryNameNode干的活给另一个高可用的NameNode干了</p><h4 id="HDFS1可能出现的问题"><a href="#HDFS1可能出现的问题" class="headerlink" title="HDFS1可能出现的问题"></a>HDFS1可能出现的问题</h4><p>1）单点故障问题</p><p>解决方式：增加一个NameNode节点，保留相同的元数据信息，元数据信息存放在jourNalNode集群中</p><p>JourNalNode的特点：1）对等式架构，节点之间数据保持一致  2）存放节点大于半数，则集群就可以正常提供服务</p><p>在集群少于100个节点的时候：用3个jourNalNode节点就可以了  300以上 5个就可以了</p><p><img src="https://i.loli.net/2021/02/17/yOwflSLIiXV1EcR.png" alt="image-20210217111323509"></p><p>理论上可以用zookeeper代替JourNalNode用来存储元数据，但是zookeeper本身不擅长存储大数据，所以如果元数据的数据量比较小，也是可以用zookeeper存储的，但是需要对hadoop源码进行二次开发。</p><p>2）内存受限问题</p><p>将NameNode搭建为集群方式（联邦方案Federation）</p><p><img src="https://i.loli.net/2021/02/17/UN7l8qyxcisERg6.png" alt="image-20210217114805769"></p><h3 id="2-HDFS2"><a href="#2-HDFS2" class="headerlink" title="2.HDFS2"></a>2.HDFS2</h3><h4 id="HA方案（High-Available）"><a href="#HA方案（High-Available）" class="headerlink" title="HA方案（High Available）"></a>HA方案（High Available）</h4><p>​    解决HDFS1 Namenode单点故障问题</p><h4 id="联邦方案"><a href="#联邦方案" class="headerlink" title="联邦方案"></a>联邦方案</h4><p>​        解决了HDFS1 内存受限问题</p><h3 id="3-HDFS3"><a href="#3-HDFS3" class="headerlink" title="3.HDFS3"></a>3.HDFS3</h3><p>HA方案支持多个NameNode，引入纠删码技术（解决副本存储空间浪费的问题，一般用于冷数据的存储）</p><h2 id="第二章-HFDS支持亿级流量的秘密"><a href="#第二章-HFDS支持亿级流量的秘密" class="headerlink" title="第二章 HFDS支持亿级流量的秘密"></a>第二章 HFDS支持亿级流量的秘密</h2><p>因为NameNode管理了元数据，用户所有的操作请求都要操作NameNode，大一点的平台一天需要运行几十万，上百万的任务。一个任务就会有很多个请求，这些所有的请求都打到NameNode这个（更新目录树），对于NameNode来说这就是亿级的流量（请求），NameNode是如何支撑亿级流量的呢？</p><p>1）在启动NameNode之前，首先要对文件系统进行格式化（hdfs namenode -format），生成fsimage保留对应的元数据信息,然后在启动NameNode（hdfs -daemon start namenode）,即将元数据加载到内存</p><p>HDFS如何管理元数据</p><p><img src="https://i.loli.net/2021/02/18/MCAVJrUw4fbvknH.png" alt="image-20210218114835652"></p><p><img src="https://i.loli.net/2021/02/18/1I9E2WykN4xdLpm.png" alt="image-20210218114900826"></p><h1 id="课程总结"><a href="#课程总结" class="headerlink" title="课程总结"></a>课程总结</h1><h2 id="1-了解HDFS架构的演变"><a href="#1-了解HDFS架构的演变" class="headerlink" title="1.了解HDFS架构的演变"></a>1.了解HDFS架构的演变</h2><h2 id="2-HDFS2是如何解决单点故障问题的"><a href="#2-HDFS2是如何解决单点故障问题的" class="headerlink" title="2.HDFS2是如何解决单点故障问题的"></a>2.HDFS2是如何解决单点故障问题的</h2><h2 id="3-HDFS2是如何解决内存受限问题的"><a href="#3-HDFS2是如何解决内存受限问题的" class="headerlink" title="3.HDFS2是如何解决内存受限问题的"></a>3.HDFS2是如何解决内存受限问题的</h2><h2 id="4-HDFS元数据管理的流程"><a href="#4-HDFS元数据管理的流程" class="headerlink" title="4.HDFS元数据管理的流程"></a>4.HDFS元数据管理的流程</h2>]]></content>
       
       
       <categories>
           
+          <category> 奈学教育 </category>
+          
           <category> 大数据 </category>
+          
+          <category> Hadoop </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 奈学教育 </tag>
+            <tag> Hadoop </tag>
             
         </tags>
       
