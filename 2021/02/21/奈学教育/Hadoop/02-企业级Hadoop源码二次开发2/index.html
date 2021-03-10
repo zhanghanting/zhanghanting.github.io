@@ -88,14 +88,14 @@
 
 
 
-<meta name="description" content="企业级Hadoop源码二次开发21.课程内容123451. 开源技术源码阅读技巧分享2. Hadoop RPC原理3. NameNode启动流程源码深度剖析4. DataNode启动流程源码深度剖析5. DataNode心跳流程源码深度分析  2.Hadoop RPC2.1 小结12341）RPC指的是不同进程的调用，分为客户端和服务端，并且是客户端调用服务端的方法，方法的执行在服务端。2）如果要">
+<meta name="description" content="企业级Hadoop源码二次开发21.课前准备12341.安装idea2.下载Hadoop源码https:&#x2F;&#x2F;archive.apache.org&#x2F;dist&#x2F;hadoop&#x2F;common&#x2F;hadoop-2.7.0&#x2F;hadoop-2.7.0-src.tar.gz3.将源码导入idea工具    2.课程主题1本节课给大家讲解Hadoo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="02-企业级Hadoop源码二次开发2">
 <meta property="og:url" content="http://yoursite.com/2021/02/21/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/02-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%912/index.html">
 <meta property="og:site_name" content="柒7七">
-<meta property="og:description" content="企业级Hadoop源码二次开发21.课程内容123451. 开源技术源码阅读技巧分享2. Hadoop RPC原理3. NameNode启动流程源码深度剖析4. DataNode启动流程源码深度剖析5. DataNode心跳流程源码深度分析  2.Hadoop RPC2.1 小结12341）RPC指的是不同进程的调用，分为客户端和服务端，并且是客户端调用服务端的方法，方法的执行在服务端。2）如果要">
+<meta property="og:description" content="企业级Hadoop源码二次开发21.课前准备12341.安装idea2.下载Hadoop源码https:&#x2F;&#x2F;archive.apache.org&#x2F;dist&#x2F;hadoop&#x2F;common&#x2F;hadoop-2.7.0&#x2F;hadoop-2.7.0-src.tar.gz3.将源码导入idea工具    2.课程主题1本节课给大家讲解Hadoo">
 <meta property="article:published_time" content="2021-02-21T12:14:10.000Z">
-<meta property="article:modified_time" content="2021-02-21T13:16:07.337Z">
+<meta property="article:modified_time" content="2021-02-24T11:01:18.905Z">
 <meta property="article:author" content="柒7七">
 <meta property="article:tag" content="Hadoop">
 <meta name="twitter:card" content="summary">
@@ -416,7 +416,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  278
+                  1,156
                 </span>
               
 
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  5
                 </span>
               
             </div>
@@ -453,8 +453,60 @@
       
 
       
-        <h1 id="企业级Hadoop源码二次开发2"><a href="#企业级Hadoop源码二次开发2" class="headerlink" title="企业级Hadoop源码二次开发2"></a>企业级Hadoop源码二次开发2</h1><h2 id="1-课程内容"><a href="#1-课程内容" class="headerlink" title="1.课程内容"></a>1.课程内容</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 开源技术源码阅读技巧分享</span><br><span class="line">2. Hadoop RPC原理</span><br><span class="line">3. NameNode启动流程源码深度剖析</span><br><span class="line">4. DataNode启动流程源码深度剖析</span><br><span class="line">5. DataNode心跳流程源码深度分析</span><br></pre></td></tr></table></figure>
+        <h1 id="企业级Hadoop源码二次开发2"><a href="#企业级Hadoop源码二次开发2" class="headerlink" title="企业级Hadoop源码二次开发2"></a>企业级Hadoop源码二次开发2</h1><h2 id="1-课前准备"><a href="#1-课前准备" class="headerlink" title="1.课前准备"></a>1.课前准备</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.安装idea</span><br><span class="line">2.下载Hadoop源码</span><br><span class="line">https:&#x2F;&#x2F;archive.apache.org&#x2F;dist&#x2F;hadoop&#x2F;common&#x2F;hadoop-2.7.0&#x2F;hadoop-2.7.0-src.tar.gz</span><br><span class="line">3.将源码导入idea工具</span><br></pre></td></tr></table></figure>
 
+
+
+<h2 id="2-课程主题"><a href="#2-课程主题" class="headerlink" title="2.课程主题"></a>2.课程主题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">本节课给大家讲解Hadoop RPC原理和HDFS启动流程，为后面二次开发打下基础</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-课程目标"><a href="#3-课程目标" class="headerlink" title="3.课程目标"></a>3.课程目标</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.掌握Hadoop RPC原理</span><br><span class="line">2.掌握HDFS启动流程</span><br><span class="line">3.掌握阅读源码技巧</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-知识要点"><a href="#4-知识要点" class="headerlink" title="4.知识要点"></a>4.知识要点</h2><h3 id="4-1-项目要点"><a href="#4-1-项目要点" class="headerlink" title="4.1 项目要点"></a>4.1 项目要点</h3><h4 id="4-1-1-项目背景"><a href="#4-1-1-项目背景" class="headerlink" title="4.1.1 项目背景"></a>4.1.1 项目背景</h4><p>公司集群运行一年之多，现在集群为满足公司要求，计划将集群扩为300+节点，在过去一年的集群管理中收集到了一些Hadoop集群的bug和性能改造点，故成立了此项目对当前的Hadoop集群进行性能提升的Bug修复</p>
+<h4 id="4-1-2-项目目标"><a href="#4-1-2-项目目标" class="headerlink" title="4.1.2 项目目标"></a>4.1.2 项目目标</h4><p>提升集群性能，并且保证集群稳定</p>
+<h4 id="4-1-3-学习本项目的意义"><a href="#4-1-3-学习本项目的意义" class="headerlink" title="4.1.3 学习本项目的意义"></a>4.1.3 学习本项目的意义</h4><p>1）学习Hadoop源码，掌握分布式系统设计的本质的思想</p>
+<p>2）数据存储平台是大数据里面非常重要的一个环节</p>
+<p>3）架构师的要求</p>
+<h3 id="4-2-项目基础知识"><a href="#4-2-项目基础知识" class="headerlink" title="4.2 项目基础知识"></a>4.2 项目基础知识</h3><h4 id="4-2-1-版本选择"><a href="#4-2-1-版本选择" class="headerlink" title="4.2.1 版本选择"></a>4.2.1 版本选择</h4><p>当前的Hadoop版本已经发展到3.x版本了，但是现在业内大的趋势还是用的Hadoop2.x系列，故我们用的也是2.x源码（hadoop2.7.0）</p>
+<h4 id="4-2-2-阅读大数据源码的思路"><a href="#4-2-2-阅读大数据源码的思路" class="headerlink" title="4.2.2 阅读大数据源码的思路"></a>4.2.2 阅读大数据源码的思路</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">1.掌握其网络通讯架构</span><br><span class="line">	hadoop:</span><br><span class="line">		hadoop RPC</span><br><span class="line">	spark:</span><br><span class="line">		1.5版本之前akka通信框架</span><br><span class="line">		1.6版本之后变成了netty</span><br><span class="line">	Flink:</span><br><span class="line">		akka -&gt; netty</span><br><span class="line">	kafka:</span><br><span class="line">		JDK socket</span><br><span class="line">		</span><br><span class="line">2.场景驱动的方式</span><br><span class="line">	HDFS源码</span><br><span class="line">	集群启动的场景</span><br><span class="line">	写数据的场景</span><br><span class="line">	读数据的场景</span><br><span class="line">	元数据管理的场景</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">3.看源码的时候，要画流程图&#x2F;边写注释</span><br><span class="line">4.看核心类注释</span><br><span class="line">	HDFS</span><br><span class="line">		Namenode</span><br><span class="line">		Datanode</span><br><span class="line">5.连蒙带猜</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-2-3-Hadoop-RCP-了解"><a href="#4-2-3-Hadoop-RCP-了解" class="headerlink" title="4.2.3 Hadoop RCP(了解)"></a>4.2.3 Hadoop RCP(了解)</h4><p>RPC是远程（不同进程）过程（方法的）调用（Remote Procedure Call）缩写模式</p>
+<p>不同进程所以是C/S这种模式</p>
+<p>Client</p>
+<p>Server</p>
+<p>客户端进程调用服务端进程的方法，方法的执行在哪呢？？？</p>
+<p>​    方法的执行在服务端</p>
+<h4 id="4-2-4-Hadoop-RPC认识总结"><a href="#4-2-4-Hadoop-RPC认识总结" class="headerlink" title="4.2.4 Hadoop RPC认识总结"></a>4.2.4 Hadoop RPC认识总结</h4><p>1)RPC指的是不同进程的调用，分为客户端和服务端，并且是客户端调用服务端的方法，方法的执行在服务端。</p>
+<p>2) 如果要想实现Hadoop RPC的调用，需要一个协议，说白了协议就是一个接口，里面要求必须要有versionID字段</p>
+<p>3) 服务端必须要实现协议（接口）</p>
+<p>4) 凡是JPS能看到的服务,都是RPC的服务端</p>
+<p>5) 如何构建一个Hadoop RPC</p>
+<p>服务端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Server server = <span class="keyword">new</span> RPC.Builder(<span class="keyword">new</span> Configuration())</span><br><span class="line">                       .setBindAddress(<span class="string">"localhost"</span>)</span><br><span class="line">    				   .setPort(<span class="number">9999</span>)</span><br><span class="line">                       .setProtocol(ClientProtocol<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">    				   .<span class="title">setInstance</span>(<span class="title">new</span> <span class="title">NameNodeRpcServer</span>())</span></span><br><span class="line"><span class="class">    				   .<span class="title">build</span>()</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>客户端(代理),有类似如下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ClientProtocol namenode = RPC.getProxy(ClientProtocol<span class="class">.<span class="keyword">class</span>,</span></span><br><span class="line"><span class="class">                                      <span class="title">ClientProtocol</span>.<span class="title">versionID</span>,</span></span><br><span class="line">                                      new InetSocketAddress("localhost",9999),</span><br><span class="line">                                      <span class="keyword">new</span> Configuration());</span><br></pre></td></tr></table></figure>
+
+<p>大胆的猜测一下:</p>
+<p>猜测namenode的代码时如何写的?</p>
+<p>jps   -&gt; namenode  -&gt; rpc server</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">long</span> versionID = <span class="number">1L</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">a</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">B</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">long</span> versionID = <span class="number">1L</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">b</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NameNode</span> <span class="title">implement</span> <span class="title">A</span>,<span class="title">B</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Server server = <span class="keyword">new</span> RPC.Builder(<span class="keyword">new</span> Configuration())</span><br><span class="line">                       .setBindAddress(<span class="string">"localhost"</span>)</span><br><span class="line">    				   .setPort(<span class="number">9999</span>)</span><br><span class="line">                       .setProtocol(ClientProtocol<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">    				   .<span class="title">setInstance</span>(<span class="title">new</span> <span class="title">NameNodeRpcServer</span>())</span></span><br><span class="line"><span class="class">    				   .<span class="title">build</span>()</span>;</span><br><span class="line">        server.start();</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">a</span><span class="params">()</span></span>&#123;</span><br><span class="line">        xxx</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">b</span><span class="params">()</span></span>&#123;</span><br><span class="line">        xxx</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="4-3-源码流程讲解"><a href="#4-3-源码流程讲解" class="headerlink" title="4.3 源码流程讲解"></a>4.3 源码流程讲解</h3><p>1.集群的启动场景</p>
+<p>​    NameNode的启动场景(RPC服务端,进程,main是不是就可以了)</p>
+<p>​    DataNode的启动场景</p>
+<p>2.写数据的场景</p>
+<p>3.读数据的场景</p>
+<p>4.元数据的管理(HA,联邦)</p>
 <h2 id="2-Hadoop-RPC"><a href="#2-Hadoop-RPC" class="headerlink" title="2.Hadoop RPC"></a>2.Hadoop RPC</h2><h3 id="2-1-小结"><a href="#2-1-小结" class="headerlink" title="2.1 小结"></a>2.1 小结</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1）RPC指的是不同进程的调用，分为客户端和服务端，并且是客户端调用服务端的方法，方法的执行在服务端。</span><br><span class="line">2）如果要想实现hadoop RPC的调用，需要一个协议，说白了协议就是一个接口，里面要求必须要有versionID字段</span><br><span class="line">3）服务端必须要实现协议</span><br><span class="line">4）凡是JPS能看到的服务，都是RPC的服务端</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-2-如何构建Hadoop-RPC"><a href="#2-2-如何构建Hadoop-RPC" class="headerlink" title="2.2 如何构建Hadoop RPC"></a>2.2 如何构建Hadoop RPC</h3><h2 id="3-源码流程"><a href="#3-源码流程" class="headerlink" title="3.源码流程"></a>3.源码流程</h2><p>HDFS源码：通过场景驱动阅读源码</p>
@@ -526,6 +578,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/02/26/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/03-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%913%20/" rel="prev" title="02-企业级Hadoop源码二次开发3">
+                02-企业级Hadoop源码二次开发3 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -635,7 +691,7 @@ var jiathis_config={
               
                 <a href="/archives%7C%7Carchive">
               
-                  <span class="site-state-item-count">109</span>
+                  <span class="site-state-item-count">112</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -646,7 +702,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -657,7 +713,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -720,7 +776,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#企业级Hadoop源码二次开发2"><span class="nav-number">1.</span> <span class="nav-text">企业级Hadoop源码二次开发2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-课程内容"><span class="nav-number">1.1.</span> <span class="nav-text">1.课程内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Hadoop-RPC"><span class="nav-number">1.2.</span> <span class="nav-text">2.Hadoop RPC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-小结"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-如何构建Hadoop-RPC"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 如何构建Hadoop RPC</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-源码流程"><span class="nav-number">1.3.</span> <span class="nav-text">3.源码流程</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#企业级Hadoop源码二次开发2"><span class="nav-number">1.</span> <span class="nav-text">企业级Hadoop源码二次开发2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-课前准备"><span class="nav-number">1.1.</span> <span class="nav-text">1.课前准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-课程主题"><span class="nav-number">1.2.</span> <span class="nav-text">2.课程主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-课程目标"><span class="nav-number">1.3.</span> <span class="nav-text">3.课程目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-知识要点"><span class="nav-number">1.4.</span> <span class="nav-text">4.知识要点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-项目要点"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 项目要点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-1-项目背景"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">4.1.1 项目背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-2-项目目标"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">4.1.2 项目目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-3-学习本项目的意义"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">4.1.3 学习本项目的意义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-项目基础知识"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 项目基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-版本选择"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">4.2.1 版本选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-阅读大数据源码的思路"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">4.2.2 阅读大数据源码的思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-3-Hadoop-RCP-了解"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">4.2.3 Hadoop RCP(了解)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-4-Hadoop-RPC认识总结"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">4.2.4 Hadoop RPC认识总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-源码流程讲解"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.3 源码流程讲解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Hadoop-RPC"><span class="nav-number">1.5.</span> <span class="nav-text">2.Hadoop RPC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-小结"><span class="nav-number">1.5.1.</span> <span class="nav-text">2.1 小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-如何构建Hadoop-RPC"><span class="nav-number">1.5.2.</span> <span class="nav-text">2.2 如何构建Hadoop RPC</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-源码流程"><span class="nav-number">1.6.</span> <span class="nav-text">3.源码流程</span></a></li></ol></li></ol></div>
             
 
           </div>

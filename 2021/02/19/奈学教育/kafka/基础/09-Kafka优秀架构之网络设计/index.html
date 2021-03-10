@@ -88,19 +88,17 @@
 
 
 
-<meta name="description" content="图解Kafka集群架构Producer：生产者，往Kafka集群生成数据    比如我们自己写的一段代码，这段代码就是要往Kafka里面写数据。Consumer：消费者，往Kafka里面去获取数据，处理数据，消费数据。    P -》 topic-A kafka  topic-A &lt;–  消费者()    Kafka里面的数据是推送给消费者的，还是消费者自己去拉取的？    是我们消费者自己">
+<meta name="description" content="Kafka优秀架构之网络设计1.前置知识1234567难度有些大，需要大家要有一个java 的NIO方面网络的知识。一定要下去先找一些博客学习一下。然后再回过头来学这个课程。一定要听这个课的理由：1）网络设计部分是kafka里面设计得最好的一个部分。   这也就是为什么kafka能保证高并发，高性能的原因。2）后面我们搭建Kafka的集群的时候，需要对kafka集群进行调优   首先就得对kafk">
 <meta property="og:type" content="article">
-<meta property="og:title" content="04图解kafka集群架构">
-<meta property="og:url" content="http://yoursite.com/2021/02/18/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/04-%E5%9B%BE%E8%A7%A3kafka%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:title" content="09-Kafka优秀架构之网络设计">
+<meta property="og:url" content="http://yoursite.com/2021/02/19/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E5%9F%BA%E7%A1%80/09-Kafka%E4%BC%98%E7%A7%80%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BD%91%E7%BB%9C%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="柒7七">
-<meta property="og:description" content="图解Kafka集群架构Producer：生产者，往Kafka集群生成数据    比如我们自己写的一段代码，这段代码就是要往Kafka里面写数据。Consumer：消费者，往Kafka里面去获取数据，处理数据，消费数据。    P -》 topic-A kafka  topic-A &lt;–  消费者()    Kafka里面的数据是推送给消费者的，还是消费者自己去拉取的？    是我们消费者自己">
-<meta property="og:image" content="https://i.loli.net/2021/02/18/WSda2nhx4JUKlbf.png">
-<meta property="article:published_time" content="2021-02-18T07:38:07.000Z">
-<meta property="article:modified_time" content="2021-02-18T08:23:47.441Z">
+<meta property="og:description" content="Kafka优秀架构之网络设计1.前置知识1234567难度有些大，需要大家要有一个java 的NIO方面网络的知识。一定要下去先找一些博客学习一下。然后再回过头来学这个课程。一定要听这个课的理由：1）网络设计部分是kafka里面设计得最好的一个部分。   这也就是为什么kafka能保证高并发，高性能的原因。2）后面我们搭建Kafka的集群的时候，需要对kafka集群进行调优   首先就得对kafk">
+<meta property="article:published_time" content="2021-02-19T01:32:36.000Z">
+<meta property="article:modified_time" content="2021-03-02T08:38:48.747Z">
 <meta property="article:author" content="柒7七">
 <meta property="article:tag" content="Kafka">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/02/18/WSda2nhx4JUKlbf.png">
 
 
 
@@ -130,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/02/18/奈学教育/kafka/04-图解kafka集群架构/"/>
+  <link rel="canonical" href="http://yoursite.com/2021/02/19/奈学教育/kafka/基础/09-Kafka优秀架构之网络设计/"/>
 
 
 
 
 
-  <title>04图解kafka集群架构 | 柒7七</title>
+  <title>09-Kafka优秀架构之网络设计 | 柒7七</title>
   
 
 
@@ -298,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/18/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/04-%E5%9B%BE%E8%A7%A3kafka%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/19/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E5%9F%BA%E7%A1%80/09-Kafka%E4%BC%98%E7%A7%80%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BD%91%E7%BB%9C%E8%AE%BE%E8%AE%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="柒7七">
@@ -315,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">04图解kafka集群架构</h1>
+          <h1 class="post-title" itemprop="name headline">09-Kafka优秀架构之网络设计</h1>
         
 
         <div class="post-meta">
@@ -327,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-18T15:38:07+08:00">
-                2021-02-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T09:32:36+08:00">
+                2021-02-19
               </time>
             
 
@@ -390,8 +388,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/02/18/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/04-%E5%9B%BE%E8%A7%A3kafka%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/18/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/04-%E5%9B%BE%E8%A7%A3kafka%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/" itemprop="commentCount"></span>
+                <a href="/2021/02/19/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E5%9F%BA%E7%A1%80/09-Kafka%E4%BC%98%E7%A7%80%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BD%91%E7%BB%9C%E8%AE%BE%E8%AE%A1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E5%9F%BA%E7%A1%80/09-Kafka%E4%BC%98%E7%A7%80%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BD%91%E7%BB%9C%E8%AE%BE%E8%AE%A1/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -418,7 +416,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  308
+                  202
                 </span>
               
 
@@ -455,11 +453,10 @@
       
 
       
-        <h1 id="图解Kafka集群架构"><a href="#图解Kafka集群架构" class="headerlink" title="图解Kafka集群架构"></a>图解Kafka集群架构</h1><p>Producer：生产者，往Kafka集群生成数据<br>    比如我们自己写的一段代码，这段代码就是要往Kafka里面写数据。<br>Consumer：消费者，往Kafka里面去获取数据，处理数据，消费数据。<br>    P -》 topic-A kafka  topic-A &lt;–  消费者()<br>    Kafka里面的数据是推送给消费者的，还是消费者自己去拉取的？<br>    是我们消费者自己去拉取，可以按需拉取。我自己应用程序能处理多少数据，我就获取多少数据。</p>
-<p>topic:主题</p>
-<p>partition：分区<br>    如果没有设置的话，默认一个主题就是一个分区，一般我们创建主题的时候就可以指定分区的个数。</p>
-<p>consumer group:<br>    我们消费数据的时候，都必须要指定一个group id，指定一个组的ID。<br>    那么假设我的程序A和程序B指定的group id号，一样，那么我们两个程序，其实就是属于同一个<br>    consumer group，同一个消费者组的消费者不能重复消费相同的数据，如果topicA被同一个消费者组的A消费了，则B就不能再消费了。消费者组之间互不影响</p>
-<p><img src="https://i.loli.net/2021/02/18/WSda2nhx4JUKlbf.png" alt="image-20210218162214202"></p>
+        <h1 id="Kafka优秀架构之网络设计"><a href="#Kafka优秀架构之网络设计" class="headerlink" title="Kafka优秀架构之网络设计"></a>Kafka优秀架构之网络设计</h1><h2 id="1-前置知识"><a href="#1-前置知识" class="headerlink" title="1.前置知识"></a>1.前置知识</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">难度有些大，需要大家要有一个java 的NIO方面网络的知识。一定要下去先找一些博客学习一下。</span><br><span class="line">然后再回过头来学这个课程。</span><br><span class="line">一定要听这个课的理由：</span><br><span class="line">1）网络设计部分是kafka里面设计得最好的一个部分。</span><br><span class="line">   这也就是为什么kafka能保证高并发，高性能的原因。</span><br><span class="line">2）后面我们搭建Kafka的集群的时候，需要对kafka集群进行调优</span><br><span class="line">   首先就得对kafka的原理要比较了解，特别是网络部分。</span><br></pre></td></tr></table></figure>
+
+<p>接下来，也不直接透露Kafka的网络是如何设计的？先自己一步步设计再到Kafka的设计</p>
+<p>2.</p>
 
       
     </div>
@@ -514,8 +511,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/02/18/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/03-%E5%9B%BE%E8%A7%A3kafka%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" rel="next" title="03图解kafka核心概念">
-                <i class="fa fa-chevron-left"></i> 03图解kafka核心概念
+              <a href="/2021/02/18/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E5%9F%BA%E7%A1%80/08-Kafka%E4%BC%98%E7%A7%80%E6%9E%B6%E6%9E%84%E4%B9%8B%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E5%AE%9A%E4%BD%8D%E6%95%B0%E6%8D%AE/" rel="next" title="08-Kafka优秀架构之二分查找定位数据">
+                <i class="fa fa-chevron-left"></i> 08-Kafka优秀架构之二分查找定位数据
               </a>
             
           </div>
@@ -524,8 +521,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/02/18/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/05-Kafka%E4%BC%98%E7%A7%80%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%A3%81%E7%9B%98%E9%A1%BA%E5%BA%8F%E5%86%99%E4%BF%9D%E8%AF%81%E5%86%99%E6%95%B0%E6%8D%AE%E6%80%A7%E8%83%BD/" rel="prev" title="05-Kafka优秀架构之磁盘顺序写保证写数据性能">
-                05-Kafka优秀架构之磁盘顺序写保证写数据性能 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/02/19/netty/6.NIO%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" rel="prev" title="6.NIO非阻塞网络编程快速入门">
+                6.NIO非阻塞网络编程快速入门 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -636,7 +633,7 @@ var jiathis_config={
               
                 <a href="/archives%7C%7Carchive">
               
-                  <span class="site-state-item-count">109</span>
+                  <span class="site-state-item-count">112</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -647,7 +644,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -658,7 +655,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -721,7 +718,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#图解Kafka集群架构"><span class="nav-number">1.</span> <span class="nav-text">图解Kafka集群架构</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka优秀架构之网络设计"><span class="nav-number">1.</span> <span class="nav-text">Kafka优秀架构之网络设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前置知识"><span class="nav-number">1.1.</span> <span class="nav-text">1.前置知识</span></a></li></ol></li></ol></div>
             
 
           </div>

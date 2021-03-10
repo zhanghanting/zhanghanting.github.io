@@ -88,17 +88,30 @@
 
 
 
-<meta name="description" content="Kafka优秀架构之网络设计1.前置知识1234567难度有些大，需要大家要有一个java 的NIO方面网络的知识。一定要下去先找一些博客学习一下。然后再回过头来学这个课程。一定要听这个课的理由：1）网络设计部分是kafka里面设计得最好的一个部分。   这也就是为什么kafka能保证高并发，高性能的原因。2）后面我们搭建Kafka的集群的时候，需要对kafka集群进行调优   首先就得对kafk">
+<meta name="description" content="图解kafka源码（1）1.课程内容1）kafka的特性必知必会 2）揭秘kafka Producer高性能架构设计方案 3）深度剖析kafka服务端高并发，高性能，高可用的架构设计 4）深度剖析kafka提升Consumer的稳定性设计 1.1 kafka的broker节点有controller和follower之分，那controller的作用是什么呢？第一个在zookeeper上注册的节点为">
 <meta property="og:type" content="article">
-<meta property="og:title" content="09-Kafka优秀架构之网络设计">
-<meta property="og:url" content="http://yoursite.com/2021/02/19/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/09-Kafka%E4%BC%98%E7%A7%80%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BD%91%E7%BB%9C%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:title" content="01-图解kafka源码（1）">
+<meta property="og:url" content="http://yoursite.com/2021/03/09/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E6%BA%90%E7%A0%81/01-kafka%E6%BA%90%E7%A0%81(1)/index.html">
 <meta property="og:site_name" content="柒7七">
-<meta property="og:description" content="Kafka优秀架构之网络设计1.前置知识1234567难度有些大，需要大家要有一个java 的NIO方面网络的知识。一定要下去先找一些博客学习一下。然后再回过头来学这个课程。一定要听这个课的理由：1）网络设计部分是kafka里面设计得最好的一个部分。   这也就是为什么kafka能保证高并发，高性能的原因。2）后面我们搭建Kafka的集群的时候，需要对kafka集群进行调优   首先就得对kafk">
-<meta property="article:published_time" content="2021-02-19T01:32:36.000Z">
-<meta property="article:modified_time" content="2021-02-19T01:43:37.781Z">
+<meta property="og:description" content="图解kafka源码（1）1.课程内容1）kafka的特性必知必会 2）揭秘kafka Producer高性能架构设计方案 3）深度剖析kafka服务端高并发，高性能，高可用的架构设计 4）深度剖析kafka提升Consumer的稳定性设计 1.1 kafka的broker节点有controller和follower之分，那controller的作用是什么呢？第一个在zookeeper上注册的节点为">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/n8cxAfgWH9C2Gdt.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/zbAYZmeoia47hBG.png">
+<meta property="og:image" content="c:%5CUsers%5CDELL%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210310090658633.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/EKBIbvfWoNm9zwr.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/M3F6ZoLJ9RNSaUv.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/69Od1Bg5PrzW3TH.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/69Od1Bg5PrzW3TH.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/geXGDs8dZOFJTSt.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/bKQEsvGPY72Rj4T.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/T6wmoCOBb9Qiv1n.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/jrSdQU6XbcP4Mzl.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/jrSdQU6XbcP4Mzl.png">
+<meta property="article:published_time" content="2021-03-09T01:32:36.000Z">
+<meta property="article:modified_time" content="2021-03-10T01:26:35.550Z">
 <meta property="article:author" content="柒7七">
 <meta property="article:tag" content="Kafka">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/03/10/n8cxAfgWH9C2Gdt.png">
 
 
 
@@ -128,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/02/19/奈学教育/kafka/09-Kafka优秀架构之网络设计/"/>
+  <link rel="canonical" href="http://yoursite.com/2021/03/09/奈学教育/kafka/源码/01-kafka源码(1)/"/>
 
 
 
 
 
-  <title>09-Kafka优秀架构之网络设计 | 柒7七</title>
+  <title>01-图解kafka源码（1） | 柒7七</title>
   
 
 
@@ -296,7 +309,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/19/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/09-Kafka%E4%BC%98%E7%A7%80%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BD%91%E7%BB%9C%E8%AE%BE%E8%AE%A1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/09/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E6%BA%90%E7%A0%81/01-kafka%E6%BA%90%E7%A0%81(1)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="柒7七">
@@ -313,7 +326,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">09-Kafka优秀架构之网络设计</h1>
+          <h1 class="post-title" itemprop="name headline">01-图解kafka源码（1）</h1>
         
 
         <div class="post-meta">
@@ -325,8 +338,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T09:32:36+08:00">
-                2021-02-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-09T09:32:36+08:00">
+                2021-03-09
               </time>
             
 
@@ -377,6 +390,17 @@
 
                 
                 
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/%E5%A4%A7%E6%95%B0%E6%8D%AE/Kafka/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
+                    <span itemprop="name">源码</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -388,8 +412,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/02/19/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/09-Kafka%E4%BC%98%E7%A7%80%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BD%91%E7%BB%9C%E8%AE%BE%E8%AE%A1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/09-Kafka%E4%BC%98%E7%A7%80%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BD%91%E7%BB%9C%E8%AE%BE%E8%AE%A1/" itemprop="commentCount"></span>
+                <a href="/2021/03/09/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E6%BA%90%E7%A0%81/01-kafka%E6%BA%90%E7%A0%81(1)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/09/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E6%BA%90%E7%A0%81/01-kafka%E6%BA%90%E7%A0%81(1)/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -416,7 +440,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  201
+                  907
                 </span>
               
 
@@ -432,7 +456,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  3
                 </span>
               
             </div>
@@ -453,9 +477,39 @@
       
 
       
-        <h1 id="Kafka优秀架构之网络设计"><a href="#Kafka优秀架构之网络设计" class="headerlink" title="Kafka优秀架构之网络设计"></a>Kafka优秀架构之网络设计</h1><h2 id="1-前置知识"><a href="#1-前置知识" class="headerlink" title="1.前置知识"></a>1.前置知识</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">难度有些大，需要大家要有一个java 的NIO方面网络的知识。一定要下去先找一些博客学习一下。</span><br><span class="line">然后再回过头来学这个课程。</span><br><span class="line">一定要听这个课的理由：</span><br><span class="line">1）网络设计部分是kafka里面设计得最好的一个部分。</span><br><span class="line">   这也就是为什么kafka能保证高并发，高性能的原因。</span><br><span class="line">2）后面我们搭建Kafka的集群的时候，需要对kafka集群进行调优</span><br><span class="line">   首先就得对kafka的原理要比较了解，特别是网络部分。</span><br></pre></td></tr></table></figure>
-
-<p>接下来，也不直接透露Kafka的网络是如何设计的？先自己一步步设计再到Kafka的设计</p>
+        <h1 id="图解kafka源码（1）"><a href="#图解kafka源码（1）" class="headerlink" title="图解kafka源码（1）"></a>图解kafka源码（1）</h1><h1 id="1-课程内容"><a href="#1-课程内容" class="headerlink" title="1.课程内容"></a>1.课程内容</h1><p>1）kafka的特性必知必会</p>
+<p>2）揭秘kafka Producer高性能架构设计方案</p>
+<p>3）深度剖析kafka服务端高并发，高性能，高可用的架构设计</p>
+<p>4）深度剖析kafka提升Consumer的稳定性设计</p>
+<h2 id="1-1-kafka的broker节点有controller和follower之分，那controller的作用是什么呢？"><a href="#1-1-kafka的broker节点有controller和follower之分，那controller的作用是什么呢？" class="headerlink" title="1.1 kafka的broker节点有controller和follower之分，那controller的作用是什么呢？"></a>1.1 kafka的broker节点有controller和follower之分，那controller的作用是什么呢？</h2><p>第一个在zookeeper上注册的节点为controller，在zookeeper的目录中会保留kafka的元数据信息（比如topic的元数据信息，副本的元数据信息），controller节点会去去监听这些目录的变化，并将元数据信息同步到本地的内存，而且会把这些元数据信息同步给follower，保证所有的节点都有完成的元数据信息，所以在连接kafka集群的时候，只需要指定一个节点就可以了。</p>
+<h2 id="1-2-partition副本leader和follower之分"><a href="#1-2-partition副本leader和follower之分" class="headerlink" title="1.2 partition副本leader和follower之分"></a>1.2 partition副本leader和follower之分</h2><p>只有leader副本才对外提供读写服务</p>
+<h1 id="2-kafka高性能架构设计"><a href="#2-kafka高性能架构设计" class="headerlink" title="2.kafka高性能架构设计"></a>2.kafka高性能架构设计</h1><h2 id="2-1-kafka的服务端设计"><a href="#2-1-kafka的服务端设计" class="headerlink" title="2.1 kafka的服务端设计"></a>2.1 kafka的服务端设计</h2><h3 id="2-1-1-服务端是如何处理请求的做到高性能高并发的"><a href="#2-1-1-服务端是如何处理请求的做到高性能高并发的" class="headerlink" title="2.1.1 服务端是如何处理请求的做到高性能高并发的"></a>2.1.1 服务端是如何处理请求的做到高性能高并发的</h3><p><img src="https://i.loli.net/2021/03/10/n8cxAfgWH9C2Gdt.png" alt="image-20210310090343351"></p>
+<h3 id="2-1-2-顺序读写-高性能"><a href="#2-1-2-顺序读写-高性能" class="headerlink" title="2.1.2 顺序读写-高性能"></a>2.1.2 顺序读写-高性能</h3><p><img src="https://i.loli.net/2021/03/10/zbAYZmeoia47hBG.png" alt="image-20210310090600073"></p>
+<h3 id="2-1-3-跳表设计"><a href="#2-1-3-跳表设计" class="headerlink" title="2.1.3 跳表设计"></a>2.1.3 跳表设计</h3><p>通过跳表的设计，可以快速的检索到读取的offset对应在哪个log文件中</p>
+<p><img src="C:%5CUsers%5CDELL%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210310090658633.png" alt="image-20210310090658633"></p>
+<p><img src="https://i.loli.net/2021/03/10/EKBIbvfWoNm9zwr.png" alt="image-20210310090754705"></p>
+<h3 id="2-1-4-稀疏索引"><a href="#2-1-4-稀疏索引" class="headerlink" title="2.1.4 稀疏索引"></a>2.1.4 稀疏索引</h3><p><img src="https://i.loli.net/2021/03/10/M3F6ZoLJ9RNSaUv.png" alt="image-20210310090852128"></p>
+<h3 id="2-1-5-零拷贝"><a href="#2-1-5-零拷贝" class="headerlink" title="2.1.5 零拷贝"></a>2.1.5 零拷贝</h3><p><img src="https://i.loli.net/2021/03/10/69Od1Bg5PrzW3TH.png" alt="image-20210310091013293"></p>
+<p><img src="https://i.loli.net/2021/03/10/69Od1Bg5PrzW3TH.png" alt="image-20210310091033288"></p>
+<h3 id="2-1-6-服务端设计总结"><a href="#2-1-6-服务端设计总结" class="headerlink" title="2.1.6 服务端设计总结"></a>2.1.6 服务端设计总结</h3><p>1）高并发，高性能的设计</p>
+<p>2）顺序读写</p>
+<p>3）眺表设计  稀疏索引  零拷贝</p>
+<h2 id="2-2-Producer端设计"><a href="#2-2-Producer端设计" class="headerlink" title="2.2 Producer端设计"></a>2.2 Producer端设计</h2><h3 id="2-2-1-producer端设计-批处理"><a href="#2-2-1-producer端设计-批处理" class="headerlink" title="2.2.1 producer端设计-批处理"></a>2.2.1 producer端设计-批处理</h3><p><img src="https://i.loli.net/2021/03/10/geXGDs8dZOFJTSt.png" alt="image-20210310091356757"></p>
+<p>生产者生产的数据不是生产一条就建立一个连接就发送给kafka服务端的，而是按批次，达到一定的数据量才发送，所以超过一定的时间没到达指定的数据量也会发送，这样可以更高效地利用网络资源</p>
+<h3 id="2-2-2-producer设计-内存池设计"><a href="#2-2-2-producer设计-内存池设计" class="headerlink" title="2.2.2 producer设计-内存池设计"></a>2.2.2 producer设计-内存池设计</h3><p><img src="https://i.loli.net/2021/03/10/bKQEsvGPY72Rj4T.png" alt="image-20210310091617305"></p>
+<p>每一个批次的数据都需要向JVM申请内存，每当数据发送给服务端这个事完成了，那么当前这个任务申请的内存就需要被回收，这样会引发Full GC，造成STW，只有jvm的垃圾回收线程在工作，任务线程没法工作。所以kafka参考线程池的设计，设计了一个内存池，把申请的内存放到内存池中，不用了也不直接回收，而是放回内存池中，这样就可以避免full gc引发的问题</p>
+<h3 id="2-2-3-producer设计-封装同一服务器的请求"><a href="#2-2-3-producer设计-封装同一服务器的请求" class="headerlink" title="2.2.3 producer设计-封装同一服务器的请求"></a>2.2.3 producer设计-封装同一服务器的请求</h3><p>在producer将数据发送给topic的leader partition的实时，producer会把发送同一个服务器的请求进行封装，这样就可以较少建立的连接数提升性能</p>
+<h3 id="2-2-4-producer设计-总结"><a href="#2-2-4-producer设计-总结" class="headerlink" title="2.2.4 producer设计-总结"></a>2.2.4 producer设计-总结</h3><p>1）批处理</p>
+<p>2）内存池设计</p>
+<p>3）封装同一服务器的请求</p>
+<h2 id="2-3-Consumer端设计"><a href="#2-3-Consumer端设计" class="headerlink" title="2.3 Consumer端设计"></a>2.3 Consumer端设计</h2><h3 id="2-3-1-kafka的Consumer-Group设计"><a href="#2-3-1-kafka的Consumer-Group设计" class="headerlink" title="2.3.1 kafka的Consumer Group设计"></a>2.3.1 kafka的Consumer Group设计</h3><p>P2P模型：也称点对点模型，指同一条消息只能被一个消费者消费，也就是说一个消息如果被这个消费者 消费了，其余的消费者就都不能消费了，传统的消息系统用的就是这种方式。</p>
+<p> 发布订阅模型：允许消息被多个Consume r消费，但是一个Consumer需要订阅主题的所有分区</p>
+<p>kafka是消费者组内是p2p模型，消费者组和消费者组之间使用了发布订阅模型</p>
+<p><img src="https://i.loli.net/2021/03/10/T6wmoCOBb9Qiv1n.png" alt="image-20210310092429439"></p>
+<h3 id="2-3-2-consumer设计-偏移量存储"><a href="#2-3-2-consumer设计-偏移量存储" class="headerlink" title="2.3.2 consumer设计-偏移量存储"></a>2.3.2 consumer设计-偏移量存储</h3><p><img src="https://i.loli.net/2021/03/10/jrSdQU6XbcP4Mzl.png" alt="image-20210310092524053"></p>
+<p><img src="https://i.loli.net/2021/03/10/jrSdQU6XbcP4Mzl.png" alt="image-20210310092535899"></p>
+<h3 id="2-3-3-consumer总结"><a href="#2-3-3-consumer总结" class="headerlink" title="2.3.3 consumer总结"></a>2.3.3 consumer总结</h3><p>1）kafka consumer group的设计</p>
+<p>2）偏移量存储的改造</p>
 
       
     </div>
@@ -510,8 +564,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/02/18/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/08-Kafka%E4%BC%98%E7%A7%80%E6%9E%B6%E6%9E%84%E4%B9%8B%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E5%AE%9A%E4%BD%8D%E6%95%B0%E6%8D%AE/" rel="next" title="08-Kafka优秀架构之二分查找定位数据">
-                <i class="fa fa-chevron-left"></i> 08-Kafka优秀架构之二分查找定位数据
+              <a href="/2021/03/03/%E5%B0%9A%E7%A1%85%E8%B0%B7/flink/%E9%A1%B9%E7%9B%AE/1.flink%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93day01/" rel="next" title="1.flink实时数仓">
+                <i class="fa fa-chevron-left"></i> 1.flink实时数仓
               </a>
             
           </div>
@@ -519,10 +573,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/02/19/netty/6.NIO%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" rel="prev" title="6.NIO非阻塞网络编程快速入门">
-                6.NIO非阻塞网络编程快速入门 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -632,7 +682,7 @@ var jiathis_config={
               
                 <a href="/archives%7C%7Carchive">
               
-                  <span class="site-state-item-count">109</span>
+                  <span class="site-state-item-count">112</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -643,7 +693,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -654,7 +704,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -717,7 +767,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka优秀架构之网络设计"><span class="nav-number">1.</span> <span class="nav-text">Kafka优秀架构之网络设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前置知识"><span class="nav-number">1.1.</span> <span class="nav-text">1.前置知识</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#图解kafka源码（1）"><span class="nav-number">1.</span> <span class="nav-text">图解kafka源码（1）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-课程内容"><span class="nav-number">2.</span> <span class="nav-text">1.课程内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-kafka的broker节点有controller和follower之分，那controller的作用是什么呢？"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 kafka的broker节点有controller和follower之分，那controller的作用是什么呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-partition副本leader和follower之分"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 partition副本leader和follower之分</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-kafka高性能架构设计"><span class="nav-number">3.</span> <span class="nav-text">2.kafka高性能架构设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-kafka的服务端设计"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 kafka的服务端设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-服务端是如何处理请求的做到高性能高并发的"><span class="nav-number">3.1.1.</span> <span class="nav-text">2.1.1 服务端是如何处理请求的做到高性能高并发的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-顺序读写-高性能"><span class="nav-number">3.1.2.</span> <span class="nav-text">2.1.2 顺序读写-高性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-跳表设计"><span class="nav-number">3.1.3.</span> <span class="nav-text">2.1.3 跳表设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-稀疏索引"><span class="nav-number">3.1.4.</span> <span class="nav-text">2.1.4 稀疏索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-5-零拷贝"><span class="nav-number">3.1.5.</span> <span class="nav-text">2.1.5 零拷贝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-6-服务端设计总结"><span class="nav-number">3.1.6.</span> <span class="nav-text">2.1.6 服务端设计总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Producer端设计"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Producer端设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-producer端设计-批处理"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 producer端设计-批处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-producer设计-内存池设计"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 producer设计-内存池设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-producer设计-封装同一服务器的请求"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.2.3 producer设计-封装同一服务器的请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-4-producer设计-总结"><span class="nav-number">3.2.4.</span> <span class="nav-text">2.2.4 producer设计-总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-Consumer端设计"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 Consumer端设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-kafka的Consumer-Group设计"><span class="nav-number">3.3.1.</span> <span class="nav-text">2.3.1 kafka的Consumer Group设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-consumer设计-偏移量存储"><span class="nav-number">3.3.2.</span> <span class="nav-text">2.3.2 consumer设计-偏移量存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-consumer总结"><span class="nav-number">3.3.3.</span> <span class="nav-text">2.3.3 consumer总结</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
