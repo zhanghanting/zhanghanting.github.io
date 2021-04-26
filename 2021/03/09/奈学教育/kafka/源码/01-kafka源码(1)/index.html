@@ -98,16 +98,16 @@
 <meta property="og:image" content="https://i.loli.net/2021/03/10/zbAYZmeoia47hBG.png">
 <meta property="og:image" content="c:%5CUsers%5CDELL%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210310090658633.png">
 <meta property="og:image" content="https://i.loli.net/2021/03/10/EKBIbvfWoNm9zwr.png">
-<meta property="og:image" content="https://i.loli.net/2021/03/10/M3F6ZoLJ9RNSaUv.png">
-<meta property="og:image" content="https://i.loli.net/2021/03/10/69Od1Bg5PrzW3TH.png">
-<meta property="og:image" content="https://i.loli.net/2021/03/10/69Od1Bg5PrzW3TH.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/yGmYbr6ikdM8x9B.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/EQN7Or8eKH6mBw4.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/10/h31nXTxB5JPVfwR.png">
 <meta property="og:image" content="https://i.loli.net/2021/03/10/geXGDs8dZOFJTSt.png">
 <meta property="og:image" content="https://i.loli.net/2021/03/10/bKQEsvGPY72Rj4T.png">
 <meta property="og:image" content="https://i.loli.net/2021/03/10/T6wmoCOBb9Qiv1n.png">
 <meta property="og:image" content="https://i.loli.net/2021/03/10/jrSdQU6XbcP4Mzl.png">
 <meta property="og:image" content="https://i.loli.net/2021/03/10/jrSdQU6XbcP4Mzl.png">
 <meta property="article:published_time" content="2021-03-09T01:32:36.000Z">
-<meta property="article:modified_time" content="2021-03-10T01:26:35.550Z">
+<meta property="article:modified_time" content="2021-04-01T06:26:53.843Z">
 <meta property="article:author" content="柒7七">
 <meta property="article:tag" content="Kafka">
 <meta name="twitter:card" content="summary">
@@ -488,12 +488,12 @@
 <h3 id="2-1-3-跳表设计"><a href="#2-1-3-跳表设计" class="headerlink" title="2.1.3 跳表设计"></a>2.1.3 跳表设计</h3><p>通过跳表的设计，可以快速的检索到读取的offset对应在哪个log文件中</p>
 <p><img src="C:%5CUsers%5CDELL%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210310090658633.png" alt="image-20210310090658633"></p>
 <p><img src="https://i.loli.net/2021/03/10/EKBIbvfWoNm9zwr.png" alt="image-20210310090754705"></p>
-<h3 id="2-1-4-稀疏索引"><a href="#2-1-4-稀疏索引" class="headerlink" title="2.1.4 稀疏索引"></a>2.1.4 稀疏索引</h3><p><img src="https://i.loli.net/2021/03/10/M3F6ZoLJ9RNSaUv.png" alt="image-20210310090852128"></p>
-<h3 id="2-1-5-零拷贝"><a href="#2-1-5-零拷贝" class="headerlink" title="2.1.5 零拷贝"></a>2.1.5 零拷贝</h3><p><img src="https://i.loli.net/2021/03/10/69Od1Bg5PrzW3TH.png" alt="image-20210310091013293"></p>
-<p><img src="https://i.loli.net/2021/03/10/69Od1Bg5PrzW3TH.png" alt="image-20210310091033288"></p>
+<h3 id="2-1-4-稀疏索引"><a href="#2-1-4-稀疏索引" class="headerlink" title="2.1.4 稀疏索引"></a>2.1.4 稀疏索引</h3><p><img src="https://i.loli.net/2021/03/10/yGmYbr6ikdM8x9B.png" alt="image-20210310094808512"></p>
+<h3 id="2-1-5-零拷贝"><a href="#2-1-5-零拷贝" class="headerlink" title="2.1.5 零拷贝"></a>2.1.5 零拷贝</h3><p><img src="https://i.loli.net/2021/03/10/EQN7Or8eKH6mBw4.png" alt="image-20210310094830859"></p>
+<p><img src="https://i.loli.net/2021/03/10/h31nXTxB5JPVfwR.png" alt="image-20210310095004155"></p>
 <h3 id="2-1-6-服务端设计总结"><a href="#2-1-6-服务端设计总结" class="headerlink" title="2.1.6 服务端设计总结"></a>2.1.6 服务端设计总结</h3><p>1）高并发，高性能的设计</p>
 <p>2）顺序读写</p>
-<p>3）眺表设计  稀疏索引  零拷贝</p>
+<p>3）跳表设计  稀疏索引  零拷贝</p>
 <h2 id="2-2-Producer端设计"><a href="#2-2-Producer端设计" class="headerlink" title="2.2 Producer端设计"></a>2.2 Producer端设计</h2><h3 id="2-2-1-producer端设计-批处理"><a href="#2-2-1-producer端设计-批处理" class="headerlink" title="2.2.1 producer端设计-批处理"></a>2.2.1 producer端设计-批处理</h3><p><img src="https://i.loli.net/2021/03/10/geXGDs8dZOFJTSt.png" alt="image-20210310091356757"></p>
 <p>生产者生产的数据不是生产一条就建立一个连接就发送给kafka服务端的，而是按批次，达到一定的数据量才发送，所以超过一定的时间没到达指定的数据量也会发送，这样可以更高效地利用网络资源</p>
 <h3 id="2-2-2-producer设计-内存池设计"><a href="#2-2-2-producer设计-内存池设计" class="headerlink" title="2.2.2 producer设计-内存池设计"></a>2.2.2 producer设计-内存池设计</h3><p><img src="https://i.loli.net/2021/03/10/bKQEsvGPY72Rj4T.png" alt="image-20210310091617305"></p>
@@ -573,6 +573,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/11/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E6%BA%90%E7%A0%81/02-kafka%E6%BA%90%E7%A0%81(2)/" rel="prev" title="02-kafka源码(2)">
+                02-kafka源码(2) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -682,7 +686,7 @@ var jiathis_config={
               
                 <a href="/archives%7C%7Carchive">
               
-                  <span class="site-state-item-count">112</span>
+                  <span class="site-state-item-count">130</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -693,7 +697,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -704,7 +708,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

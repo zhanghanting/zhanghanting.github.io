@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+  <script src="true"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Flink," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、课程内容本次课程对上次常见的state进行案例实践，并且引出checkpoints机制原理，主要掌握以下内容： 1）掌握State Backend的类型 2）掌握Checkpoints算法原理 3）掌握Checkpoints配置使用 4）精确一次处理方案设计 二、知识要点2.1 StateBackend2.1.1 StateBackend分类1）memory state backend 默认使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.stateBackend和savePoint">
+<meta property="og:url" content="http://yoursite.com/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/3.stateBackend%E5%92%8CsavePoint/index.html">
+<meta property="og:site_name" content="柒7七">
+<meta property="og:description" content="一、课程内容本次课程对上次常见的state进行案例实践，并且引出checkpoints机制原理，主要掌握以下内容： 1）掌握State Backend的类型 2）掌握Checkpoints算法原理 3）掌握Checkpoints配置使用 4）精确一次处理方案设计 二、知识要点2.1 StateBackend2.1.1 StateBackend分类1）memory state backend 默认使">
+<meta property="og:image" content="https://i.loli.net/2021/03/30/siF4xkdtmKYWS36.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/30/uLl6EUDRiPSob5r.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/30/hz2YX9fl8u4ZkmG.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/30/7novZWaBzCNLMsF.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/30/5Z1EYscqaNBQIb6.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/30/Gt5VwnLNO2roEpI.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/30/SiFbJzKlWPtGduR.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/30/7fgdvzbEPj9I1Jp.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/30/oHzBUYOitDadKmu.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/30/ChFXpMexH6lOY2K.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/30/k3gjBApbNK6xo4I.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/30/mhMCFvAiK2PfS4k.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/31/zJfXtVOQpk9W1d5.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/31/7AWqSh2FrCJiDOV.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/31/Sr2ZUBAPKfmCyad.png">
+<meta property="article:published_time" content="2021-03-30T07:46:32.000Z">
+<meta property="article:modified_time" content="2021-04-12T06:40:41.432Z">
+<meta property="article:author" content="柒7七">
+<meta property="article:tag" content="Flink">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/03/30/siF4xkdtmKYWS36.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/30/奈学教育/Flink/3.stateBackend和savePoint/"/>
+
+
+
+
+
+  <title>3.stateBackend和savePoint | 柒7七</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zhanghanting" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">柒7七</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/3.stateBackend%E5%92%8CsavePoint/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="柒7七">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="柒7七">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">3.stateBackend和savePoint</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-30T15:46:32+08:00">
+                2021-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/" itemprop="url" rel="index">
+                    <span itemprop="name">奈学教育</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/" itemprop="url" rel="index">
+                    <span itemprop="name">Flink</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/3.stateBackend%E5%92%8CsavePoint/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/3.stateBackend%E5%92%8CsavePoint/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,843
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  16
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一、课程内容"><a href="#一、课程内容" class="headerlink" title="一、课程内容"></a>一、课程内容</h1><p>本次课程对上次常见的state进行案例实践，并且引出checkpoints机制原理，主要掌握以下内容：</p>
+<p>1）掌握State Backend的类型</p>
+<p>2）掌握Checkpoints算法原理</p>
+<p>3）掌握Checkpoints配置使用</p>
+<p>4）精确一次处理方案设计</p>
+<h1 id="二、知识要点"><a href="#二、知识要点" class="headerlink" title="二、知识要点"></a>二、知识要点</h1><h2 id="2-1-StateBackend"><a href="#2-1-StateBackend" class="headerlink" title="2.1 StateBackend"></a>2.1 StateBackend</h2><h3 id="2-1-1-StateBackend分类"><a href="#2-1-1-StateBackend分类" class="headerlink" title="2.1.1 StateBackend分类"></a>2.1.1 StateBackend分类</h3><p>1）memory state backend</p>
+<p>默认使用的就是memory state backend</p>
+<p><img src="https://i.loli.net/2021/03/30/siF4xkdtmKYWS36.png" alt="image-20210330160000175"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">缺点：只能保存很小的状态并且在内存中容易丢</span><br><span class="line"></span><br><span class="line">优点：开发测试方便</span><br><span class="line">用于测试</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>2）Fs stateBackend</p>
+<p><img src="https://i.loli.net/2021/03/30/uLl6EUDRiPSob5r.png" alt="image-20210330160341954"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">缺点：状态大小受taskManager内存限制（默认是5M）</span><br><span class="line"></span><br><span class="line">优点：状态访问速度快，而且状态信息不会丢失</span><br><span class="line"></span><br><span class="line">用于生产，也可用于存储状态数据量大的情况</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>3）RocksDBStateBackend</p>
+<p><img src="https://i.loli.net/2021/03/30/hz2YX9fl8u4ZkmG.png" alt="image-20210330161356796"></p>
+<p>状态信息存储在 RocksDB 数据库 (key-value 的数据存储服务)， 最终保存在本地文件中 checkpoint 的时候将状态保存到指定的文件中 (HDFS 等文件系统)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">缺点： 状态访问速度有所下降</span><br><span class="line"></span><br><span class="line">优点： 可以存储超大量的状态信息 状态信息不会丢失 用于： 生产，可以存储超大量的状态信息</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-1-2-StateBackend的配置方式"><a href="#2-1-2-StateBackend的配置方式" class="headerlink" title="2.1.2 StateBackend的配置方式"></a>2.1.2 StateBackend的配置方式</h3><p>1）单任务配置（推荐）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//修改当前任务代码</span></span><br><span class="line">env.setStateBackend(<span class="keyword">new</span></span><br><span class="line">FsStateBackend(<span class="string">"hdfs://namenode:9000/flink/checkpoints"</span>));</span><br><span class="line"><span class="comment">//或者new MemoryStateBackend()</span></span><br><span class="line"><span class="comment">//或者new RocksDBStateBackend(filebackend, true);【需要添加第三方依赖】</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如果使用RocksDBStateBackend方式，需要在pom.xml文件中，添加如下依赖</span></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;org.apache.flink&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;flink-statebackend-rocksdb_2.11&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;$&#123;flink.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2）全局配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">//修改flink-conf.yaml</span></span><br><span class="line"><span class="attr">state.backend:</span> <span class="string">filesystem</span></span><br><span class="line"><span class="attr">state.checkpoints.dir:</span> <span class="string">hdfs://namenode:9000/flink/checkpoints</span></span><br><span class="line"><span class="string">注意：state.backend的值可以是下面几种：jobmanager(MemoryStateBackend),</span></span><br><span class="line"><span class="string">filesystem(FsStateBackend),</span> <span class="string">rocksdb(RocksDBStateBackend)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-2-checkpoint原理"><a href="#2-2-checkpoint原理" class="headerlink" title="2.2 checkpoint原理"></a>2.2 checkpoint原理</h2><h3 id="2-2-1-checkpoint概述（容错）"><a href="#2-2-1-checkpoint概述（容错）" class="headerlink" title="2.2.1 checkpoint概述（容错）"></a>2.2.1 checkpoint概述（容错）</h3><p>checkpoint可以保证flink集群在某个算子发生故障时，能够将整个应用流图的状态恢复到故障之前的状态，保证应用流图的状态一致性</p>
+<h3 id="2-2-2-checkpoint的简单想法"><a href="#2-2-2-checkpoint的简单想法" class="headerlink" title="2.2.2 checkpoint的简单想法"></a>2.2.2 checkpoint的简单想法</h3><p><img src="https://i.loli.net/2021/03/30/7novZWaBzCNLMsF.png" alt="image-20210330164058697"></p>
+<p>当任务运行失败的时候，执行恢复流程</p>
+<p><img src="https://i.loli.net/2021/03/30/5Z1EYscqaNBQIb6.png" alt="image-20210330164248421"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">上述对于个人的checkpoint的简单想法可以保证容错，但是效率太差，因为在做checkpoint的时候任务停止了，flink是用下面的方式做的</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-2-3-Chandy-Lamport算法"><a href="#2-2-3-Chandy-Lamport算法" class="headerlink" title="2.2.3 Chandy-Lamport算法"></a>2.2.3 Chandy-Lamport算法</h3><h4 id="1）任务开启"><a href="#1）任务开启" class="headerlink" title="1）任务开启"></a>1）任务开启</h4><p><img src="https://i.loli.net/2021/03/30/Gt5VwnLNO2roEpI.png" alt="image-20210330170549980"></p>
+<h4 id="2）JobManager发起Checkpoint"><a href="#2）JobManager发起Checkpoint" class="headerlink" title="2）JobManager发起Checkpoint"></a>2）JobManager发起Checkpoint</h4><p><img src="https://i.loli.net/2021/03/30/SiFbJzKlWPtGduR.png" alt="image-20210330170717457"></p>
+<h4 id="3）source上报checkpoint"><a href="#3）source上报checkpoint" class="headerlink" title="3）source上报checkpoint"></a>3）source上报checkpoint</h4><p>当barrier这个特殊的数据流入到source时，就需要将状态保存到状态后端，并在完成时需要向JobManager上报完成，然后将barrier继续往下游task发送</p>
+<p><img src="https://i.loli.net/2021/03/30/7fgdvzbEPj9I1Jp.png" alt="image-20210330171025321"></p>
+<h4 id="4）数据处理"><a href="#4）数据处理" class="headerlink" title="4）数据处理"></a>4）数据处理</h4><p>当下游task接收到上游task发送的barrier时，需要将barrier之后的数据进行缓存，即缓存后一次checkpoint时计算的数据</p>
+<p><img src="https://i.loli.net/2021/03/30/oHzBUYOitDadKmu.png" alt="image-20210330171954635"></p>
+<h4 id="5）barrier对齐"><a href="#5）barrier对齐" class="headerlink" title="5）barrier对齐"></a>5）barrier对齐</h4><p>当当前的task接收到上游所有task的barrier时，对当前的task状态进行checkpoint，并将barrier发给下一个task</p>
+<p><img src="https://i.loli.net/2021/03/30/ChFXpMexH6lOY2K.png" alt="image-20210330173137680"></p>
+<h4 id="6）对缓存数据进行处理"><a href="#6）对缓存数据进行处理" class="headerlink" title="6）对缓存数据进行处理"></a>6）对缓存数据进行处理</h4><p>在向下游task发送barrier之后，需要对之前缓冲的数据进行处理</p>
+<p><img src="https://i.loli.net/2021/03/30/k3gjBApbNK6xo4I.png" alt="image-20210330173404608"></p>
+<h4 id="7）sink上报checkpoint"><a href="#7）sink上报checkpoint" class="headerlink" title="7）sink上报checkpoint"></a>7）sink上报checkpoint</h4><p>最后sink会向JobManager上报checkpoint，此次checkpoint就结束了</p>
+<p><img src="https://i.loli.net/2021/03/30/mhMCFvAiK2PfS4k.png" alt="image-20210330173431087"></p>
+<h2 id="2-3-checkpoint配置"><a href="#2-3-checkpoint配置" class="headerlink" title="2.3 checkpoint配置"></a>2.3 checkpoint配置</h2><p>默认checkpoint功能是disabled的，想要使用的时候需要先启用，checkpoint开启之后， checkPointMode有两种，Exactly-once和At-least-once，默认的checkPointMode是Exactly-once， Exactly-once对于大多数应用来说是最合适的。At-least-once可能用在某些延迟超低的应用程序（始终 延迟为几毫秒）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">默认checkpoint功能是disabled的，想要使用的时候需要先启用</span><br><span class="line">StreamExecutionEnvironment env =</span><br><span class="line">StreamExecutionEnvironment.getExecutionEnvironment();</span><br><span class="line"><span class="comment">// 每隔1000 ms进行启动一个检查点【设置checkpoint的周期】</span></span><br><span class="line">env.enableCheckpointing(<span class="number">1000</span>);</span><br><span class="line"><span class="comment">// 高级选项：</span></span><br><span class="line"><span class="comment">// 设置模式为exactly-once （这是默认值）</span></span><br><span class="line">env.getCheckpointConfig().setCheckpointingMode(CheckpointingMode.EXACTLY_ONCE);</span><br><span class="line"><span class="comment">// 检查点必须在一分钟内完成，或者被丢弃【checkpoint的超时时间】</span></span><br><span class="line">env.getCheckpointConfig().setCheckpointTimeout(<span class="number">60000</span>);</span><br><span class="line"><span class="comment">// 同时允许多少个checkpoint</span></span><br><span class="line">env.getCheckpointConfig().setMaxConcurrentCheckpoints(<span class="number">2</span>);</span><br><span class="line"><span class="comment">// 确保检查点之间有至少500 ms的间隔【checkpoint最小间隔】</span></span><br><span class="line">env.getCheckpointConfig().setMinPauseBetweenCheckpoints(<span class="number">500</span>);</span><br><span class="line"><span class="comment">// 表示一旦Flink处理程序被cancel后，会保留Checkpoint数据，以便根据实际需要恢复到指定的</span></span><br><span class="line"><span class="comment">//Checkpoint【详细解释见备注】</span></span><br><span class="line">env.getCheckpointConfig().enableExternalizedCheckpoints(ExternalizedCheckpointCl</span><br><span class="line">eanup.RETAIN_ON_CANCELLATION);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-4-重启策略（配合checkpoint实现自动容错）"><a href="#2-4-重启策略（配合checkpoint实现自动容错）" class="headerlink" title="2.4 重启策略（配合checkpoint实现自动容错）"></a>2.4 重启策略（配合checkpoint实现自动容错）</h2><h3 id="2-4-1-重启策略概述"><a href="#2-4-1-重启策略概述" class="headerlink" title="2.4.1 重启策略概述"></a>2.4.1 重启策略概述</h3><p>Flink支持不同的重启策略，以在故障发生时控制作业如何重启，集群在启动时会伴随一个默认的重启策 略，在没有定义具体重启策略时会使用该默认策略。 如果在工作提交时指定了一个重启策略，该策略会 覆盖集群的默认策略，默认的重启策略可以通过 Flink 的配置文件 flink-conf.yaml 指定。配置参数 restart-strategy 定义了哪个策略被使用。</p>
+<p>常用的重启策略</p>
+<p>1）固定间隔（Fixed delay）一般就用这个</p>
+<p>2）失败率（Failure rate）</p>
+<p>3）无重启（No restart）</p>
+<p>如果没有启用 checkpointing，则使用无重启 (no restart) 策略。 如果启用了 checkpointing，但没有配置重启策略，则使用固定间隔 (fixed-delay) 策略， 尝试重启次数</p>
+<p>默认值是：Integer.MAX_VALUE，重启策略可以在flink-conf.yaml中配置，表示全局的配置。也可以在 应用代码中动态指定，会覆盖全局配置。</p>
+<h3 id="2-4-2-重启策略配置"><a href="#2-4-2-重启策略配置" class="headerlink" title="2.4.2 重启策略配置"></a>2.4.2 重启策略配置</h3><p>1）固定间隔</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">第一种：全局配置 flink-conf.yaml</span><br><span class="line">restart-strategy: fixed-delay</span><br><span class="line">restart-strategy.fixed-delay.attempts: <span class="number">3</span></span><br><span class="line">restart-strategy.fixed-delay.delay: <span class="number">10</span> s</span><br><span class="line">第二种：应用代码设置</span><br><span class="line">env.setRestartStrategy(RestartStrategies.fixedDelayRestart(</span><br><span class="line"><span class="number">3</span>, <span class="comment">// 尝试重启的次数</span></span><br><span class="line">Time.of(<span class="number">10</span>, TimeUnit.SECONDS) <span class="comment">// 间隔</span></span><br><span class="line">));</span><br></pre></td></tr></table></figure>
+
+<p>2）失败率</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">第一种：全局配置 flink-conf.yaml</span><br><span class="line">restart-strategy: failure-rate</span><br><span class="line">restart-strategy.failure-rate.max-failures-per-interval: <span class="number">3</span></span><br><span class="line">restart-strategy.failure-rate.failure-rate-interval: <span class="number">5</span> min</span><br><span class="line">restart-strategy.failure-rate.delay: <span class="number">10</span> s</span><br><span class="line">第二种：应用代码设置</span><br><span class="line">env.setRestartStrategy(RestartStrategies.failureRateRestart(</span><br><span class="line"><span class="number">3</span>, <span class="comment">// 一个时间段内的最大失败次数</span></span><br><span class="line">Time.of(<span class="number">5</span>, TimeUnit.MINUTES), <span class="comment">// 衡量失败次数的是时间段</span></span><br><span class="line">Time.of(<span class="number">10</span>, TimeUnit.SECONDS) <span class="comment">// 间隔</span></span><br><span class="line">));</span><br></pre></td></tr></table></figure>
+
+<p>3）无重启</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">第一种：全局配置 flink-conf.yaml</span><br><span class="line">restart-strategy: none</span><br><span class="line">第二种：应用代码设置</span><br><span class="line">env.setRestartStrategy(RestartStrategies.noRestart());</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-5-从checkpoint恢复数据"><a href="#2-5-从checkpoint恢复数据" class="headerlink" title="2.5 从checkpoint恢复数据"></a>2.5 从checkpoint恢复数据</h2><p>如果flink程序异常失败了，或者最近一段时间内处理错误，可以将程序从某一个checkpoint点进行恢复，下面手动演示自动容错的逻辑</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flink run -c lesson06.TestCheckpoint original-flink-state-1.0-SNAPSHOT.jar --</span><br><span class="line">hostname 192.168.123.102 --port 9999</span><br><span class="line"></span><br><span class="line">flink run -s</span><br><span class="line">hdfs://192.168.123.102:9000/flink/checkpoint/947a2aabced76d5f83b59deecd2b7b55/ch</span><br><span class="line">k-22/_metadata -c lesson06.TestCheckpoint original-flink-state-1.0-SNAPSHOT.jar</span><br><span class="line">--hostname 192.168.123.102 --port 9999</span><br></pre></td></tr></table></figure>
+
+<p>程序正常运行后，还会按照Checkpoint配置进行运行，继续生成Checkpoint数据。</p>
+<p>当然恢复数据的方式还可以在自己的代码里面指定checkpoint目录，这样下一次启动的时候即使代码发 生了改变就自动恢复数据了。</p>
+<h2 id="2-6-SavePoint"><a href="#2-6-SavePoint" class="headerlink" title="2.6 SavePoint"></a>2.6 SavePoint</h2><h3 id="2-6-1-savepoint概述"><a href="#2-6-1-savepoint概述" class="headerlink" title="2.6.1 savepoint概述"></a>2.6.1 savepoint概述</h3><p>savepoint是一个重量级的checkpoint，checkpoint的定时存储所有task的关键状态信息，而savepoint会存储包括数据在内的所有信息，这样程序在后续升级或者修改并行度的时候，还能从保存的状态位置继续启动恢复。可以保存数据源offset，operator操作状态等信息，可以从应用在过去任意做了savepoint的时刻开始继续消费。</p>
+<p>需要用户手动执行，不会过期，在集群升级/代码迁移等情况下使用。</p>
+<h3 id="2-6-2-注意事项"><a href="#2-6-2-注意事项" class="headerlink" title="2.6.2 注意事项"></a>2.6.2 注意事项</h3><p>为了能够在作业的不同版本之间和flink集群的不同版本之间顺利升级，强烈建议开发人员通过uid(String)方法手动的给算子赋予ID，这些ID将用于确定每一个算子的状态范围。如果不手动指定的话，则Flink默认会给每个算子指定ID，只要这些ID没有改变就能从savepoint将程序恢复回来。但是这些自动生成的ID依赖于程序的结构，并且对代码的更改是非常敏感的，因此，强烈建议手动设置算子的ID。</p>
+<h4 id="checkpoint和savepoint区别"><a href="#checkpoint和savepoint区别" class="headerlink" title="checkpoint和savepoint区别"></a>checkpoint和savepoint区别</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>checkpoint</th>
+<th>savepoint</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>触发方式</td>
+<td>自动触发</td>
+<td>用户手动触发</td>
+</tr>
+<tr>
+<td>主要功能</td>
+<td>task发生异常时自动恢复数据</td>
+<td>作业升级，代码修改，参数调整等</td>
+</tr>
+<tr>
+<td>特点</td>
+<td>轻量级，作业停止默认清除</td>
+<td>重量级，数据持久化，diamante修改，参数调整后恢复数据</td>
+</tr>
+</tbody></table>
+<h3 id="2-6-3-savepoint的使用"><a href="#2-6-3-savepoint的使用" class="headerlink" title="2.6.3  savepoint的使用"></a>2.6.3  savepoint的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 停止程序，触发savepoint，指定存放savepoint的目录</span><br><span class="line">停止程序：bin&#x2F;flink cancel -s [targetDirectory] jobId [-yid yarnAppId]【针对on yarn</span><br><span class="line">模式需要指定-yid参数】</span><br><span class="line">这样savepoint就存储在targetDirectory下了</span><br><span class="line"></span><br><span class="line">2.从指定的savepoint启动job</span><br><span class="line">bin&#x2F;flink run -s savepointPath [runArgs]</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="2-7-Flink容错机制"><a href="#2-7-Flink容错机制" class="headerlink" title="2.7 Flink容错机制"></a>2.7 Flink容错机制</h2><p>Flink的容错机制是整个程序的容错，分为source -》处理阶段 -》sink阶段</p>
+<h3 id="2-7-1-source"><a href="#2-7-1-source" class="headerlink" title="2.7.1 source"></a>2.7.1 source</h3><p><img src="https://i.loli.net/2021/03/31/zJfXtVOQpk9W1d5.png" alt="image-20210331105203778"></p>
+<p>大部分情况下使用的就是kafka</p>
+<h4 id="1）kafka-consumer的偏移量管理"><a href="#1）kafka-consumer的偏移量管理" class="headerlink" title="1）kafka consumer的偏移量管理"></a>1）kafka consumer的偏移量管理</h4><p>而在kafka的source端是通过checkpoint将消费offset以状态的方式保存下来从而实现精准一次消费，kafka的_consumer_offset主题中本身也会保存offset，flink状态中也会保存offset，那应该使用哪个呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">StreamExecutionEnvironment env =</span><br><span class="line">StreamExecutionEnvironment.getExecutionEnvironment();</span><br><span class="line">String topic=<span class="string">"test"</span>; <span class="comment">//3</span></span><br><span class="line">Properties consumerProperties = <span class="keyword">new</span> Properties();</span><br><span class="line">consumerProperties.setProperty(<span class="string">"bootstrap.servers"</span>,<span class="string">"192.168.123.102:9092"</span>);</span><br><span class="line">consumerProperties.setProperty(<span class="string">"group.id"</span>,<span class="string">"testSlot_consumer"</span>);</span><br><span class="line">FlinkKafkaConsumer&lt;String&gt; myConsumer = <span class="keyword">new</span> FlinkKafkaConsumer&lt;&gt;(topic,</span><br><span class="line"><span class="keyword">new</span> SimpleStringSchema(),</span><br><span class="line">consumerProperties);</span><br><span class="line">DataStreamSource&lt;String&gt; data =</span><br><span class="line">env.addSource(myConsumer).setParallelism(<span class="number">3</span>);<span class="comment">// 3 task</span></span><br><span class="line">myConsumer.setCommitOffsetsOnCheckpoints(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+
+<p>结论</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 我们使用FlinkKafkaConumser,并且启用Checkpoint，偏移量会通过checkpoint保存到state里</span><br><span class="line">面，并且默认会写入到kafka的特殊主体中，也就是__consumer_offset</span><br><span class="line">2. setCommitOffsetsOnCheckpoints 默认会true，就是把偏移量写入_consumer_offset主题中</span><br><span class="line">3. Flink自动重启的过程中，读取的偏移量是state中的偏移量</span><br><span class="line">4. 我们手动重启任务的过程中，也不指定checkpoints恢复数据，默认读取的是__consumer_offset中</span><br><span class="line">的偏移量，如果__consumer_offset里面没有，那么默认就会从earliest读取数据</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-7-2-flink自身容错"><a href="#2-7-2-flink自身容错" class="headerlink" title="2.7.2 flink自身容错"></a>2.7.2 flink自身容错</h3><p>flink自身是通过checkpoint进行容错的</p>
+<h3 id="2-7-3-sink"><a href="#2-7-3-sink" class="headerlink" title="2.7.3 sink"></a>2.7.3 sink</h3><p><img src="https://i.loli.net/2021/03/31/7AWqSh2FrCJiDOV.png" alt="image-20210331111654918"></p>
+<h4 id="1）幂等性写入"><a href="#1）幂等性写入" class="headerlink" title="1）幂等性写入"></a>1）幂等性写入</h4><p><img src="https://i.loli.net/2021/03/31/Sr2ZUBAPKfmCyad.png" alt="image-20210331114712642"></p>
+<p>结论</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过幂等性实现仅一次语义</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2）Flink两阶段提交"><a href="#2）Flink两阶段提交" class="headerlink" title="2）Flink两阶段提交"></a>2）Flink两阶段提交</h4><p>要想保证sink端的精准一次性，还可以通过保证在最后sink阶段将数据写入sink端系统的这个操作和sink端状态写入到状态后端的这个过程通过事务的方式要么都成功要么都失败。</p>
+<p>第一次预提交：第一次将数据预提交到kafka中，但此时的数据会设置为用户不可见</p>
+<p>第二次提交：但sink端做完checkpoint的时候进行第二次提交，并将数据设置为可见</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">在分布式系统中，可以使用两阶段提交来实现事务性从而保证数据的一致性，两阶段提交分为：预提交阶段与</span><br><span class="line">提交阶段，通常包含两个角色：协调者与执行者，协调者用于用于管理所有执行者的操作，执行者用于执行具</span><br><span class="line">体的提交操作，具体的操作流程：</span><br><span class="line">1. 首先协调者会送预提交(pre-commit)命令有的执行者</span><br><span class="line">2. 执行者执行预提交操作然后发送一条反馈(ack)消息给协调者</span><br><span class="line">3. 待协调者收到所有执行者的成功反馈，则发送一条提交信息(commit)给执行者</span><br><span class="line">4. 执行者执行提交操作</span><br><span class="line">如果在流程2中部分预提交失败，那么协调者就会收到一条失败的反馈，则会发送一条rollback消息给所有执</span><br><span class="line">行者，执行回滚操作，保证数据一致性；但是如果在流程4中，出现部分提交成功部分提交失败，那么就会造</span><br><span class="line">成数据的不一致，因此后面也提出了3PC或者通过其他补偿机制来保证数据最终一致性，接下看看flink 是如</span><br><span class="line">何做到2PC，保证数据的一致性。</span><br><span class="line">flink的流程大概与这个流程相似</span><br></pre></td></tr></table></figure>
+
+<p>flink 两阶段提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">flink中两阶段提交是为了保证端到端的Exactly Once，主要依托checkpoint机制来实现，先看一下</span><br><span class="line">checkpoint的整体流程，</span><br><span class="line">1.JobManager会周期性的发送执行checkpoint命令(start checkpoint)；</span><br><span class="line">2.当source端收到执行指令后会产生一条barrier消息插入到input消息队列中，当处理到barrier时</span><br><span class="line">会执行本地checkpoint, 并且会将barrier发送到下一个节点，当checkpoint完成之后会发送一条ack信</span><br><span class="line">息给JobManager;</span><br><span class="line">3. 当所有节点都完成checkpoint之后，JobManager会收到来自所有节点的ack信息，那么就表示一次</span><br><span class="line">完整的checkpoint的完成；</span><br><span class="line">4. JobManager会给所有节点发送一条callback信息，表示通知checkpoint完成消息。接下来就可以</span><br><span class="line">提交事务了</span><br><span class="line">对比flink整个checkpoint机制调用流程可以发现与2PC非常相似，JobManager相当于协调者，flink提</span><br><span class="line">供了CheckpointedFunction与CheckpointListener这样两个接口，CheckpointedFunction中有</span><br><span class="line">snapshotState方法，每次checkpoint触发执行方法，通常会将缓存数据放入状态中，可以理解为是一个</span><br><span class="line">hook，这个方法里面可以实现预提交，CheckpointListener中有notifyCheckpointComplete方法，</span><br><span class="line">checkpoint完成之后的通知方法，这里可以做一些额外的操作，比如真正提交kafka的事务；在2PC中提到</span><br><span class="line">如果对应流程2预提交失败，那么本次checkpoint就被取消不会执行，不会影响数据一致性.如果流程4失</span><br><span class="line">败，那么重启的时候会再次执行commit</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="三、扩展"><a href="#三、扩展" class="headerlink" title="三、扩展"></a>三、扩展</h1><p>1.如果提交流程报如下错</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Caused by: org.apache.flink.core.fs.UnsupportedFileSystemSchemeException: Could</span><br><span class="line">not find a file system implementation <span class="keyword">for</span> scheme <span class="string">'hdfs'</span>. The scheme is not</span><br><span class="line">directly supported by Flink and no Hadoop file system to support <span class="keyword">this</span> scheme</span><br><span class="line">could be loaded.</span><br><span class="line">at</span><br><span class="line">org.apache.flink.core.fs.FileSystem.getUnguardedFileSystem(FileSystem.java:<span class="number">450</span>)</span><br><span class="line">at org.apache.flink.core.fs.FileSystem.get(FileSystem.java:<span class="number">362</span>)</span><br><span class="line">at org.apache.flink.core.fs.Path.getFileSystem(Path.java:<span class="number">298</span>)</span><br><span class="line">at org.apache.flink.runtime.state.filesystem.FsCheckpointStorage.&lt;init&gt;</span><br><span class="line">(FsCheckpointStorage.java:<span class="number">64</span>)</span><br><span class="line">at</span><br><span class="line">org.apache.flink.runtime.state.filesystem.FsStateBackend.createCheckpointStorage</span><br><span class="line">(FsStateBackend.java:<span class="number">490</span>)</span><br><span class="line"></span><br><span class="line">at org.apache.flink.runtime.checkpoint.CheckpointCoordinator.&lt;init&gt;</span><br><span class="line">(CheckpointCoordinator.java:<span class="number">279</span>)</span><br><span class="line">... <span class="number">23</span> more</span><br><span class="line">Caused by: org.apache.flink.core.fs.UnsupportedFileSystemSchemeException: Hadoop</span><br><span class="line">is not in the classpath/dependencies.</span><br><span class="line">at</span><br><span class="line">org.apache.flink.core.fs.UnsupportedSchemeFactory.create(UnsupportedSchemeFactor</span><br><span class="line">y.java:<span class="number">58</span>)</span><br><span class="line">at</span><br><span class="line">org.apache.flink.core.fs.FileSystem.getUnguardedFileSystem(FileSystem.java:<span class="number">446</span>)</span><br><span class="line">... <span class="number">28</span> more</span><br><span class="line">End of exception on server side&gt;]</span><br><span class="line">at</span><br><span class="line">org.apache.flink.runtime.rest.RestClient.parseResponse(RestClient.java:<span class="number">390</span>)</span><br><span class="line">at</span><br><span class="line">org.apache.flink.runtime.rest.RestClient.lambda$submitRequest$<span class="number">3</span>(RestClient.java:</span><br><span class="line"><span class="number">374</span>)</span><br><span class="line">at</span><br><span class="line">java.util.concurrent.CompletableFuture.uniCompose(CompletableFuture.java:<span class="number">952</span>)</span><br><span class="line">at</span><br><span class="line">java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java</span><br><span class="line">:<span class="number">926</span>)</span><br></pre></td></tr></table></figure>
+
+<p>那么下载如下的包 下载地址：<a href="https://repo.maven.apache.org/maven2/org/apache/flink/flink-shaded-hadoop-2-ube" target="_blank" rel="noopener">https://repo.maven.apache.org/maven2/org/apache/flink/flink-shaded-hadoop-2-ube</a> r/ 要按照HADOOP版本下载，然后把jar加入flink的lib目录下，重启集群。</p>
+<p>要按照HADOOP版本下载，然后把jar加入flink的lib目录下，重启集群。</p>
+<h1 id="四、面试题"><a href="#四、面试题" class="headerlink" title="四、面试题"></a>四、面试题</h1><ol>
+<li>说说有哪三个StateBackend，都有什么特点</li>
+<li>说说Checkpoint和SavePoint的应用场景</li>
+<li>Flink相比SparkStreaming有什么区别</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://i.loli.net/2021/01/22/2p8ZleOfkJqT75w.png" alt="柒7七 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Flink/" rel="tag"># Flink</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/6.CEP&Flink%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B&ZStream/" rel="next" title="6.CEP&Flink内存模型&Stream">
+                <i class="fa fa-chevron-left"></i> 6.CEP&Flink内存模型&Stream
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/01/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E5%9F%BA%E7%A1%80/24-Kafka%E7%94%9F%E4%BA%A7%E8%80%85%E4%B9%8B%E6%B6%88%E8%B4%B9%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E5%8E%9F%E7%90%86/" rel="prev" title="24-Kafka生产者之消费者发送消息原理">
+                24-Kafka生产者之消费者发送消息原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg"
+                alt="柒7七" />
+            
+              <p class="site-author-name" itemprop="name">柒7七</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7Carchive">
+              
+                  <span class="site-state-item-count">130</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhanghanting" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://baidu.com/" title="百度" target="_blank">百度</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、课程内容"><span class="nav-number">1.</span> <span class="nav-text">一、课程内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、知识要点"><span class="nav-number">2.</span> <span class="nav-text">二、知识要点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-StateBackend"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 StateBackend</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-StateBackend分类"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 StateBackend分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-StateBackend的配置方式"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 StateBackend的配置方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-checkpoint原理"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 checkpoint原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-checkpoint概述（容错）"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1 checkpoint概述（容错）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-checkpoint的简单想法"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2 checkpoint的简单想法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-Chandy-Lamport算法"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.2.3 Chandy-Lamport算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）任务开启"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">1）任务开启</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）JobManager发起Checkpoint"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">2）JobManager发起Checkpoint</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3）source上报checkpoint"><span class="nav-number">2.2.3.3.</span> <span class="nav-text">3）source上报checkpoint</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4）数据处理"><span class="nav-number">2.2.3.4.</span> <span class="nav-text">4）数据处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5）barrier对齐"><span class="nav-number">2.2.3.5.</span> <span class="nav-text">5）barrier对齐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6）对缓存数据进行处理"><span class="nav-number">2.2.3.6.</span> <span class="nav-text">6）对缓存数据进行处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7）sink上报checkpoint"><span class="nav-number">2.2.3.7.</span> <span class="nav-text">7）sink上报checkpoint</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-checkpoint配置"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 checkpoint配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-重启策略（配合checkpoint实现自动容错）"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 重启策略（配合checkpoint实现自动容错）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-1-重启策略概述"><span class="nav-number">2.4.1.</span> <span class="nav-text">2.4.1 重启策略概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-2-重启策略配置"><span class="nav-number">2.4.2.</span> <span class="nav-text">2.4.2 重启策略配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-从checkpoint恢复数据"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 从checkpoint恢复数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-SavePoint"><span class="nav-number">2.6.</span> <span class="nav-text">2.6 SavePoint</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-1-savepoint概述"><span class="nav-number">2.6.1.</span> <span class="nav-text">2.6.1 savepoint概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-2-注意事项"><span class="nav-number">2.6.2.</span> <span class="nav-text">2.6.2 注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#checkpoint和savepoint区别"><span class="nav-number">2.6.2.1.</span> <span class="nav-text">checkpoint和savepoint区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-3-savepoint的使用"><span class="nav-number">2.6.3.</span> <span class="nav-text">2.6.3  savepoint的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-Flink容错机制"><span class="nav-number">2.7.</span> <span class="nav-text">2.7 Flink容错机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-1-source"><span class="nav-number">2.7.1.</span> <span class="nav-text">2.7.1 source</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）kafka-consumer的偏移量管理"><span class="nav-number">2.7.1.1.</span> <span class="nav-text">1）kafka consumer的偏移量管理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-2-flink自身容错"><span class="nav-number">2.7.2.</span> <span class="nav-text">2.7.2 flink自身容错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-3-sink"><span class="nav-number">2.7.3.</span> <span class="nav-text">2.7.3 sink</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）幂等性写入"><span class="nav-number">2.7.3.1.</span> <span class="nav-text">1）幂等性写入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）Flink两阶段提交"><span class="nav-number">2.7.3.2.</span> <span class="nav-text">2）Flink两阶段提交</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、扩展"><span class="nav-number">3.</span> <span class="nav-text">三、扩展</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、面试题"><span class="nav-number">4.</span> <span class="nav-text">四、面试题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">柒7七</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '7HjF3J8nerPuC6IIPSTD2MyU-gzGzoHsz',
+        appKey: 'HON17u5VRHg6TQoMXv4qzkYT',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 动态背景-->
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+</body>
+</html>

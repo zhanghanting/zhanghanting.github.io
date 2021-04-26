@@ -292,7 +292,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/09/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E6%BA%90%E7%A0%81/01-kafka%E6%BA%90%E7%A0%81(1)/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/20/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/%E6%BA%90%E7%A0%81/1.1%E4%BD%BF%E7%94%A8Akka%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0FlinkStandalone%E9%9B%86%E7%BE%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="柒7七">
@@ -311,7 +311,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/09/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E6%BA%90%E7%A0%81/01-kafka%E6%BA%90%E7%A0%81(1)/" itemprop="url">01-图解kafka源码（1）</a></h1>
+                <a class="post-title-link" href="/2021/04/20/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/%E6%BA%90%E7%A0%81/1.1%E4%BD%BF%E7%94%A8Akka%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0FlinkStandalone%E9%9B%86%E7%BE%A4/" itemprop="url">1.1使用Akka模拟实现FlinkStandalone集群</a></h1>
         
 
         <div class="post-meta">
@@ -323,8 +323,1452 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-09T09:32:36+08:00">
-                2021-03-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-20T11:12:50+08:00">
+                2021-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/" itemprop="url" rel="index">
+                    <span itemprop="name">奈学教育</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/" itemprop="url" rel="index">
+                    <span itemprop="name">Flink</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
+                    <span itemprop="name">源码</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/04/20/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/%E6%BA%90%E7%A0%81/1.1%E4%BD%BF%E7%94%A8Akka%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0FlinkStandalone%E9%9B%86%E7%BE%A4/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/04/20/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/%E6%BA%90%E7%A0%81/1.1%E4%BD%BF%E7%94%A8Akka%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0FlinkStandalone%E9%9B%86%E7%BE%A4/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,778
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          [1.使用akka模拟实现Flink Standalone](#1.使用Akka模拟实现Flink 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/20/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/%E6%BA%90%E7%A0%81/1.1%E4%BD%BF%E7%94%A8Akka%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0FlinkStandalone%E9%9B%86%E7%BE%A4/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/20/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/%E6%BA%90%E7%A0%81/1.FlinkRPC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="柒7七">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="柒7七">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/20/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/%E6%BA%90%E7%A0%81/1.FlinkRPC/" itemprop="url">1.FlinkRPC</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-20T10:43:23+08:00">
+                2021-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/" itemprop="url" rel="index">
+                    <span itemprop="name">奈学教育</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/" itemprop="url" rel="index">
+                    <span itemprop="name">Flink</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
+                    <span itemprop="name">源码</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/04/20/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/%E6%BA%90%E7%A0%81/1.FlinkRPC/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/04/20/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/%E6%BA%90%E7%A0%81/1.FlinkRPC/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4,843
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  19
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1.课程内容主要讲解Flink的源码编写中涉及到的一些比较重要的工作组件和机制。主题内容大纲如下：
+
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/20/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/%E6%BA%90%E7%A0%81/1.FlinkRPC/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/19/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/10.%E9%80%9F%E8%AF%BB%E4%B8%8E%E5%9B%9E%E5%BF%86%E6%8F%90%E5%8D%87%E5%8F%8A%E6%8F%90%E5%8D%87%E8%A1%8C%E5%8A%A8%E5%8A%9B%E8%AE%B2%E8%A7%A3%E5%92%8C%E8%AE%AD%E7%BB%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="柒7七">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="柒7七">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/19/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/10.%E9%80%9F%E8%AF%BB%E4%B8%8E%E5%9B%9E%E5%BF%86%E6%8F%90%E5%8D%87%E5%8F%8A%E6%8F%90%E5%8D%87%E8%A1%8C%E5%8A%A8%E5%8A%9B%E8%AE%B2%E8%A7%A3%E5%92%8C%E8%AE%AD%E7%BB%83/" itemprop="url">速读与回忆提升及提升行动力讲解和训练</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-19T06:18:58+08:00">
+                2021-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/" itemprop="url" rel="index">
+                    <span itemprop="name">尚忆教育</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/" itemprop="url" rel="index">
+                    <span itemprop="name">快速阅读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/04/19/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/10.%E9%80%9F%E8%AF%BB%E4%B8%8E%E5%9B%9E%E5%BF%86%E6%8F%90%E5%8D%87%E5%8F%8A%E6%8F%90%E5%8D%87%E8%A1%8C%E5%8A%A8%E5%8A%9B%E8%AE%B2%E8%A7%A3%E5%92%8C%E8%AE%AD%E7%BB%83/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/04/19/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/10.%E9%80%9F%E8%AF%BB%E4%B8%8E%E5%9B%9E%E5%BF%86%E6%8F%90%E5%8D%87%E5%8F%8A%E6%8F%90%E5%8D%87%E8%A1%8C%E5%8A%A8%E5%8A%9B%E8%AE%B2%E8%A7%A3%E5%92%8C%E8%AE%AD%E7%BB%83/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  105
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          一、今天内容二、理论讲解
+
+比如亲子教育为例：在孩子放松的时候灌输思想和信念，并且需要不断的重复，潜
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/19/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/10.%E9%80%9F%E8%AF%BB%E4%B8%8E%E5%9B%9E%E5%BF%86%E6%8F%90%E5%8D%87%E5%8F%8A%E6%8F%90%E5%8D%87%E8%A1%8C%E5%8A%A8%E5%8A%9B%E8%AE%B2%E8%A7%A3%E5%92%8C%E8%AE%AD%E7%BB%83/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/19/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/9.%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB%E5%92%8C%E8%AE%B0%E5%BF%86%E6%96%B9%E6%B3%95%E7%BB%93%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="柒7七">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="柒7七">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/19/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/9.%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB%E5%92%8C%E8%AE%B0%E5%BF%86%E6%96%B9%E6%B3%95%E7%BB%93%E5%90%88/" itemprop="url">快速阅读和记忆方法结合</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-19T06:18:58+08:00">
+                2021-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/" itemprop="url" rel="index">
+                    <span itemprop="name">尚忆教育</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/" itemprop="url" rel="index">
+                    <span itemprop="name">快速阅读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/04/19/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/9.%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB%E5%92%8C%E8%AE%B0%E5%BF%86%E6%96%B9%E6%B3%95%E7%BB%93%E5%90%88/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/04/19/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/9.%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB%E5%92%8C%E8%AE%B0%E5%BF%86%E6%96%B9%E6%B3%95%E7%BB%93%E5%90%88/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  208
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          一、今天内容
+二、理论讲解
+
+
+
+纸条记忆法：
+将白纸裁成纸张大的小纸条，每条小纸条只记录问题，不记
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/19/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/9.%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB%E5%92%8C%E8%AE%B0%E5%BF%86%E6%96%B9%E6%B3%95%E7%BB%93%E5%90%88/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/15/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/8.%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0%E6%B3%95%EF%BC%9A%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB%E4%B8%8E%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E7%BB%93%E5%90%88%E8%AE%B2%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="柒7七">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="柒7七">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/15/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/8.%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0%E6%B3%95%EF%BC%9A%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB%E4%B8%8E%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E7%BB%93%E5%90%88%E8%AE%B2%E8%A7%A3/" itemprop="url">8.高效学习法：快速阅读与思维导图结合讲解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-15T06:18:58+08:00">
+                2021-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/" itemprop="url" rel="index">
+                    <span itemprop="name">尚忆教育</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/" itemprop="url" rel="index">
+                    <span itemprop="name">快速阅读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/04/15/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/8.%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0%E6%B3%95%EF%BC%9A%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB%E4%B8%8E%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E7%BB%93%E5%90%88%E8%AE%B2%E8%A7%A3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/04/15/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/8.%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0%E6%B3%95%EF%BC%9A%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB%E4%B8%8E%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E7%BB%93%E5%90%88%E8%AE%B2%E8%A7%A3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  10
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          一、今天内容
+二、理论讲解
+
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/15/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/8.%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0%E6%B3%95%EF%BC%9A%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB%E4%B8%8E%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E7%BB%93%E5%90%88%E8%AE%B2%E8%A7%A3/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/12/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/7.%E9%98%85%E8%AF%BB%E5%BF%AB10%E5%80%8D%E6%96%B9%E6%B3%95%E8%AE%B2%E8%A7%A3%E5%8F%8A%E8%AE%AD%E7%BB%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="柒7七">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="柒7七">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/12/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/7.%E9%98%85%E8%AF%BB%E5%BF%AB10%E5%80%8D%E6%96%B9%E6%B3%95%E8%AE%B2%E8%A7%A3%E5%8F%8A%E8%AE%AD%E7%BB%83/" itemprop="url">阅读快10倍方法讲解及训练</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-12T06:18:58+08:00">
+                2021-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/" itemprop="url" rel="index">
+                    <span itemprop="name">尚忆教育</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/" itemprop="url" rel="index">
+                    <span itemprop="name">快速阅读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/04/12/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/7.%E9%98%85%E8%AF%BB%E5%BF%AB10%E5%80%8D%E6%96%B9%E6%B3%95%E8%AE%B2%E8%A7%A3%E5%8F%8A%E8%AE%AD%E7%BB%83/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/04/12/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/7.%E9%98%85%E8%AF%BB%E5%BF%AB10%E5%80%8D%E6%96%B9%E6%B3%95%E8%AE%B2%E8%A7%A3%E5%8F%8A%E8%AE%AD%E7%BB%83/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  618
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          一、今天内容
+二、理论讲解以前先看书名，再看目录，然后深扎从头看到尾的方式效果很差，按下面的方法效果
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/12/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/7.%E9%98%85%E8%AF%BB%E5%BF%AB10%E5%80%8D%E6%96%B9%E6%B3%95%E8%AE%B2%E8%A7%A3%E5%8F%8A%E8%AE%AD%E7%BB%83/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/07/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/6.%E9%9D%A2%E8%AF%95%E9%98%85%E8%AF%BB%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E5%92%8C%E8%AE%AD%E7%BB%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="柒7七">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="柒7七">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/07/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/6.%E9%9D%A2%E8%AF%95%E9%98%85%E8%AF%BB%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E5%92%8C%E8%AE%AD%E7%BB%83/" itemprop="url">6.面式阅读实际应用和训练</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-07T06:18:58+08:00">
+                2021-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/" itemprop="url" rel="index">
+                    <span itemprop="name">尚忆教育</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/" itemprop="url" rel="index">
+                    <span itemprop="name">快速阅读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/04/07/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/6.%E9%9D%A2%E8%AF%95%E9%98%85%E8%AF%BB%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E5%92%8C%E8%AE%AD%E7%BB%83/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/04/07/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/6.%E9%9D%A2%E8%AF%95%E9%98%85%E8%AF%BB%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E5%92%8C%E8%AE%AD%E7%BB%83/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  28
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          一、今天内容
+二、理论讲解
+一定有下面几种阅读法：
+
+
+
+一般都是用前两种
+
+
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/07/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/6.%E9%9D%A2%E8%AF%95%E9%98%85%E8%AF%BB%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E5%92%8C%E8%AE%AD%E7%BB%83/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/01/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E5%9F%BA%E7%A1%80/24-Kafka%E7%94%9F%E4%BA%A7%E8%80%85%E4%B9%8B%E6%B6%88%E8%B4%B9%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="柒7七">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="柒7七">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/01/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E5%9F%BA%E7%A1%80/24-Kafka%E7%94%9F%E4%BA%A7%E8%80%85%E4%B9%8B%E6%B6%88%E8%B4%B9%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E5%8E%9F%E7%90%86/" itemprop="url">24-Kafka生产者之消费者发送消息原理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-01T09:32:36+08:00">
+                2021-04-01
               </time>
             
 
@@ -375,17 +1819,6 @@
 
                 
                 
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/%E5%A4%A7%E6%95%B0%E6%8D%AE/Kafka/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
-                    <span itemprop="name">源码</span>
-                  </a>
-                </span>
-
-                
-                
               
             </span>
           
@@ -397,8 +1830,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/09/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E6%BA%90%E7%A0%81/01-kafka%E6%BA%90%E7%A0%81(1)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/09/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E6%BA%90%E7%A0%81/01-kafka%E6%BA%90%E7%A0%81(1)/" itemprop="commentCount"></span>
+                <a href="/2021/04/01/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E5%9F%BA%E7%A1%80/24-Kafka%E7%94%9F%E4%BA%A7%E8%80%85%E4%B9%8B%E6%B6%88%E8%B4%B9%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E5%8E%9F%E7%90%86/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/04/01/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E5%9F%BA%E7%A1%80/24-Kafka%E7%94%9F%E4%BA%A7%E8%80%85%E4%B9%8B%E6%B6%88%E8%B4%B9%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E5%8E%9F%E7%90%86/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -420,7 +1853,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  907
+                  0
                 </span>
               
 
@@ -436,7 +1869,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  1
                 </span>
               
             </div>
@@ -459,12 +1892,12 @@
       
         
           
-          图解kafka源码（1）1.课程内容1）kafka的特性必知必会
-2）揭秘kafka Produce
-          ...
+          
+
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/09/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E6%BA%90%E7%A0%81/01-kafka%E6%BA%90%E7%A0%81(1)/#more" rel="contents">
+            <a class="btn" href="/2021/04/01/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/kafka/%E5%9F%BA%E7%A1%80/24-Kafka%E7%94%9F%E4%BA%A7%E8%80%85%E4%B9%8B%E6%B6%88%E8%B4%B9%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E5%8E%9F%E7%90%86/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -515,7 +1948,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/03/%E5%B0%9A%E7%A1%85%E8%B0%B7/flink/%E9%A1%B9%E7%9B%AE/1.flink%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93day01/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/3.stateBackend%E5%92%8CsavePoint/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="柒7七">
@@ -534,7 +1967,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/03/%E5%B0%9A%E7%A1%85%E8%B0%B7/flink/%E9%A1%B9%E7%9B%AE/1.flink%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93day01/" itemprop="url">1.flink实时数仓</a></h1>
+                <a class="post-title-link" href="/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/3.stateBackend%E5%92%8CsavePoint/" itemprop="url">3.stateBackend和savePoint</a></h1>
         
 
         <div class="post-meta">
@@ -546,8 +1979,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-03T22:42:04+08:00">
-                2021-03-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-30T15:46:32+08:00">
+                2021-03-30
               </time>
             
 
@@ -569,8 +2002,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B0%9A%E7%A1%85%E8%B0%B7/" itemprop="url" rel="index">
-                    <span itemprop="name">尚硅谷</span>
+                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/" itemprop="url" rel="index">
+                    <span itemprop="name">奈学教育</span>
                   </a>
                 </span>
 
@@ -580,35 +2013,13 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B0%9A%E7%A1%85%E8%B0%B7/Flink/" itemprop="url" rel="index">
+                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/" itemprop="url" rel="index">
                     <span itemprop="name">Flink</span>
                   </a>
                 </span>
 
                 
                 
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B0%9A%E7%A1%85%E8%B0%B7/Flink/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index">
-                    <span itemprop="name">项目</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B0%9A%E7%A1%85%E8%B0%B7/Flink/%E9%A1%B9%E7%9B%AE/%E7%94%B5%E5%95%86%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index">
-                    <span itemprop="name">电商项目</span>
-                  </a>
-                </span>
-
-                
-                
               
             </span>
           
@@ -620,8 +2031,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/03/%E5%B0%9A%E7%A1%85%E8%B0%B7/flink/%E9%A1%B9%E7%9B%AE/1.flink%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93day01/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/03/%E5%B0%9A%E7%A1%85%E8%B0%B7/flink/%E9%A1%B9%E7%9B%AE/1.flink%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93day01/" itemprop="commentCount"></span>
+                <a href="/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/3.stateBackend%E5%92%8CsavePoint/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/3.stateBackend%E5%92%8CsavePoint/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -643,7 +2054,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,615
+                  3,843
                 </span>
               
 
@@ -659,7 +2070,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6
+                  16
                 </span>
               
             </div>
@@ -682,11 +2093,11 @@
       
         
           
-          Flink实时数仓1.实时数仓课程基本介绍1.1 普通实时计算和实时数仓的区别实时数仓相比于普通的实
+          一、课程内容本次课程对上次常见的state进行案例实践，并且引出checkpoints机制原理，主要
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/03/%E5%B0%9A%E7%A1%85%E8%B0%B7/flink/%E9%A1%B9%E7%9B%AE/1.flink%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93day01/#more" rel="contents">
+            <a class="btn" href="/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/3.stateBackend%E5%92%8CsavePoint/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -737,7 +2148,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/26/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/03-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%913%20/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/6.CEP&Flink%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B&ZStream/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="柒7七">
@@ -756,7 +2167,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/26/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/03-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%913%20/" itemprop="url">02-企业级Hadoop源码二次开发3</a></h1>
+                <a class="post-title-link" href="/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/6.CEP&Flink%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B&ZStream/" itemprop="url">6.CEP&Flink内存模型&Stream</a></h1>
         
 
         <div class="post-meta">
@@ -768,8 +2179,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-26T20:14:10+08:00">
-                2021-02-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-30T15:46:32+08:00">
+                2021-03-30
               </time>
             
 
@@ -802,19 +2213,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">Hadoop</span>
+                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/" itemprop="url" rel="index">
+                    <span itemprop="name">Flink</span>
                   </a>
                 </span>
 
@@ -831,8 +2231,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/02/26/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/03-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%913%20/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/26/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/03-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%913%20/" itemprop="commentCount"></span>
+                <a href="/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/6.CEP&Flink%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B&ZStream/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/6.CEP&Flink%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B&ZStream/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -854,7 +2254,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  182
+                  891
                 </span>
               
 
@@ -870,7 +2270,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  4
                 </span>
               
             </div>
@@ -893,1359 +2293,11 @@
       
         
           
-          企业级Hadoop源码二次开发31.课前准备12341.安装idea2.下载Hadoop源码http
+          一、课程内容1.1 CEP1.2 Flink内存模型二、知识要点2.1 CEP使用流程2.1.1 读
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/26/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/03-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%913%20/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/21/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/02-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%912/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="柒7七">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="柒7七">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/02/21/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/02-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%912/" itemprop="url">02-企业级Hadoop源码二次开发2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-21T20:14:10+08:00">
-                2021-02-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/" itemprop="url" rel="index">
-                    <span itemprop="name">奈学教育</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">Hadoop</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2021/02/21/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/02-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%912/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/21/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/02-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%912/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,156
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          企业级Hadoop源码二次开发21.课前准备12341.安装idea2.下载Hadoop源码http
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/02/21/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Hadoop/02-%E4%BC%81%E4%B8%9A%E7%BA%A7Hadoop%E6%BA%90%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%912/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/20/netty/14.Netty%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E5%AE%9E%E4%BE%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="柒7七">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="柒7七">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/02/20/netty/14.Netty%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E5%AE%9E%E4%BE%8B/" itemprop="url">14.Netty快速入门实例</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-20T17:02:03+08:00">
-                2021-02-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2021/02/20/netty/14.Netty%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E5%AE%9E%E4%BE%8B/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/20/netty/14.Netty%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E5%AE%9E%E4%BE%8B/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  112
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          Netty快速入门实例-TCP服务1.实例要求1）使用IDEA创建Netty项目，Netty服务器再
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/02/20/netty/14.Netty%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E5%AE%9E%E4%BE%8B/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/20/netty/13.Netty%E6%A8%A1%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="柒7七">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="柒7七">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/02/20/netty/13.Netty%E6%A8%A1%E5%9E%8B/" itemprop="url">13.Netty模型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-20T16:03:13+08:00">
-                2021-02-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2021/02/20/netty/13.Netty%E6%A8%A1%E5%9E%8B/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/20/netty/13.Netty%E6%A8%A1%E5%9E%8B/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  410
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          Netty模型1.工作原理示意图-简单版
-说明：
-1）BossGroup线程维护selector，只
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/02/20/netty/13.Netty%E6%A8%A1%E5%9E%8B/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/20/netty/12.netty%E6%A6%82%E8%BF%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="柒7七">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="柒7七">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/02/20/netty/12.netty%E6%A6%82%E8%BF%B0/" itemprop="url">11.Netty介绍</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-20T09:22:13+08:00">
-                2021-02-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2021/02/20/netty/12.netty%E6%A6%82%E8%BF%B0/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/20/netty/12.netty%E6%A6%82%E8%BF%B0/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2,279
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  8
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          1.Netty概述1.1 原生NIO存在的问题1.2 Netty的优点2.Netty高性能架构设计2
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/02/20/netty/12.netty%E6%A6%82%E8%BF%B0/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/19/netty/11.AIO%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="柒7七">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="柒7七">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/02/19/netty/11.AIO%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D/" itemprop="url">11.零拷贝AIO内容梳理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T20:22:13+08:00">
-                2021-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2021/02/19/netty/11.AIO%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/netty/11.AIO%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  181
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          零拷贝AIO内容梳理1.Java AIO基本介绍1）JDK引入了Asynchronous I/O,即
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/02/19/netty/11.AIO%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/19/netty/10.NIO%E4%B9%8B%E9%9B%B6%E6%8B%B7%E8%B4%9D%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="柒7七">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="柒7七">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/02/19/netty/10.NIO%E4%B9%8B%E9%9B%B6%E6%8B%B7%E8%B4%9D%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" itemprop="url">10.NIO之零拷贝原理解析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T18:00:19+08:00">
-                2021-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2021/02/19/netty/10.NIO%E4%B9%8B%E9%9B%B6%E6%8B%B7%E8%B4%9D%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/netty/10.NIO%E4%B9%8B%E9%9B%B6%E6%8B%B7%E8%B4%9D%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  780
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          NIO之零拷贝原理解析1.零拷贝基本介绍1）零拷贝是网络编程的关键，很多性能优化都离不开
-2）在Ja
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/02/19/netty/10.NIO%E4%B9%8B%E9%9B%B6%E6%8B%B7%E8%B4%9D%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/19/netty/9.NIO%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-%E7%BE%A4%E8%81%8A%E7%B3%BB%E7%BB%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="柒7七">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="柒7七">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/02/19/netty/9.NIO%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-%E7%BE%A4%E8%81%8A%E7%B3%BB%E7%BB%9F/" itemprop="url">9.NIO网络编程应用实例-群聊系统</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T16:36:42+08:00">
-                2021-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2021/02/19/netty/9.NIO%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-%E7%BE%A4%E8%81%8A%E7%B3%BB%E7%BB%9F/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/netty/9.NIO%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-%E7%BE%A4%E8%81%8A%E7%B3%BB%E7%BB%9F/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,156
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  6
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          NIO网络编程应用实例-群聊系统1.实例要求1）编写一个NIO群聊系统，实现服务器端和客户端之间的数
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/02/19/netty/9.NIO%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-%E7%BE%A4%E8%81%8A%E7%B3%BB%E7%BB%9F/#more" rel="contents">
+            <a class="btn" href="/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/6.CEP&Flink%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B&ZStream/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2287,7 +2339,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
 
 
@@ -2337,7 +2389,7 @@
               
                 <a href="/archives%7C%7Carchive">
               
-                  <span class="site-state-item-count">112</span>
+                  <span class="site-state-item-count">130</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2348,7 +2400,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2359,7 +2411,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
