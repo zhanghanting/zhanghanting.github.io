@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+  <script src="true"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SQLserver," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="大纲1.目的 2.实现步骤 2.1 基于console application 2.2 基于windows service 3.问题记录和沟通流程 4.总结 1.目的基于change tracking的方式实时SQLserver数据库之间数据的实时同步 工具可选： 国内：syncNavigator    收费并且没什么人进行维护 国外：syncChanges    开源不收费，没有详细的实操案例，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用syncChanges基于changeTracking的方式实现SQLserver数据库之间数据的实时同步">
+<meta property="og:url" content="http://yoursite.com/2021/05/07/%E6%95%B0%E6%8D%AE%E5%BA%93/sqlserver/%E4%BD%BF%E7%94%A8syncChanges%E5%9F%BA%E4%BA%8EchangeTracking%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5SQLServer%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B9%8B%E9%97%B4%E7%9A%84%E6%95%B0%E6%8D%AE/index.html">
+<meta property="og:site_name" content="柒7七">
+<meta property="og:description" content="大纲1.目的 2.实现步骤 2.1 基于console application 2.2 基于windows service 3.问题记录和沟通流程 4.总结 1.目的基于change tracking的方式实时SQLserver数据库之间数据的实时同步 工具可选： 国内：syncNavigator    收费并且没什么人进行维护 国外：syncChanges    开源不收费，没有详细的实操案例，">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/dTH8nibyBVMG3JA.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/H8psJDQhPI3ySfz.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/ETyc752a8F6WfGA.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/SmZ7s8efuHDLqK1.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/ov9GxDOgst46JdE.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/vV73LWy9FaPfoTA.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/XLhbcrPKyMvVGTi.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/F2E4PJXrmjLYBGN.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/cZrO6UqDlhTLfyE.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/yCPkYhuQUR349n7.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/vgBi6Eclpx9uj8R.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/AWcfPCIVrH2S8mE.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/RdcJT597zkV3Oga.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/NOeTsnMcxuvlbi1.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/Sov5JAHKENCP2wZ.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/07/VnioRqsuDhIjYv7.png">
+<meta property="article:published_time" content="2021-05-07T07:01:13.000Z">
+<meta property="article:modified_time" content="2021-05-07T09:47:11.107Z">
+<meta property="article:author" content="柒7七">
+<meta property="article:tag" content="SQLserver">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/05/07/dTH8nibyBVMG3JA.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/05/07/数据库/sqlserver/使用syncChanges基于changeTracking的方式实现实时同步SQLServer数据库之间的数据/"/>
+
+
+
+
+
+  <title>使用syncChanges基于changeTracking的方式实现SQLserver数据库之间数据的实时同步 | 柒7七</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zhanghanting" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">柒7七</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/07/%E6%95%B0%E6%8D%AE%E5%BA%93/sqlserver/%E4%BD%BF%E7%94%A8syncChanges%E5%9F%BA%E4%BA%8EchangeTracking%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5SQLServer%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B9%8B%E9%97%B4%E7%9A%84%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="柒7七">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="柒7七">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用syncChanges基于changeTracking的方式实现SQLserver数据库之间数据的实时同步</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-07T15:01:13+08:00">
+                2021-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/SQLServer/" itemprop="url" rel="index">
+                    <span itemprop="name">SQLServer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/05/07/%E6%95%B0%E6%8D%AE%E5%BA%93/sqlserver/%E4%BD%BF%E7%94%A8syncChanges%E5%9F%BA%E4%BA%8EchangeTracking%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5SQLServer%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B9%8B%E9%97%B4%E7%9A%84%E6%95%B0%E6%8D%AE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/05/07/%E6%95%B0%E6%8D%AE%E5%BA%93/sqlserver/%E4%BD%BF%E7%94%A8syncChanges%E5%9F%BA%E4%BA%8EchangeTracking%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5SQLServer%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B9%8B%E9%97%B4%E7%9A%84%E6%95%B0%E6%8D%AE/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,513
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h1><p><a href="#目的">1.目的</a></p>
+<p><a href="#实现步骤">2.实现步骤</a></p>
+<p><a href="#console">2.1 基于console application</a></p>
+<p><a href="#service">2.2 基于windows service</a></p>
+<p><a href="#问题记录">3.问题记录和沟通流程</a></p>
+<p><a href="#总结">4.总结</a></p>
+<h1 id="1-目的"><a href="#1-目的" class="headerlink" title="1.目的"></a><span id = "目的">1.目的</span></h1><p>基于change tracking的方式实时SQLserver数据库之间数据的实时同步</p>
+<p>工具可选：</p>
+<p>国内：syncNavigator    收费并且没什么人进行维护</p>
+<p>国外：syncChanges    开源不收费，没有详细的实操案例，资料较少，但是优点是该项目的开发者会定期对项目进行维护，回答问题也比较热心。</p>
+<p>最后选择syncChanges进行调研</p>
+<p>资料连接：<a href="https://github.com/mganss/SyncChanges" target="_blank" rel="noopener">https://github.com/mganss/SyncChanges</a></p>
+<h1 id="2-实现步骤"><a href="#2-实现步骤" class="headerlink" title="2.实现步骤"></a><span id = "实现步骤">2.实现步骤</span></h1><p>使用syncChanges实现SQLserver数据库间的数据同步有两种：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1）基于console application的方式，特点是一次调用，对应的资源包是SyncChanges.Console.2.1.308</span><br><span class="line">2）基于windows service的方式，特点是将应用程序部署为服务，在配置文件中设置调度周期，周期性的触发同步过程，周期时延可以达到秒级(后面的测试我设置为了1s)，对应的资源包是SyncChanges.Service.2.1.308</span><br><span class="line">下载地址为：https:&#x2F;&#x2F;github.com&#x2F;mganss&#x2F;SyncChanges&#x2F;releases</span><br></pre></td></tr></table></figure>
+
+<p>下面会对两种方式的步骤都进行阐述，因为后续要实时地去同步数据，所以需要用到windows service这种方式，这种方式后续会着重阐述。</p>
+<h2 id="2-1-基于console-application"><a href="#2-1-基于console-application" class="headerlink" title="2.1 基于console application"></a><span id = "console">2.1 基于console application</span></h2><p>这部分内容对应的开源文档链接：<a href="https://github.com/mganss/SyncChanges" target="_blank" rel="noopener">https://github.com/mganss/SyncChanges</a></p>
+<p>其中在Usage部分进行了介绍</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Usage</span><br><span class="line">SyncChanges can be used either as a console application that is typically invoked through a task scheduler every couple of minutes, as a Windows service, or as a library in your own applications. If you want to use the service or console application just grab a zip from releases.</span><br><span class="line"></span><br><span class="line">Usage: SyncChanges [OPTION]... CONFIGFILE...</span><br><span class="line">Replicate database changes.</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -h, --help                 Show this message and exit</span><br><span class="line">  -d, --dryrun               Do not alter target databases, only perform a test</span><br><span class="line">                               run</span><br><span class="line">  -t, --timeout&#x3D;VALUE        Database command timeout in seconds</span><br><span class="line">  -l, --loop                 Perform replication in a loop, periodically</span><br><span class="line">                               checking for changes</span><br><span class="line">  -i, --interval&#x3D;VALUE       Replication interval in seconds (default is 30);</span><br><span class="line">                               only relevant in loop mode</span><br><span class="line">A configuration file looks like this:</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;ReplicationSets&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;Name&quot;: &quot;Test&quot;,</span><br><span class="line">      &quot;Source&quot;: &#123;</span><br><span class="line">        &quot;Name&quot;: &quot;Primary&quot;,</span><br><span class="line">        &quot;ConnectionString&quot;: &quot;Data Source&#x3D;primary.example.com;Initial Catalog&#x3D;Test;Integrated Security&#x3D;True;MultipleActiveResultSets&#x3D;True&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;Destinations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;Name&quot;: &quot;Secondary 1&quot;,</span><br><span class="line">          &quot;ConnectionString&quot;: &quot;Data Source&#x3D;secondary1.example.com;Initial Catalog&#x3D;Test;Integrated Security&#x3D;True;MultipleActiveResultSets&#x3D;True&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;Name&quot;: &quot;Secondary 2&quot;,</span><br><span class="line">          &quot;ConnectionString&quot;: &quot;Data Source&#x3D;secondary2.example.com;Initial Catalog&#x3D;Test;Integrated Security&#x3D;True;MultipleActiveResultSets&#x3D;True&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">      &quot;Tables&quot;: [ &quot;Table1&quot;, &quot;Table2&quot;, &quot;Table3&quot; ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">Tables is optional. If you don&#39;t specify it, all tables will be replicated.</span><br></pre></td></tr></table></figure>
+
+<p>步骤如下：</p>
+<h3 id="2-1-1-下载需要用到的资源包SyncChanges-Console-2-1-308"><a href="#2-1-1-下载需要用到的资源包SyncChanges-Console-2-1-308" class="headerlink" title="2.1.1 下载需要用到的资源包SyncChanges.Console.2.1.308"></a>2.1.1 下载需要用到的资源包SyncChanges.Console.2.1.308</h3><p><a href="https://github.com/mganss/SyncChanges/releases" target="_blank" rel="noopener">https://github.com/mganss/SyncChanges/releases</a></p>
+<p><img src="https://i.loli.net/2021/05/07/dTH8nibyBVMG3JA.png" alt="image-20210507171839643"></p>
+<h3 id="2-1-2-配置config-json"><a href="#2-1-2-配置config-json" class="headerlink" title="2.1.2 配置config.json"></a>2.1.2 配置config.json</h3><p>按照config.example.json配置模板进行同步相关的配置，主要是配置需要同步的主数据库的信息和从数据库的信息</p>
+<p>我的配置如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"ReplicationSets"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"Name"</span>: <span class="string">"Test"</span>,</span><br><span class="line">      <span class="attr">"Source"</span>: &#123;</span><br><span class="line">        <span class="attr">"Name"</span>: <span class="string">"Primary"</span>,</span><br><span class="line">        <span class="attr">"ConnectionString"</span>: <span class="string">"Data Source=192.168.1.195;Initial Catalog=shanmeitest2;User ID=sa;password=123456;Integrated Security=false;MultipleActiveResultSets=True"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"Destinations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"Name"</span>: <span class="string">"Secondary1"</span>,</span><br><span class="line">          <span class="attr">"ConnectionString"</span>: <span class="string">"Data Source=192.168.1.180;Initial Catalog=shanmeitest2;User ID=sa;password=123456;Integrated Security=false;MultipleActiveResultSets=True"</span></span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中Name可自定义，为同步任务的名称</p>
+<p>Source为源数据库的配置，Destinations为目标数据库的配置。主要的信息是ConnectionString，ConnectionString为数据库的连接信息，datasource配置的是数据库所在的计算机ip地址，catalog对应要同步的数据库，UserID和password分别为SQLserver数据库登录时的用户名和密码。这里需要注意的是源数据库和目标数据库的登录方式要一样（比如源数据是用SQLserver身份验证登录的，目标数据库也必须是，不能是windows身份验证方式登录），这里都是用的sa/123456</p>
+<p>这里没有配置表信息，默认就会同步所有表，如果只想同步部分表信息，可以参考config.example.json进行配置</p>
+<h3 id="2-1-3-准备源数据库和目标数据库的测试环境"><a href="#2-1-3-准备源数据库和目标数据库的测试环境" class="headerlink" title="2.1.3 准备源数据库和目标数据库的测试环境"></a>2.1.3 准备源数据库和目标数据库的测试环境</h3><p>这里参照windows service这一步的步骤即可</p>
+<h3 id="2-1-4-运行可执行程序SyncChanges-Console-exe"><a href="#2-1-4-运行可执行程序SyncChanges-Console-exe" class="headerlink" title="2.1.4 运行可执行程序SyncChanges.Console.exe"></a>2.1.4 运行可执行程序SyncChanges.Console.exe</h3><p>进入SyncChanges.Console2.1.308目录下，进入cmd</p>
+<p>运行如下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SyncChanges.Console.exe config.json</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/05/07/H8psJDQhPI3ySfz.png" alt="image-20210507172511926"></p>
+<p>查到目标数据库的情况，验证最终测试成功</p>
+<h2 id="2-2-基于windows-service"><a href="#2-2-基于windows-service" class="headerlink" title="2.2 基于windows service"></a><span id = "service">2.2 基于windows service</span></h2><p>这部分内容对应的开源文档链接：<a href="https://github.com/mganss/SyncChanges" target="_blank" rel="noopener">https://github.com/mganss/SyncChanges</a></p>
+<p>其中在service部分进行了介绍</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Service</span><br><span class="line">In addition to the command line you can also run SyncChanges as a Windows service. The service periodically polls the value of CHANGE_TRACKING_CURRENT_VERSION in a configurable interval and starts replication if the version of the source has increased.</span><br><span class="line"></span><br><span class="line">The service expects a config.json configuration file in the same folder as the service executable. The desired polling interval can be configured in the SyncChanges.Service.exe.config file.</span><br><span class="line"></span><br><span class="line">To install the service, use the InstallUtil.exe tool that comes with the .NET Framework installation:</span><br><span class="line"></span><br><span class="line">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe .\SyncChanges.Service.exe</span><br><span class="line">During installation, you have to enter credentials for the user account the service will use. This has to be a fully qualified name, e.g. if it&#39;s a local account enter .\UserName. The user has to have the necessary database permissions to carry out the replication process.</span><br><span class="line"></span><br><span class="line">To start the service:</span><br><span class="line"></span><br><span class="line">net start SyncChangesService</span><br></pre></td></tr></table></figure>
+
+<p>步骤如下：</p>
+<h3 id="2-2-1-下载需要用到的资源包SyncChanges-Service-2-1-308"><a href="#2-2-1-下载需要用到的资源包SyncChanges-Service-2-1-308" class="headerlink" title="2.2.1 下载需要用到的资源包SyncChanges.Service.2.1.308"></a>2.2.1 下载需要用到的资源包SyncChanges.Service.2.1.308</h3><p><a href="https://github.com/mganss/SyncChanges/releases" target="_blank" rel="noopener">https://github.com/mganss/SyncChanges/releases</a></p>
+<p><img src="https://i.loli.net/2021/05/07/ETyc752a8F6WfGA.png" alt="image-20210507152551412"></p>
+<h3 id="2-2-2-配置config-json"><a href="#2-2-2-配置config-json" class="headerlink" title="2.2.2 配置config.json"></a>2.2.2 配置config.json</h3><p>按照config.example.json配置模板进行同步相关的配置，主要是配置需要同步的主数据库的信息和从数据库的信息</p>
+<p>我的配置如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"ReplicationSets"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"Name"</span>: <span class="string">"Test"</span>,</span><br><span class="line">      <span class="attr">"Source"</span>: &#123;</span><br><span class="line">        <span class="attr">"Name"</span>: <span class="string">"Primary"</span>,</span><br><span class="line">        <span class="attr">"ConnectionString"</span>: <span class="string">"Data Source=192.168.1.195;Initial Catalog=shanmeitest2;User ID=sa;password=123456;Integrated Security=false;MultipleActiveResultSets=True"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"Destinations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"Name"</span>: <span class="string">"Secondary1"</span>,</span><br><span class="line">          <span class="attr">"ConnectionString"</span>: <span class="string">"Data Source=192.168.1.180;Initial Catalog=shanmeitest2;User ID=sa;password=123456;Integrated Security=false;MultipleActiveResultSets=True"</span></span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中Name可自定义，为同步任务的名称</p>
+<p>Source为源数据库的配置，Destinations为目标数据库的配置。主要的信息是ConnectionString，ConnectionString为数据库的连接信息，datasource配置的是数据库所在的计算机ip地址，catalog对应要同步的数据库，UserID和password分别为SQLserver数据库登录时的用户名和密码。这里需要注意的是源数据库和目标数据库的登录方式要一样（比如源数据是用SQLserver身份验证登录的，目标数据库也必须是，不能是windows身份验证方式登录），这里都是用的sa/123456</p>
+<p>这里没有配置表信息，默认就会同步所有表，如果只想同步部分表信息，可以参考config.example.json进行配置</p>
+<h3 id="2-2-3-配置任务调度周期"><a href="#2-2-3-配置任务调度周期" class="headerlink" title="2.2.3 配置任务调度周期"></a>2.2.3 配置任务调度周期</h3><p>在SyncChanges.Service.exe.config中配置任务调度周期，对应的参数为interval</p>
+<p><img src="https://i.loli.net/2021/05/07/SmZ7s8efuHDLqK1.png" alt="image-20210507153820882"></p>
+<p>这里设置的是1s，每隔1s触发同步操作</p>
+<h3 id="2-2-4-准备源数据库和目标数据库的测试环境"><a href="#2-2-4-准备源数据库和目标数据库的测试环境" class="headerlink" title="2.2.4 准备源数据库和目标数据库的测试环境"></a>2.2.4 准备源数据库和目标数据库的测试环境</h3><p>重点：源数据库和目标数据库的表结构信息要一致，并且源数据库和需要同步的表要开启change tracking和</p>
+<p>snapshot isolation。目标数据库没有强制要求，但必须先把表建好，同步过程不会自动建表。</p>
+<h4 id="1）源数据库建库建表"><a href="#1）源数据库建库建表" class="headerlink" title="1）源数据库建库建表"></a>1）源数据库建库建表</h4><p><img src="https://i.loli.net/2021/05/07/ov9GxDOgst46JdE.png" alt="img"></p>
+<h4 id="2）对源数据库和需要同步的表开启change-tracking和snapshot-isolation"><a href="#2）对源数据库和需要同步的表开启change-tracking和snapshot-isolation" class="headerlink" title="2）对源数据库和需要同步的表开启change tracking和snapshot isolation"></a>2）对源数据库和需要同步的表开启change tracking和snapshot isolation</h4><p><img src="https://i.loli.net/2021/05/07/vV73LWy9FaPfoTA.png" alt="img"></p>
+<p>操作代码如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> shanmeitest2</span><br><span class="line"><span class="keyword">go</span></span><br><span class="line"> <span class="keyword">alter</span> <span class="keyword">database</span> shanmeitest2 <span class="keyword">set</span> CHANGE_TRACKING = <span class="keyword">ON</span></span><br><span class="line"> (change_retention = <span class="number">2</span> <span class="keyword">days</span>, auto_cleanup = <span class="keyword">on</span>)</span><br><span class="line"><span class="keyword">go</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> shanmeitest2</span><br><span class="line"><span class="keyword">go</span></span><br><span class="line"> <span class="keyword">alter</span> <span class="keyword">table</span> dbo.t_student <span class="keyword">enable</span> CHANGE_TRACKING <span class="keyword">WITH</span>(TRACK_COLUMNS_UPDATED = <span class="keyword">off</span>)</span><br><span class="line"><span class="keyword">go</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> shanmeitest2</span><br><span class="line"><span class="keyword">go</span></span><br><span class="line"> <span class="keyword">alter</span> <span class="keyword">database</span> shanmeitest2</span><br><span class="line"> <span class="keyword">set</span> allow_snapshot_isolation <span class="keyword">on</span></span><br><span class="line"><span class="keyword">go</span></span><br></pre></td></tr></table></figure>
+
+<p>其中如果不配置change_retention的话 默认就是2天，这个配置的意思是源数据库的数据变更保留的时间周期，超过了配置的时间变化就不再保留会删除，如果磁盘空间大的话也可以配置的长一点。</p>
+<h4 id="3）目标数据库建库建表"><a href="#3）目标数据库建库建表" class="headerlink" title="3）目标数据库建库建表"></a>3）目标数据库建库建表</h4><p><img src="https://i.loli.net/2021/05/07/XLhbcrPKyMvVGTi.png" alt="image-20210507160759048"></p>
+<h3 id="2-2-5-注册windows服务（SyncChangesService）"><a href="#2-2-5-注册windows服务（SyncChangesService）" class="headerlink" title="2.2.5 注册windows服务（SyncChangesService）"></a>2.2.5 注册windows服务（SyncChangesService）</h3><p>根据开源文档提示进行操作，需要注意的是在执行服务安装命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe .\SyncChanges.Service.exe</span><br></pre></td></tr></table></figure>
+
+<p>的时候需要数据身份验证信息用户名和密码，这个用户名和密码是用来跑注册的服务的，所以需要有管理员的权限，这里试了很久才测试出来</p>
+<p>具体步骤如下</p>
+<h4 id="1）以管理员的身份运行命令提示符-command-prompt"><a href="#1）以管理员的身份运行命令提示符-command-prompt" class="headerlink" title="1）以管理员的身份运行命令提示符(command prompt)"></a>1）以<strong><em>管理员</em></strong>的身份运行命令提示符(command prompt)</h4><p><img src="https://i.loli.net/2021/05/07/F2E4PJXrmjLYBGN.png" alt="image-20210507161949178"></p>
+<h4 id="2）进入SyncChanges-Service-2-1-308目录"><a href="#2）进入SyncChanges-Service-2-1-308目录" class="headerlink" title="2）进入SyncChanges.Service.2.1.308目录"></a>2）进入SyncChanges.Service.2.1.308目录</h4><p>我这里是F盘下面</p>
+<p><img src="https://i.loli.net/2021/05/07/cZrO6UqDlhTLfyE.png" alt="image-20210507162145299"></p>
+<h4 id="3）执行服务安装命令"><a href="#3）执行服务安装命令" class="headerlink" title="3）执行服务安装命令"></a>3）执行服务安装命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe .\SyncChanges.Service.exe</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/05/07/yCPkYhuQUR349n7.png" alt="image-20210507162940955"></p>
+<p>需要注意的是这里安装的时候需要输入身份验证凭据，用户名和密码，这个用户需要有管理员权限，我的是Administrator，默认是没有密码的，也可以设置密码</p>
+<p><img src="https://i.loli.net/2021/05/07/vgBi6Eclpx9uj8R.png" alt="image-20210507162548005"></p>
+<p>需要注意的是在输入用户名的时候需要加上.\作为前缀，也就是./用户名，我这里对应的输入就是.\Administrator</p>
+<p>用户名：.\Administrator</p>
+<p>密码：123456（输入自己设置的密码）</p>
+<p>确认密码：123456</p>
+<p>然后就会提示安装成功</p>
+<p><img src="https://i.loli.net/2021/05/07/AWcfPCIVrH2S8mE.png" alt="image-20210507162305629"></p>
+<h4 id="4）启动服务"><a href="#4）启动服务" class="headerlink" title="4）启动服务"></a>4）启动服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net start SyncChangesService</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/05/07/RdcJT597zkV3Oga.png" alt="image-20210507163051048"></p>
+<p>然后可以将服务设置为开启自启动</p>
+<p><img src="https://i.loli.net/2021/05/07/NOeTsnMcxuvlbi1.png" alt="image-20210507163444819"></p>
+<h3 id="2-2-6-测试"><a href="#2-2-6-测试" class="headerlink" title="2.2.6 测试"></a>2.2.6 测试</h3><p>往源数据库的表中插入数据，查看目标数据库的表数据的变化</p>
+<p><strong>源数据库</strong></p>
+<p><img src="https://i.loli.net/2021/05/07/Sov5JAHKENCP2wZ.png" alt="img"></p>
+<p><strong>目标数据库</strong></p>
+<p><img src="https://i.loli.net/2021/05/07/VnioRqsuDhIjYv7.png" alt="image-20210507163621401"></p>
+<p>经测试，可以实时地将数据同步过来</p>
+<h1 id="3-问题记录和沟通过程"><a href="#3-问题记录和沟通过程" class="headerlink" title="3.问题记录和沟通过程"></a><span id = "问题记录">3.问题记录和沟通过程</span></h1><p>在测试console  application和windows service的方式都遇到了很多问题，因为无法实时沟通，一般当天发现的问题在github上提问后，需要第二天才能等到答复，具体的问题记录和沟通过程以及后续的提问都可以参照下面的网址</p>
+<p><a href="https://github.com/mganss/SyncChanges/issues" target="_blank" rel="noopener">https://github.com/mganss/SyncChanges/issues</a></p>
+<h1 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a><span id = "总结">4.总结</span></h1><p>SyncChanges经过测试，基于change tracking的方式可以达到秒级实时地同步，并且也可以同步历史数据。因为这种同步是基于数据变更的，所以它的同步效率跟原始数据库的数据量是没有关系的，有关系的因素是原始数据库的数据变化频率，具体的同步能力还需要在生产环境上进行测试。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://i.loli.net/2021/01/22/2p8ZleOfkJqT75w.png" alt="柒7七 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SQLserver/" rel="tag"># SQLserver</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/05/06/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/clickhouse/0.clickhouse%E8%AF%BE%E7%A8%8B%E4%BB%8B%E7%BB%8D/" rel="next" title="0.clickhouse课程介绍">
+                <i class="fa fa-chevron-left"></i> 0.clickhouse课程介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://i.loli.net/2021/01/06/UpLEnikCWguPrz1.jpg"
+                alt="柒7七" />
+            
+              <p class="site-author-name" itemprop="name">柒7七</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7Carchive">
+              
+                  <span class="site-state-item-count">133</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhanghanting" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://baidu.com/" title="百度" target="_blank">百度</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#大纲"><span class="nav-number">1.</span> <span class="nav-text">大纲</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-目的"><span class="nav-number">2.</span> <span class="nav-text">1.目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-实现步骤"><span class="nav-number">3.</span> <span class="nav-text">2.实现步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-基于console-application"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 基于console application</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-下载需要用到的资源包SyncChanges-Console-2-1-308"><span class="nav-number">3.1.1.</span> <span class="nav-text">2.1.1 下载需要用到的资源包SyncChanges.Console.2.1.308</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-配置config-json"><span class="nav-number">3.1.2.</span> <span class="nav-text">2.1.2 配置config.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-准备源数据库和目标数据库的测试环境"><span class="nav-number">3.1.3.</span> <span class="nav-text">2.1.3 准备源数据库和目标数据库的测试环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-运行可执行程序SyncChanges-Console-exe"><span class="nav-number">3.1.4.</span> <span class="nav-text">2.1.4 运行可执行程序SyncChanges.Console.exe</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-基于windows-service"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 基于windows service</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-下载需要用到的资源包SyncChanges-Service-2-1-308"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 下载需要用到的资源包SyncChanges.Service.2.1.308</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-配置config-json"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 配置config.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-配置任务调度周期"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.2.3 配置任务调度周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-4-准备源数据库和目标数据库的测试环境"><span class="nav-number">3.2.4.</span> <span class="nav-text">2.2.4 准备源数据库和目标数据库的测试环境</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）源数据库建库建表"><span class="nav-number">3.2.4.1.</span> <span class="nav-text">1）源数据库建库建表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）对源数据库和需要同步的表开启change-tracking和snapshot-isolation"><span class="nav-number">3.2.4.2.</span> <span class="nav-text">2）对源数据库和需要同步的表开启change tracking和snapshot isolation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3）目标数据库建库建表"><span class="nav-number">3.2.4.3.</span> <span class="nav-text">3）目标数据库建库建表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-5-注册windows服务（SyncChangesService）"><span class="nav-number">3.2.5.</span> <span class="nav-text">2.2.5 注册windows服务（SyncChangesService）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）以管理员的身份运行命令提示符-command-prompt"><span class="nav-number">3.2.5.1.</span> <span class="nav-text">1）以管理员的身份运行命令提示符(command prompt)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）进入SyncChanges-Service-2-1-308目录"><span class="nav-number">3.2.5.2.</span> <span class="nav-text">2）进入SyncChanges.Service.2.1.308目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3）执行服务安装命令"><span class="nav-number">3.2.5.3.</span> <span class="nav-text">3）执行服务安装命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4）启动服务"><span class="nav-number">3.2.5.4.</span> <span class="nav-text">4）启动服务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-6-测试"><span class="nav-number">3.2.6.</span> <span class="nav-text">2.2.6 测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-问题记录和沟通过程"><span class="nav-number">4.</span> <span class="nav-text">3.问题记录和沟通过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-总结"><span class="nav-number">5.</span> <span class="nav-text">4.总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">柒7七</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '7HjF3J8nerPuC6IIPSTD2MyU-gzGzoHsz',
+        appKey: 'HON17u5VRHg6TQoMXv4qzkYT',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 动态背景-->
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+</body>
+</html>
