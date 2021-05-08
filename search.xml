@@ -79,7 +79,7 @@
 <p><img src="https://i.loli.net/2021/05/07/yCPkYhuQUR349n7.png" alt="image-20210507162940955"></p>
 <p>需要注意的是这里安装的时候需要输入身份验证凭据，用户名和密码，这个用户需要有管理员权限，我的是Administrator，默认是没有密码的，也可以设置密码</p>
 <p><img src="https://i.loli.net/2021/05/07/vgBi6Eclpx9uj8R.png" alt="image-20210507162548005"></p>
-<p>需要注意的是在输入用户名的时候需要加上.\作为前缀，也就是./用户名，我这里对应的输入就是.\Administrator</p>
+<p>需要注意的是在输入用户名的时候需要加上.\作为前缀，也就是.\用户名，我这里对应的输入就是.\Administrator</p>
 <p>用户名：.\Administrator</p>
 <p>密码：123456（输入自己设置的密码）</p>
 <p>确认密码：123456</p>
@@ -88,7 +88,7 @@
 <h4 id="4）启动服务"><a href="#4）启动服务" class="headerlink" title="4）启动服务"></a>4）启动服务</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">net start SyncChangesService</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2021/05/07/RdcJT597zkV3Oga.png" alt="image-20210507163051048"></p>
-<p>然后可以将服务设置为开启自启动</p>
+<p>然后可以将服务设置为开机自启动</p>
 <p><img src="https://i.loli.net/2021/05/07/NOeTsnMcxuvlbi1.png" alt="image-20210507163444819"></p>
 <h3 id="2-2-6-测试"><a href="#2-2-6-测试" class="headerlink" title="2.2.6 测试"></a>2.2.6 测试</h3><p>往源数据库的表中插入数据，查看目标数据库的表数据的变化</p>
 <p><strong>源数据库</strong></p>
@@ -624,6 +624,67 @@
       </tags>
   </entry>
   <entry>
+    <title>6.CEP&amp;Flink内存模型&amp;Stream</title>
+    <url>/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/6.CEP&amp;Flink%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B&amp;ZStream/</url>
+    <content><![CDATA[<h1 id="一、课程内容"><a href="#一、课程内容" class="headerlink" title="一、课程内容"></a>一、课程内容</h1><h2 id="1-1-CEP"><a href="#1-1-CEP" class="headerlink" title="1.1 CEP"></a>1.1 CEP</h2><h2 id="1-2-Flink内存模型"><a href="#1-2-Flink内存模型" class="headerlink" title="1.2 Flink内存模型"></a>1.2 Flink内存模型</h2><h1 id="二、知识要点"><a href="#二、知识要点" class="headerlink" title="二、知识要点"></a>二、知识要点</h1><h2 id="2-1-CEP使用流程"><a href="#2-1-CEP使用流程" class="headerlink" title="2.1 CEP使用流程"></a>2.1 CEP使用流程</h2><h3 id="2-1-1-读取数据"><a href="#2-1-1-读取数据" class="headerlink" title="2.1.1 读取数据"></a>2.1.1 读取数据</h3><h3 id="2-1-2-定义匹配规则"><a href="#2-1-2-定义匹配规则" class="headerlink" title="2.1.2 定义匹配规则"></a>2.1.2 定义匹配规则</h3><h3 id="2-1-3-在事件流上应用匹配规则"><a href="#2-1-3-在事件流上应用匹配规则" class="headerlink" title="2.1.3 在事件流上应用匹配规则"></a>2.1.3 在事件流上应用匹配规则</h3><h3 id="2-1-4-提取匹配事件"><a href="#2-1-4-提取匹配事件" class="headerlink" title="2.1.4 提取匹配事件"></a>2.1.4 提取匹配事件</h3><h2 id="2-2-Flink内存模型"><a href="#2-2-Flink内存模型" class="headerlink" title="2.2 Flink内存模型"></a>2.2 Flink内存模型</h2><h3 id="2-1-1-flink架构图"><a href="#2-1-1-flink架构图" class="headerlink" title="2.1.1 flink架构图"></a>2.1.1 flink架构图</h3><p><img src="https://i.loli.net/2021/04/12/54BTyiMGFnjJQVc.png" alt="image-20210412153602831"></p>
+<p><img src="https://i.loli.net/2021/04/12/bIZR4CnlmyeBduK.png" alt="image-20210412153840481"></p>
+<p><img src="https://i.loli.net/2021/04/12/zfVPXvyrxbe5wsZ.png" alt="image-20210412153906115"></p>
+<h3 id="2-2-2-Flink-taskManager之间的数据传输（基于netty架构）"><a href="#2-2-2-Flink-taskManager之间的数据传输（基于netty架构）" class="headerlink" title="2.2.2 Flink taskManager之间的数据传输（基于netty架构）"></a>2.2.2 Flink taskManager之间的数据传输（基于netty架构）</h3><p><img src="https://i.loli.net/2021/04/12/HzL7WJ9GNemw8gO.png" alt="image-20210412153930706"></p>
+<p><img src="https://i.loli.net/2021/04/12/gHukByQ4rKonF8p.png" alt="image-20210412154008093"></p>
+<h3 id="2-2-3-Flink内存管理"><a href="#2-2-3-Flink内存管理" class="headerlink" title="2.2.3 Flink内存管理"></a>2.2.3 Flink内存管理</h3><p>flink最后的代码时运行在JVM上的，但是JVM管理内存存在缺陷，所以Flink自身对内存有自己的管理机制</p>
+<p>JVM管理内存的缺陷：</p>
+<ol>
+<li>Java对象存储密度低：一个只包含boolean属性的对象占用16个字节内存：对象头占了8个， boolean属性占了1个，对其填充占了7个，而实际只需要一个bit（1/8字节）就够了。、</li>
+<li>Full GC会极大地影响性能，尤其是为了处理更大数据而开了很大内存空间的JVM来说，GC会达到 秒级甚至分钟级。 </li>
+<li>OOM问题影响稳定性：OutOfMenoryError是分布式计算框架经常会遇到的问题，当JVM中所有 对象大小超过分配给JVM的内存大小时，就会发生OutOfMenoryError错误，导致JVM崩溃，分布 式框架的健壮性和性能都会受到影响。</li>
+</ol>
+<p><img src="https://i.loli.net/2021/04/12/5qh3s1IxA6igGcO.png" alt="image-20210412155224167"></p>
+<p>其中Process memory指的就是yarn的container的内存</p>
+<p><img src="https://i.loli.net/2021/04/12/dqhurBEJ9SAtfIP.png" alt="image-20210412155510676"></p>
+<p><img src="https://i.loli.net/2021/04/12/1DfmWtbr9scjFAM.png" alt="image-20210412181635242"></p>
+<h2 id="2-3-SQL-on-Stream"><a href="#2-3-SQL-on-Stream" class="headerlink" title="2.3 SQL on Stream"></a>2.3 SQL on Stream</h2><p>公司已经有iQuery平台，iQuery可以通过在页面写SQL语句，通过Hive引擎，Spark引擎执行离线任 务。故公司提出是否可以研发SQL on Stream平台，实时任务也SQL化，有如下好处： 1. 提升开发效率 2. 降低任务交接的难度 3. 降低实时任务开发门槛 于是研发了ZStream平台，该平台基于<a href="https://github.com/DTStack/flinkStreamSQL" target="_blank" rel="noopener">https://github.com/DTStack/flinkStreamSQL</a> 项目二次开发 ZStream页面 新建任务 SQL编辑 </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sh submit.sh </span><br><span class="line">-mode yarnPer </span><br><span class="line">-sql /home/wen/Desktop/flink_stream_sql_conf/sql/Test01.sql </span><br><span class="line">-name TestAll </span><br><span class="line">-localSqlPluginPath /home/wen/IdeaProjects/flinkStreamSQL/plugins </span><br><span class="line">-remoteSqlPluginPath /home/wen/IdeaProjects/flinkStreamSQL/plugins </span><br><span class="line">-flinkconf /home/wen/Desktop/flink_stream_sql_conf/flinkConf </span><br><span class="line">-yarnconf /home/wen/Desktop/flink_stream_sql_conf/yarnConf_node1 </span><br><span class="line">-flinkJarPath /home/wen/Desktop/dtstack/flink-1.8.1/lib </span><br><span class="line">-pluginLoadMode shipfile </span><br><span class="line">-confProp &#123;\"time.characteristic\":\"eventTime\",\"logLevel\":\"info\"&#125; </span><br><span class="line">-queue c</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-4-Flink相比SparkStreaming有什么区别"><a href="#2-4-Flink相比SparkStreaming有什么区别" class="headerlink" title="2.4 Flink相比SparkStreaming有什么区别"></a>2.4 Flink相比SparkStreaming有什么区别</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 架构模型 Spark Streaming 在运行时的主要角色包括：Master、Worker、Driver、Executor Flink 在运行时主要包含：Jobmanager、Taskmanager、 Client 、Slot。</span><br><span class="line"></span><br><span class="line">2.任务调度 Spark Streaming 连续不断的生成微小的数据批次，构建有向无环图 DAG，Spark Streaming 会依次创 建 DStreamGraph、JobGenerator、JobScheduler。 Flink 根据用户提交的代码生成 StreamGraph，经过优化生成 JobGraph，然后提交给 JobManager 进 行处理，JobManager 会根据 JobGraph 生成 ExecutionGraph，ExecutionGraph 是 Flink 调度最核心 的数据结构，JobManager 根据 ExecutionGraph 对 Job 进行调度。 </span><br><span class="line"></span><br><span class="line">3.时间机制 Spark Streaming 支持的时间机制有限，只支持处理时间。 Flink 支持了流处理程序在时间上的三个定义：处理时间、事件时间、注入时间。同时也支持 watermark 机制来处理滞后数据。 </span><br><span class="line"></span><br><span class="line">4. 容错机制 对于 Spark Streaming 任务，我们可以设置 checkpoint，然后假如发生故障并重启，我们可以从上次 checkpoint 之处恢复，但是这个行为只能使得数据不丢失，可能会重复处理，不能做到恰一次处理语 义，如果我们想要实现Exactly-once，需要自己实现。 Flink 内部提供了Exactly-once实现，使用起来较为方便 5. 还可以有其他角度 state，window等等</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1>]]></content>
+      <categories>
+        <category>奈学教育</category>
+        <category>Flink</category>
+      </categories>
+      <tags>
+        <tag>Flink</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>3.stateBackend和savePoint</title>
     <url>/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/3.stateBackend%E5%92%8CsavePoint/</url>
     <content><![CDATA[<h1 id="一、课程内容"><a href="#一、课程内容" class="headerlink" title="一、课程内容"></a>一、课程内容</h1><p>本次课程对上次常见的state进行案例实践，并且引出checkpoints机制原理，主要掌握以下内容：</p>
@@ -799,67 +860,6 @@
       </tags>
   </entry>
   <entry>
-    <title>6.CEP&amp;Flink内存模型&amp;Stream</title>
-    <url>/2021/03/30/%E5%A5%88%E5%AD%A6%E6%95%99%E8%82%B2/Flink/6.CEP&amp;Flink%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B&amp;ZStream/</url>
-    <content><![CDATA[<h1 id="一、课程内容"><a href="#一、课程内容" class="headerlink" title="一、课程内容"></a>一、课程内容</h1><h2 id="1-1-CEP"><a href="#1-1-CEP" class="headerlink" title="1.1 CEP"></a>1.1 CEP</h2><h2 id="1-2-Flink内存模型"><a href="#1-2-Flink内存模型" class="headerlink" title="1.2 Flink内存模型"></a>1.2 Flink内存模型</h2><h1 id="二、知识要点"><a href="#二、知识要点" class="headerlink" title="二、知识要点"></a>二、知识要点</h1><h2 id="2-1-CEP使用流程"><a href="#2-1-CEP使用流程" class="headerlink" title="2.1 CEP使用流程"></a>2.1 CEP使用流程</h2><h3 id="2-1-1-读取数据"><a href="#2-1-1-读取数据" class="headerlink" title="2.1.1 读取数据"></a>2.1.1 读取数据</h3><h3 id="2-1-2-定义匹配规则"><a href="#2-1-2-定义匹配规则" class="headerlink" title="2.1.2 定义匹配规则"></a>2.1.2 定义匹配规则</h3><h3 id="2-1-3-在事件流上应用匹配规则"><a href="#2-1-3-在事件流上应用匹配规则" class="headerlink" title="2.1.3 在事件流上应用匹配规则"></a>2.1.3 在事件流上应用匹配规则</h3><h3 id="2-1-4-提取匹配事件"><a href="#2-1-4-提取匹配事件" class="headerlink" title="2.1.4 提取匹配事件"></a>2.1.4 提取匹配事件</h3><h2 id="2-2-Flink内存模型"><a href="#2-2-Flink内存模型" class="headerlink" title="2.2 Flink内存模型"></a>2.2 Flink内存模型</h2><h3 id="2-1-1-flink架构图"><a href="#2-1-1-flink架构图" class="headerlink" title="2.1.1 flink架构图"></a>2.1.1 flink架构图</h3><p><img src="https://i.loli.net/2021/04/12/54BTyiMGFnjJQVc.png" alt="image-20210412153602831"></p>
-<p><img src="https://i.loli.net/2021/04/12/bIZR4CnlmyeBduK.png" alt="image-20210412153840481"></p>
-<p><img src="https://i.loli.net/2021/04/12/zfVPXvyrxbe5wsZ.png" alt="image-20210412153906115"></p>
-<h3 id="2-2-2-Flink-taskManager之间的数据传输（基于netty架构）"><a href="#2-2-2-Flink-taskManager之间的数据传输（基于netty架构）" class="headerlink" title="2.2.2 Flink taskManager之间的数据传输（基于netty架构）"></a>2.2.2 Flink taskManager之间的数据传输（基于netty架构）</h3><p><img src="https://i.loli.net/2021/04/12/HzL7WJ9GNemw8gO.png" alt="image-20210412153930706"></p>
-<p><img src="https://i.loli.net/2021/04/12/gHukByQ4rKonF8p.png" alt="image-20210412154008093"></p>
-<h3 id="2-2-3-Flink内存管理"><a href="#2-2-3-Flink内存管理" class="headerlink" title="2.2.3 Flink内存管理"></a>2.2.3 Flink内存管理</h3><p>flink最后的代码时运行在JVM上的，但是JVM管理内存存在缺陷，所以Flink自身对内存有自己的管理机制</p>
-<p>JVM管理内存的缺陷：</p>
-<ol>
-<li>Java对象存储密度低：一个只包含boolean属性的对象占用16个字节内存：对象头占了8个， boolean属性占了1个，对其填充占了7个，而实际只需要一个bit（1/8字节）就够了。、</li>
-<li>Full GC会极大地影响性能，尤其是为了处理更大数据而开了很大内存空间的JVM来说，GC会达到 秒级甚至分钟级。 </li>
-<li>OOM问题影响稳定性：OutOfMenoryError是分布式计算框架经常会遇到的问题，当JVM中所有 对象大小超过分配给JVM的内存大小时，就会发生OutOfMenoryError错误，导致JVM崩溃，分布 式框架的健壮性和性能都会受到影响。</li>
-</ol>
-<p><img src="https://i.loli.net/2021/04/12/5qh3s1IxA6igGcO.png" alt="image-20210412155224167"></p>
-<p>其中Process memory指的就是yarn的container的内存</p>
-<p><img src="https://i.loli.net/2021/04/12/dqhurBEJ9SAtfIP.png" alt="image-20210412155510676"></p>
-<p><img src="https://i.loli.net/2021/04/12/1DfmWtbr9scjFAM.png" alt="image-20210412181635242"></p>
-<h2 id="2-3-SQL-on-Stream"><a href="#2-3-SQL-on-Stream" class="headerlink" title="2.3 SQL on Stream"></a>2.3 SQL on Stream</h2><p>公司已经有iQuery平台，iQuery可以通过在页面写SQL语句，通过Hive引擎，Spark引擎执行离线任 务。故公司提出是否可以研发SQL on Stream平台，实时任务也SQL化，有如下好处： 1. 提升开发效率 2. 降低任务交接的难度 3. 降低实时任务开发门槛 于是研发了ZStream平台，该平台基于<a href="https://github.com/DTStack/flinkStreamSQL" target="_blank" rel="noopener">https://github.com/DTStack/flinkStreamSQL</a> 项目二次开发 ZStream页面 新建任务 SQL编辑 </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sh submit.sh </span><br><span class="line">-mode yarnPer </span><br><span class="line">-sql /home/wen/Desktop/flink_stream_sql_conf/sql/Test01.sql </span><br><span class="line">-name TestAll </span><br><span class="line">-localSqlPluginPath /home/wen/IdeaProjects/flinkStreamSQL/plugins </span><br><span class="line">-remoteSqlPluginPath /home/wen/IdeaProjects/flinkStreamSQL/plugins </span><br><span class="line">-flinkconf /home/wen/Desktop/flink_stream_sql_conf/flinkConf </span><br><span class="line">-yarnconf /home/wen/Desktop/flink_stream_sql_conf/yarnConf_node1 </span><br><span class="line">-flinkJarPath /home/wen/Desktop/dtstack/flink-1.8.1/lib </span><br><span class="line">-pluginLoadMode shipfile </span><br><span class="line">-confProp &#123;\"time.characteristic\":\"eventTime\",\"logLevel\":\"info\"&#125; </span><br><span class="line">-queue c</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="2-4-Flink相比SparkStreaming有什么区别"><a href="#2-4-Flink相比SparkStreaming有什么区别" class="headerlink" title="2.4 Flink相比SparkStreaming有什么区别"></a>2.4 Flink相比SparkStreaming有什么区别</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 架构模型 Spark Streaming 在运行时的主要角色包括：Master、Worker、Driver、Executor Flink 在运行时主要包含：Jobmanager、Taskmanager、 Client 、Slot。</span><br><span class="line"></span><br><span class="line">2.任务调度 Spark Streaming 连续不断的生成微小的数据批次，构建有向无环图 DAG，Spark Streaming 会依次创 建 DStreamGraph、JobGenerator、JobScheduler。 Flink 根据用户提交的代码生成 StreamGraph，经过优化生成 JobGraph，然后提交给 JobManager 进 行处理，JobManager 会根据 JobGraph 生成 ExecutionGraph，ExecutionGraph 是 Flink 调度最核心 的数据结构，JobManager 根据 ExecutionGraph 对 Job 进行调度。 </span><br><span class="line"></span><br><span class="line">3.时间机制 Spark Streaming 支持的时间机制有限，只支持处理时间。 Flink 支持了流处理程序在时间上的三个定义：处理时间、事件时间、注入时间。同时也支持 watermark 机制来处理滞后数据。 </span><br><span class="line"></span><br><span class="line">4. 容错机制 对于 Spark Streaming 任务，我们可以设置 checkpoint，然后假如发生故障并重启，我们可以从上次 checkpoint 之处恢复，但是这个行为只能使得数据不丢失，可能会重复处理，不能做到恰一次处理语 义，如果我们想要实现Exactly-once，需要自己实现。 Flink 内部提供了Exactly-once实现，使用起来较为方便 5. 还可以有其他角度 state，window等等</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h1 id=""><a href="#" class="headerlink" title=""></a></h1>]]></content>
-      <categories>
-        <category>奈学教育</category>
-        <category>Flink</category>
-      </categories>
-      <tags>
-        <tag>Flink</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>4.速度在学科上的应用讲解与课堂阅读书籍训练</title>
     <url>/2021/03/26/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/4.%E9%80%9F%E8%AF%BB%E5%9C%A8%E5%AD%A6%E7%A7%91%E4%B8%8A%E7%9A%84%E5%BA%94%E7%94%A8%E8%AE%B2%E8%A7%A3%E4%B8%8E%E8%AF%BE%E5%A0%82%E9%98%85%E8%AF%BB%E4%B9%A6%E7%B1%8D%E8%AE%AD%E7%BB%83/</url>
     <content><![CDATA[<h1 id="一、今天内容"><a href="#一、今天内容" class="headerlink" title="一、今天内容"></a>一、今天内容</h1><p><img src="https://i.loli.net/2021/03/26/Zot8v72sV5BqpdK.png" alt="image-20210326064013861"></p>
@@ -909,7 +909,7 @@
   </entry>
   <entry>
     <title>1.速度基本原理讲解与基础训练</title>
-    <url>/2021/03/22/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/1.%E9%80%9F%E5%BA%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3%E4%B8%8E%E8%AE%AD%E7%BB%83%E5%9F%BA%E7%A1%80/</url>
+    <url>/2021/03/22/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/2.%E9%80%9F%E5%BA%A6%E6%A0%B8%E5%BF%83%E8%AE%AD%E7%BB%83%E8%AE%B2%E8%A7%A3%E4%B8%8E%E8%AE%AD%E7%BB%83/</url>
     <content><![CDATA[<h1 id="1-训练营收获"><a href="#1-训练营收获" class="headerlink" title="1.训练营收获"></a>1.训练营收获</h1><p>1）阅读能力提升</p>
 <p>2）阅读动力提升</p>
 <p>3）科学笔记提升</p>
@@ -946,7 +946,7 @@
   </entry>
   <entry>
     <title>1.速度基本原理讲解与基础训练</title>
-    <url>/2021/03/22/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/2.%E9%80%9F%E5%BA%A6%E6%A0%B8%E5%BF%83%E8%AE%AD%E7%BB%83%E8%AE%B2%E8%A7%A3%E4%B8%8E%E8%AE%AD%E7%BB%83/</url>
+    <url>/2021/03/22/%E5%B0%9A%E5%BF%86%E6%95%99%E8%82%B2/%E5%BF%AB%E9%80%9F%E9%98%85%E8%AF%BB/1.%E9%80%9F%E5%BA%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3%E4%B8%8E%E8%AE%AD%E7%BB%83%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="1-训练营收获"><a href="#1-训练营收获" class="headerlink" title="1.训练营收获"></a>1.训练营收获</h1><p>1）阅读能力提升</p>
 <p>2）阅读动力提升</p>
 <p>3）科学笔记提升</p>
