@@ -507,7 +507,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>CSS.md</title>
+    <title>CSS</title>
     <url>/2021/11/14/kuangshen/%E5%89%8D%E7%AB%AF/CSS/</url>
     <content><![CDATA[<p>HTML+CSS+JavaScript</p>
 <p>结构+表现+交互</p>
@@ -658,7 +658,7 @@
       </tags>
   </entry>
   <entry>
-    <title>HTML.md</title>
+    <title>HTML</title>
     <url>/2021/11/13/kuangshen/%E5%89%8D%E7%AB%AF/HTML/</url>
     <content><![CDATA[<h1 id="1-初识HTML"><a href="#1-初识HTML" class="headerlink" title="1.初识HTML"></a>1.初识HTML</h1><blockquote>
 <p>什么是HTML</p>
@@ -2766,7 +2766,7 @@
 
 <h1 id="2-Hive调优经典案例"><a href="#2-Hive调优经典案例" class="headerlink" title="2.Hive调优经典案例"></a>2.Hive调优经典案例</h1>]]></content>
       <categories>
-        <category>奈学教育</category>
+        <category>大数据</category>
         <category>Hive</category>
       </categories>
       <tags>
@@ -2902,7 +2902,7 @@
 
 ]]></content>
       <categories>
-        <category>奈学教育</category>
+        <category>大数据</category>
         <category>Hive</category>
       </categories>
       <tags>
@@ -3260,6 +3260,7 @@
 <h1 id="原理篇"><a href="#原理篇" class="headerlink" title="原理篇"></a>原理篇</h1><p>原理篇内容：clickhouse核心功能的运行原理</p>
 ]]></content>
       <categories>
+        <category>大数据</category>
         <category>Clickhouse</category>
       </categories>
       <tags>
@@ -3763,7 +3764,6 @@
 
 ]]></content>
       <categories>
-        <category>语言</category>
         <category>Scala</category>
       </categories>
       <tags>
@@ -3912,6 +3912,7 @@
 
 ]]></content>
       <categories>
+        <category>大数据</category>
         <category>Clickhouse</category>
       </categories>
       <tags>
@@ -3996,7 +3997,6 @@
 
 <h2 id="2-3-Flink从节点TaskManagerRunner启动源码分析"><a href="#2-3-Flink从节点TaskManagerRunner启动源码分析" class="headerlink" title="2.3 Flink从节点TaskManagerRunner启动源码分析"></a>2.3 Flink从节点TaskManagerRunner启动源码分析</h2><h2 id="2-4-TaskExecutor和ResourceManager心跳"><a href="#2-4-TaskExecutor和ResourceManager心跳" class="headerlink" title="2.4 TaskExecutor和ResourceManager心跳"></a>2.4 TaskExecutor和ResourceManager心跳</h2>]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>Flink</category>
         <category>源码</category>
       </categories>
@@ -4030,7 +4030,6 @@
 
 ]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>Flink</category>
         <category>源码</category>
       </categories>
@@ -4281,7 +4280,6 @@
 <h3 id="2-5-4-DefaultDispatcherRunner"><a href="#2-5-4-DefaultDispatcherRunner" class="headerlink" title="2.5.4 DefaultDispatcherRunner"></a>2.5.4 DefaultDispatcherRunner</h3><p><img src="C:%5CUsers%5CDELL%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210421145408451.png" alt="image-20210421145408451"></p>
 <h2 id="2-6-HeartbeatMonitor和HeartbeatTarget"><a href="#2-6-HeartbeatMonitor和HeartbeatTarget" class="headerlink" title="2.6 HeartbeatMonitor和HeartbeatTarget"></a>2.6 HeartbeatMonitor和HeartbeatTarget</h2>]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>Flink</category>
         <category>源码</category>
       </categories>
@@ -4408,7 +4406,6 @@
     <content><![CDATA[<h1 id=""><a href="#" class="headerlink" title=""></a></h1><p><img src="https://i.loli.net/2021/04/01/ocw7dTYQxrOtPWN.png" alt="image-20210401151819106"></p>
 ]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>大数据</category>
         <category>Kafka</category>
       </categories>
@@ -4584,7 +4581,6 @@
 </ol>
 ]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>Flink</category>
       </categories>
       <tags>
@@ -4645,7 +4641,6 @@
 
 <h1 id=""><a href="#" class="headerlink" title=""></a></h1>]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>Flink</category>
       </categories>
       <tags>
@@ -4792,7 +4787,6 @@
 <h3 id="2-1-2-transform"><a href="#2-1-2-transform" class="headerlink" title="2.1.2 transform"></a>2.1.2 transform</h3><h3 id="2-1-3-sink"><a href="#2-1-3-sink" class="headerlink" title="2.1.3 sink"></a>2.1.3 sink</h3><p>重点：kafka redis hbase hdfs</p>
 ]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>Flink</category>
       </categories>
       <tags>
@@ -4829,7 +4823,6 @@
 <p>3）消费者消费数据</p>
 <h1 id="3-写数据流程"><a href="#3-写数据流程" class="headerlink" title="3.写数据流程"></a>3.写数据流程</h1>]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>大数据</category>
         <category>Kafka</category>
         <category>源码</category>
@@ -4876,7 +4869,6 @@
 <p>2）偏移量存储的改造</p>
 ]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>大数据</category>
         <category>Kafka</category>
         <category>源码</category>
@@ -5037,7 +5029,6 @@
 
 ]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>大数据</category>
         <category>Hadoop</category>
       </categories>
@@ -5112,7 +5103,6 @@
 <p>3.3 读数据的场景</p>
 ]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>大数据</category>
         <category>Hadoop</category>
       </categories>
@@ -5442,7 +5432,6 @@
 <p>2.</p>
 ]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>大数据</category>
         <category>Kafka</category>
       </categories>
@@ -5459,7 +5448,6 @@
 <p>在从指定位置的进行消费的时候，可以根据.index文件通过二分查找的方式快速确定读取的位置</p>
 ]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>大数据</category>
         <category>Kafka</category>
       </categories>
@@ -5485,7 +5473,6 @@
 <h2 id="零拷贝方式"><a href="#零拷贝方式" class="headerlink" title="零拷贝方式"></a>零拷贝方式</h2><p><img src="https://i.loli.net/2021/02/18/Woh4lTHaujmPNi5.png" alt="image-20210218164625597"></p>
 ]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>大数据</category>
         <category>Kafka</category>
       </categories>
@@ -5501,7 +5488,6 @@
 <p><img src="https://i.loli.net/2021/02/18/sVmLUnJh2PSaOvQ.png" alt="image-20210218163715121"></p>
 ]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>大数据</category>
         <category>Kafka</category>
       </categories>
@@ -5519,7 +5505,6 @@
 <p><img src="https://i.loli.net/2021/02/18/WSda2nhx4JUKlbf.png" alt="image-20210218162214202"></p>
 ]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>大数据</category>
         <category>Kafka</category>
       </categories>
@@ -5537,7 +5522,6 @@
 <p><img src="https://i.loli.net/2021/02/18/xmRvf4wDcty2OYH.png" alt="image-20210218153633464"></p>
 ]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>大数据</category>
         <category>Kafka</category>
       </categories>
@@ -5563,7 +5547,6 @@
 <p>缺点：让整体的处理流程变慢</p>
 ]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>大数据</category>
         <category>Kafka</category>
       </categories>
@@ -5600,7 +5583,6 @@
 <p><img src="https://i.loli.net/2021/02/18/1I9E2WykN4xdLpm.png" alt="image-20210218114900826"></p>
 <h1 id="课程总结"><a href="#课程总结" class="headerlink" title="课程总结"></a>课程总结</h1><h2 id="1-了解HDFS架构的演变"><a href="#1-了解HDFS架构的演变" class="headerlink" title="1.了解HDFS架构的演变"></a>1.了解HDFS架构的演变</h2><h2 id="2-HDFS2是如何解决单点故障问题的"><a href="#2-HDFS2是如何解决单点故障问题的" class="headerlink" title="2.HDFS2是如何解决单点故障问题的"></a>2.HDFS2是如何解决单点故障问题的</h2><h2 id="3-HDFS2是如何解决内存受限问题的"><a href="#3-HDFS2是如何解决内存受限问题的" class="headerlink" title="3.HDFS2是如何解决内存受限问题的"></a>3.HDFS2是如何解决内存受限问题的</h2><h2 id="4-HDFS元数据管理的流程"><a href="#4-HDFS元数据管理的流程" class="headerlink" title="4.HDFS元数据管理的流程"></a>4.HDFS元数据管理的流程</h2>]]></content>
       <categories>
-        <category>奈学教育</category>
         <category>大数据</category>
         <category>Hadoop</category>
       </categories>
@@ -5638,15 +5620,6 @@
 ]]></content>
       <categories>
         <category>Netty</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>多线程并发</title>
-    <url>/2021/01/29/%E5%A4%9A%E7%BA%BF%E7%A8%8B/1.%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E4%B8%80/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>Java</category>
-        <category>多线程</category>
       </categories>
   </entry>
   <entry>
@@ -5818,7 +5791,7 @@
 
 <p>2.注册服务</p>
 <p>vim /etc/systemd/system/shanmeilargeScreen.service</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Java web shanmei largeScreen service</span><br><span class="line"></span><br><span class="line">After=nerwork.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line"></span><br><span class="line">ExecStart=/bin/bash /home/redpeak/shanmei/largeScreen/merge/start.sh</span><br><span class="line">ExecStop=/bin/kill -s QUIT $MAINPID</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Java web shanmei largeScreen service</span><br><span class="line"></span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line"></span><br><span class="line">ExecStart=/bin/bash /home/redpeak/shanmei/largeScreen/merge/start.sh</span><br><span class="line">ExecStop=/bin/kill -s QUIT $MAINPID</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 
 <p>3.设置服务</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">systemctl daemon-reload</span></span><br><span class="line"><span class="meta">#</span><span class="bash">systemctl start shanmeilargeScreen.service</span></span><br><span class="line"><span class="meta">#</span><span class="bash">systemctl <span class="built_in">enable</span> shanmeilargeScreen.service</span></span><br><span class="line"><span class="meta">#</span><span class="bash">systemctl status shanmeilargeScreen.service</span></span><br></pre></td></tr></table></figure>
@@ -5840,7 +5813,7 @@
 ]]></content>
       <categories>
         <category>大数据</category>
-        <category>flink</category>
+        <category>Flink</category>
       </categories>
   </entry>
   <entry>
@@ -5859,7 +5832,7 @@
 ]]></content>
       <categories>
         <category>大数据</category>
-        <category>flink</category>
+        <category>Flink</category>
       </categories>
   </entry>
   <entry>
@@ -5882,18 +5855,8 @@
 ]]></content>
       <categories>
         <category>大数据</category>
-        <category>flink</category>
+        <category>Flink</category>
       </categories>
-  </entry>
-  <entry>
-    <title>采销分析</title>
-    <url>/2021/01/07/hongshan/shanmei/%E9%87%87%E9%94%80%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>客户分析</title>
-    <url>/2021/01/07/hongshan/shanmei/%E5%AE%A2%E6%88%B7%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>1.flink入门</title>
@@ -5927,7 +5890,7 @@
 ]]></content>
       <categories>
         <category>大数据</category>
-        <category>flink</category>
+        <category>Flink</category>
       </categories>
   </entry>
   <entry>
@@ -5942,8 +5905,7 @@
 <p><img src="https://i.loli.net/2021/01/21/7Pd1cpXrngvURIe.png" alt="image-20210121163346109"></p>
 ]]></content>
       <categories>
-        <category>日常实用</category>
-        <category>技术</category>
+        <category>其它</category>
       </categories>
   </entry>
   <entry>
